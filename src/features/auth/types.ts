@@ -6,7 +6,6 @@ export interface User {
   emailVerified: boolean;
   type: string;
   totalInvestment: string;
-  icxConnectEligible: boolean;
   identity: {
     fullName: string;
   };

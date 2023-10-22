@@ -1,60 +1,60 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: icx-web-dashboard
- namespace: icx-staging
- labels:
-   app: icx-web-dashboard
+  name: ybkut-web-dashboard
+  namespace: ybkut-staging
+  labels:
+    app: ybkut-web-dashboard
 spec:
- replicas: 1
- selector:
-   matchLabels:
-     app: icx-web-dashboard
- template:
-   metadata:
-     labels:
-       app: icx-web-dashboard
-   spec:
-     serviceAccountName: icx-staging-user
-     serviceAccount: icx-staging-user
-     containers:
-       - name: icx-web-dashboard
-         image: asia-southeast2-docker.pkg.dev/landx-id/icx-ar/icx-web-dashboard:latest
-         imagePullPolicy: Always
-         envFrom:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ybkut-web-dashboard
+  template:
+    metadata:
+      labels:
+        app: ybkut-web-dashboard
+    spec:
+      serviceAccountName: ybkut-staging-user
+      serviceAccount: ybkut-staging-user
+      containers:
+        - name: ybkut-web-dashboard
+          image: asia-southeast2-docker.pkg.dev/landx-id/ybkut-ar/ybkut-web-dashboard:latest
+          imagePullPolicy: Always
+          envFrom:
             - secretRef:
-                name: icx-web-dashboard-secret
-         volumeMounts:
+                name: ybkut-web-dashboard-secret
+          volumeMounts:
             - name: tz
               mountPath: /etc/localtime
               subPath: Jakarta
-     volumes:
-       - name: tz
-         configMap:
+      volumes:
+        - name: tz
+          configMap:
             name: tz
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: icx-web-dashboard-service
-  namespace: icx-staging
+  name: ybkut-web-dashboard-service
+  namespace: ybkut-staging
   labels:
-    app: icx-web-dashboard
+    app: ybkut-web-dashboard
 spec:
   ports:
     - port: 443
       targetPort: 5173
   selector:
-    app: icx-web-dashboard
+    app: ybkut-web-dashboard
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: icx-web-dashboard-ingress
-  namespace: icx-staging
+  name: ybkut-web-dashboard-ingress
+  namespace: ybkut-staging
   labels:
-    app: icx-web-dashboard
+    app: ybkut-web-dashboard
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/whitelist-source-range: 108.136.34.127
@@ -65,12 +65,12 @@ status:
       - ip: 34.101.55.244
 spec:
   rules:
-    - host: dashboard-staging.icx.id
+    - host: dashboard-staging.ybkut.id
       http:
         paths:
           - pathType: ImplementationSpecific
             backend:
-              service: 
-                name: icx-web-dashboard-service
+              service:
+                name: ybkut-web-dashboard-service
                 port:
                   number: 5173
