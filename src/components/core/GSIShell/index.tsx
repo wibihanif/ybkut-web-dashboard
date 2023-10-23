@@ -1,18 +1,16 @@
 import { AppShell, Group, Header, Image, Navbar, Stack } from '@mantine/core';
 import { PropsWithChildren } from 'react';
-import { Link, Location } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import gsiLogo from '~/assets/GSI-logo.jpeg';
 import { UserSection } from './UserSection';
 
 interface GSIShellProps {
   sidebarMenus: React.ReactNode;
-  location?: Location;
 }
 
 export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
   children,
   sidebarMenus,
-  location,
 }) => {
   return (
     <AppShell

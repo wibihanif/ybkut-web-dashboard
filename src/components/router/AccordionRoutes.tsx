@@ -10,7 +10,12 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
   const theme = useMantineTheme();
   const parsedNowLocation = location.pathname.split('/')[1];
 
-  let accordionActiveValue;
+  let accordionActiveValue: string | undefined;
+  let activeSubtitle: string | undefined;
+
+  if (!accordionActiveValue) {
+    accordionActiveValue = routes[0].subTitleItems[0].subTitle;
+  }
 
   routes.forEach(route => {
     route.subTitleItems.forEach(subTitleItem => {
@@ -19,6 +24,7 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
 
         if (matchRoute) {
           accordionActiveValue = subTitleItem.subTitle;
+          activeSubtitle = subTitleItem.subTitle;
         }
       });
     });
@@ -27,16 +33,22 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
   const renderAccordion = () => {
     return routes.map((route, index) => {
       return (
-        <Box key={index}>
-          <Text>{route.title}</Text>
+        <Box key={index} p={10}>
+          <Text color={theme.colors.blue[5]} fz="xs" fw="bold" pb={10}>
+            {route.title}
+          </Text>
           {route.subTitleItems.map((subTitle, index) => {
             return (
               <Box key={index}>
-                <Accordion.Item value={subTitle.subTitle}>
+                <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
                   <Accordion.Control>
                     <Flex gap={10}>
-                      <ThemeIcon variant="light">{subTitle.icon}</ThemeIcon>
-                      <Text fw="bold">{subTitle.subTitle}</Text>
+                      <ThemeIcon variant="gradient" size="sm" color="gray">
+                        {subTitle.icon}
+                      </ThemeIcon>
+                      <Text fz="sm" fw={activeSubtitle === subTitle.subTitle ? 'bold' : 'normal'}>
+                        {subTitle.subTitle}
+                      </Text>
                     </Flex>
                   </Accordion.Control>
                   {subTitle.routeItems.map((routeItem, index) => {
@@ -50,10 +62,13 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                         <Accordion.Panel
                           sx={{
                             paddingLeft: 30,
-                            ':hover': { cursor: 'pointer', backgroundColor: theme.colors.blue[2] },
+                            paddingTop: 7,
+                            ':hover': { cursor: 'pointer', backgroundColor: theme.colors.blue[3] },
                             backgroundColor: isActive ? theme.colors.blue[2] : 'none',
                           }}>
-                          <Text>{routeItem.title}</Text>
+                          <Text fz="sm" color="#7D7C7C" fw="bold">
+                            {routeItem.title}
+                          </Text>
                         </Accordion.Panel>
                       </Link>
                     );

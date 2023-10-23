@@ -1,5 +1,4 @@
 import { DashboardRoute } from './types';
-import { analyticRoutes } from './analytic';
-import { uiComponentsRoutes } from './uiComponents';
+import { inventoryRoutes } from './inventory';
 
-export const routes: DashboardRoute[] = [analyticRoutes, uiComponentsRoutes];
+export const routes: DashboardRoute[] = [inventoryRoutes];

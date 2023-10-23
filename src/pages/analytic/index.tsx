@@ -1,6 +1,6 @@
-import { Box } from '@mantine/core';
 import React from 'react';
+import { InventoryAnalytic } from '~/features/inventory';
 
-export const AnalyticPage: React.FC = () => {
-  return <Box>Analytic Page</Box>;
+export const InventoryAnalyticPage: React.FC = () => {
+  return <InventoryAnalytic />;
 };

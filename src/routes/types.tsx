@@ -29,11 +29,6 @@ export interface SubRoute {
   key: string;
 
   /**
-   * Title of the page
-   */
-  title: string;
-
-  /**
    * If this boolean is true, then the subroute will be rendered as a
    * sidebar menu item with its title as the label.
    */

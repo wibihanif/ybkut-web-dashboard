@@ -1,4 +1,4 @@
-import { Avatar, Group, Navbar } from '@mantine/core';
+import { Avatar, Group, Navbar, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useStore } from '~/stores';
 import { googleLogout } from '@react-oauth/google';
@@ -19,7 +19,7 @@ export const UserSection = () => {
       <Navbar.Section onClick={handlers.open}>
         <Group position="apart">
           <Group>
-            <Avatar color="brand" radius="xl">
+            <Avatar color="blue" radius="xl">
               {user?.email[0].toUpperCase()}
             </Avatar>
           </Group>

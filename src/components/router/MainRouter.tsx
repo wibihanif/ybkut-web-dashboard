@@ -41,7 +41,7 @@ export const MainRouter = () => {
   };
 
   return (
-    <GSIShell sidebarMenus={<AccordionRoutes location={location} />} location={location}>
+    <GSIShell sidebarMenus={<AccordionRoutes location={location} />}>
       <Routes>{renderRoutes()}</Routes>
     </GSIShell>
   );
