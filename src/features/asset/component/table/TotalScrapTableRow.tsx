@@ -1,10 +1,9 @@
 import { Box, createStyles } from '@mantine/core';
 import { format } from 'date-fns';
 
-interface StockOpnameTableRowProps {
-  productName: string;
-  date: Date;
-  state: string;
+interface CurrentStockTableRowProps {
+  assetName: string;
+  firstDepreciationDate: Date;
 }
 
 const useStyles = createStyles(() => ({
@@ -15,16 +14,18 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const TableRow: React.FC<StockOpnameTableRowProps> = ({ productName, date, state }) => {
+export const TableRow: React.FC<CurrentStockTableRowProps> = ({
+  assetName,
+  firstDepreciationDate,
+}) => {
   const { classes } = useStyles();
 
-  const dateShown = format(date, 'dd/MM/yyyy');
+  const dateShown = format(firstDepreciationDate, 'dd/MM/yyy');
 
   return (
     <Box component="tr" className={classes.tableRow}>
+      <td>{assetName}</td>
       <td>{dateShown}</td>
-      <td>{productName}</td>
-      <td>{state}</td>
     </Box>
   );
 };
