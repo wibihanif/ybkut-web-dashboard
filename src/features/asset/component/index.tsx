@@ -2,10 +2,10 @@ import { Box, Center, Flex, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
-import { StockAndVariantSection } from './StockAndVariantSection';
-import { StockOpnameSection } from './StockOpnameSection';
+import { ChartSection } from './chart/ChartSection';
+import { TableSection } from './table/tableSection';
 
-export const InventoryAnalytic: React.FC = () => {
+export const AssetAnalytics: React.FC = () => {
   return (
     <Box>
       <Box
@@ -28,10 +28,10 @@ export const InventoryAnalytic: React.FC = () => {
           <Center>
             <Box>
               <Text fz="xl" fw="bold">
-                Inventory Analytics
+                Asset Analytics
               </Text>
               <Text fz="sm" color="#7D7C7C">
-                This page is used to see overall data about inventory
+                This page is used to see overall data about asset
               </Text>
             </Box>
           </Center>
@@ -39,10 +39,8 @@ export const InventoryAnalytic: React.FC = () => {
       </Box>
       <Box mt={20}>
         <SummarySection />
-        <StockAndVariantSection />
-      </Box>
-      <Box mt={20}>
-        <StockOpnameSection />
+        <ChartSection />
+        <TableSection />
       </Box>
     </Box>
   );

@@ -1,18 +1,20 @@
 import { Box, Table } from '@mantine/core';
-import { stockOpnames } from '~/constant/stockOpname';
 import { TableRow } from './StockOpnameTableRow';
+import { faker } from '@faker-js/faker';
+import { totalProduct } from '~/constant/totalProduct';
 
 export const StockOpenameTable: React.FC = () => {
-  const tableRows = stockOpnames.map((stockOpname, index) => {
-    return (
+  const tableRows = [];
+  for (let i = 0; i < totalProduct; i++) {
+    tableRows.push(
       <TableRow
-        productName={stockOpname.productName}
-        date={new Date(stockOpname.date)}
-        state={stockOpname.state}
-        key={index}
-      />
+        productName={faker.commerce.productName()}
+        date={faker.datatype.datetime()}
+        state={faker.helpers.arrayElement(['Pending', 'Success', 'Canceled'])}
+        key={i}
+      />,
     );
-  });
+  }
 
   return (
     <Box style={{ maxHeight: '400px', overflowY: 'auto' }}>
