@@ -18,7 +18,7 @@ export const TotalScrapTable: React.FC = () => {
       <Table verticalSpacing="xs" highlightOnHover striped>
         <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
           <tr>
-            <th style={{ width: 300 }}>Asset Name</th>
+            <th>Asset Name</th>
             <th>First Depreciation Date</th>
           </tr>
         </thead>
