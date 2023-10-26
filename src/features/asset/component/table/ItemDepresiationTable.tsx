@@ -1,8 +1,11 @@
-import { Box, Table } from '@mantine/core';
+import { Box, Flex, Pagination, Table } from '@mantine/core';
 import { TableRow } from './ItemDepresiationTableRow';
 import { faker } from '@faker-js/faker';
+import { useState } from 'react';
 
 export const ItemDepreciationTable: React.FC = () => {
+  const [page, setPage] = useState<number>(0);
+
   const tableRows = [];
   for (let i = 0; i < 10; i++) {
     tableRows.push(
@@ -17,18 +20,28 @@ export const ItemDepreciationTable: React.FC = () => {
   }
 
   return (
-    <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 2 }}>
-      <Table verticalSpacing="xs" highlightOnHover striped>
-        <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
-          <tr>
-            <th>Asset Name</th>
-            <th>Book Value</th>
-            <th>First Depreciation Date</th>
-            <th>Period(months)</th>
-          </tr>
-        </thead>
-        <tbody>{tableRows}</tbody>
-      </Table>
-    </Box>
+    <Flex direction="column">
+      <Box style={{ borderRadius: 2 }}>
+        <Table verticalSpacing="xs" highlightOnHover striped>
+          <thead>
+            <tr>
+              <th style={{ minWidth: 280 }}>Asset Name</th>
+              <th>Book Value</th>
+              <th>First Depreciation Date</th>
+              <th>Period(months)</th>
+            </tr>
+          </thead>
+          <tbody>{tableRows}</tbody>
+        </Table>
+      </Box>
+      <Pagination
+        mt={20}
+        color="green"
+        value={page}
+        onChange={setPage}
+        total={15}
+        sx={{ alignSelf: 'center' }}
+      />
+    </Flex>
   );
 };
