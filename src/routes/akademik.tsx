@@ -1,24 +1,24 @@
 import { IconCircleArrowDown } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
-import { AssetAnalyticsPage } from '~/pages/asset-analytics';
+import { AkademikAnalyticsPage } from '~/pages/akademik-analytics';
 
-export const assetRoutes: DashboardRoute = {
-  title: 'ASSET',
+export const akademikRoutes: DashboardRoute = {
+  title: 'AKADEMIK',
   key: 'menu',
   subTitleItems: [
     {
       icon: <IconCircleArrowDown />,
-      key: 'dashboard-asset',
-      subTitle: 'Dashboard Asset',
+      key: 'dashboard-akademik',
+      subTitle: 'Dashboard Akademik',
       routeItems: [
         {
-          key: 'asset',
-          path: 'asset',
+          key: 'akademik',
+          path: 'akademik',
           title: 'Home Page',
           subRoutes: [
             {
-              component: <AssetAnalyticsPage />,
-              key: 'asset-home-page',
+              component: <AkademikAnalyticsPage />,
+              key: 'akademik-home-page',
               path: '',
               index: true,
             },
