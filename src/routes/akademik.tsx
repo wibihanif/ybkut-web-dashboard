@@ -3,7 +3,7 @@ import { DashboardRoute } from './types';
 import { AkademikAnalyticsPage } from '~/pages/akademik-analytics';
 
 export const akademikRoutes: DashboardRoute = {
-  title: 'ASSET',
+  title: 'AKADEMIK',
   key: 'menu',
   subTitleItems: [
     {
