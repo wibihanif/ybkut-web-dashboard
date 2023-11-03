@@ -1,8 +1,10 @@
 import { Box, createStyles } from '@mantine/core';
 import { format } from 'date-fns';
 
-interface TimePurchaseTableRowProps {
-  days: Date;
+interface LeadTimeTableRowProps {
+  productName: string;
+  date: Date;
+  state: string;
 }
 
 const useStyles = createStyles(() => ({
@@ -13,13 +15,16 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const TableRow: React.FC<TimePurchaseTableRowProps> = ({ days }) => {
+export const TableRow: React.FC<LeadTimeTableRowProps> = ({ productName, date, state }) => {
   const { classes } = useStyles();
-  const dateShown = format(days, 'dd/MM/yyy');
+
+  const dateShown = format(date, 'dd/MM/yyyy');
+
   return (
     <Box component="tr" className={classes.tableRow}>
       <td>{dateShown}</td>
-      {/* <td>{total}</td> */}
+      <td>{productName}</td>
+      <td>{state}</td>
     </Box>
   );
 };

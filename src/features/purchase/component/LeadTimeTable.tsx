@@ -1,12 +1,19 @@
 import { Box, Table } from '@mantine/core';
+import { TableRow } from './LeadTimeTableRow';
 import { faker } from '@faker-js/faker';
-import { TableRow } from './TimePurchaseTableRow';
 import { totalProduct } from '~/constant/totalProduct';
 
-export const TimePurchaseTable: React.FC = () => {
+export const LeadTimeTable: React.FC = () => {
   const tableRows = [];
   for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(<TableRow days={faker.datatype.datetime()} key={i} />);
+    tableRows.push(
+      <TableRow
+        productName={faker.commerce.productName()}
+        date={faker.datatype.datetime()}
+        state={faker.helpers.arrayElement(['Pending', 'Success', 'Canceled'])}
+        key={i}
+      />,
+    );
   }
 
   return (
@@ -14,8 +21,9 @@ export const TimePurchaseTable: React.FC = () => {
       <Table verticalSpacing="md" highlightOnHover striped>
         <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
           <tr>
+            <th style={{ color: 'white' }}>Date</th>
             <th style={{ color: 'white' }}>Product Name</th>
-            <th style={{ color: 'white' }}>Total</th>
+            <th style={{ color: 'white' }}>State</th>
           </tr>
         </thead>
         <tbody>{tableRows}</tbody>

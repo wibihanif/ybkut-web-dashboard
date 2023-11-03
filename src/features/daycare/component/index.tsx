@@ -1,11 +1,9 @@
 import { Box, Center, Flex, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import React from 'react';
-import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
-import { LeadTimeSection } from './LeadTimeSection';
 
-export const PurchaseAnalytic: React.FC = () => {
+export const DaycareAnalytic: React.FC = () => {
   return (
     <Box>
       <Box style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', padding: 20, paddingLeft: 30 }}>
@@ -22,22 +20,17 @@ export const PurchaseAnalytic: React.FC = () => {
           <Center>
             <Box>
               <Text fz="xl" fw="bold">
-                Purchase Analytics
+                Daycare Analytics
               </Text>
               <Text fz="sm" color="#7D7C7C">
-                This page is used to see overall data about purchase
+                This page is used to see overall data about daycare
               </Text>
             </Box>
           </Center>
         </Flex>
       </Box>
       <Box mt={20}>
-        <SummarySection />
         <ChartSection />
-        {/* <StockAndVariantSection /> */}
-      </Box>
-      <Box mt={20}>
-        <LeadTimeSection />
       </Box>
     </Box>
   );
