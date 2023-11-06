@@ -5,7 +5,7 @@ import { totalProduct } from '~/constant/totalProduct';
 import { useState } from 'react';
 
 export const VariantTotalTable: React.FC = () => {
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
 
   const tableRows = [];
 
