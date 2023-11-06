@@ -14,7 +14,7 @@ export const kiplRoutes: DashboardRoute = {
         {
           key: 'kipl',
           path: 'kipl',
-          title: 'Home Page',
+          title: 'Home',
           subRoutes: [
             {
               component: <KiplHomePage />,

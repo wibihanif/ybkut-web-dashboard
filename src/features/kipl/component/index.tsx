@@ -41,7 +41,9 @@ export const KiplHome: React.FC = () => {
         <SummarySection />
         <GraphSection />
       </Box>
-      <Box mt={20}>{/* <MapSection /> */}</Box>
+      <Box mt={20}>
+        <MapSection />
+      </Box>
     </Box>
   );
 };
