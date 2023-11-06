@@ -1,5 +1,5 @@
 import { Box, Paper, SimpleGrid, Text } from '@mantine/core';
-import { Maps } from './Maps';
+import { Maps } from '../../../components/map/Map';
 
 export const MapSection = () => {
   return (

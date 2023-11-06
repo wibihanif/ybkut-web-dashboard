@@ -5,11 +5,10 @@ import {
   PointElement,
   Title,
   Tooltip,
-  Legend,
   BarElement,
   ArcElement,
 } from 'chart.js';
-import { Bar, Chart, Pie } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, ArcElement);
@@ -27,6 +26,7 @@ const options = {
       position: 'top' as const,
     },
   },
+  aspectRatio: 1.5,
 };
 
 const labels = ['UT DCare', 'Poliklinit UT', 'YKBUT', 'UT School'];
