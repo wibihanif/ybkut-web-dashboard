@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import { useState } from 'react';
 
 export const ItemDepreciationTable: React.FC = () => {
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
 
   const tableRows = [];
   for (let i = 0; i < 10; i++) {

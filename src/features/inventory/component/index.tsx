@@ -3,7 +3,7 @@ import { IconGraph } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
 import { StockAndVariantSection } from './StockAndVariantSection';
-import { StockOpnameSection } from './StockOpnameSection';
+import { StockAndCategorySection } from './StockAndCategorySection';
 
 export const InventoryAnalytic: React.FC = () => {
   return (
@@ -39,10 +39,12 @@ export const InventoryAnalytic: React.FC = () => {
       </Box>
       <Box mt={20}>
         <SummarySection />
+      </Box>
+      <Box mt={20}>
         <StockAndVariantSection />
       </Box>
       <Box mt={20}>
-        <StockOpnameSection />
+        <StockAndCategorySection />
       </Box>
     </Box>
   );

@@ -14,7 +14,7 @@ export const inventoryRoutes: DashboardRoute = {
         {
           key: 'inventory',
           path: 'inventory',
-          title: 'Analytics',
+          title: 'Home',
           subRoutes: [
             {
               component: <InventoryAnalyticPage />,

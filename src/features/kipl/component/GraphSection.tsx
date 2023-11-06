@@ -1,6 +1,6 @@
-import { Box, Paper, SimpleGrid, Text } from '@mantine/core';
-import { ProjectChart } from './ProjectChart';
-import { RevenueChart } from './RevenueChart';
+import { Paper, SimpleGrid, Text } from '@mantine/core';
+import { ProjectChart } from './chart/ProjectChart';
+import { RevenueChart } from './chart/RevenueChart';
 
 export const GraphSection = () => {
   return (
