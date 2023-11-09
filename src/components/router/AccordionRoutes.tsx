@@ -8,7 +8,7 @@ interface AccordionRoutesProps {
 
 export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) => {
   const theme = useMantineTheme();
-  const parsedNowLocation = location.pathname.split('/')[1];
+  const parsedNowLocation = location.pathname.split('/').slice(1).join('/');
 
   let accordionActiveValue: string | undefined;
   let activeSubtitle: string | undefined;
