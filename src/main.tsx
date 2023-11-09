@@ -28,15 +28,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               theme={{
                 fontFamily: 'Inter, sans-serif',
                 colors: {
-                  brand: [
-                    // '007bff',
-                    '608fff',
-                    '89a4ff',
-                    'abbaff',
-                    'c9d0ff',
-                    'e4e7ff',
-                    'ffffff',
-                  ],
+                  brand: ['608fff', '89a4ff', 'abbaff', 'c9d0ff', 'e4e7ff', 'ffffff'],
                 },
                 primaryColor: 'brand',
                 components: OverridedComponents,

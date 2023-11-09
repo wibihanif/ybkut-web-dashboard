@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import {
+  ActionIcon,
   Box,
+  Flex,
   Pagination,
   Paper,
   ScrollArea,
@@ -11,12 +13,18 @@ import {
 } from '@mantine/core';
 import { TableRow } from './TableRow';
 import { useState } from 'react';
+import { IconSortDescendingLetters } from '@tabler/icons-react';
 
 const TOTAL_ROW = 50;
 
 const useStyles = createStyles(() => {
   return {
     tableHead: { color: 'white', fontSize: '12px' },
+    tableHeadIcon: {
+      ':hover': {
+        backgroundColor: '#abbaff',
+      },
+    },
   };
 });
 
@@ -46,19 +54,39 @@ export const TotalInventoryTable: React.FC = () => {
             <thead style={{ backgroundColor: '#3392E7' }}>
               <tr>
                 <th style={{ width: '200px' }}>
-                  <Text className={classes.tableHead}>Date</Text>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Date</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
                 </th>
                 <th style={{ width: '350px' }}>
-                  <Text className={classes.tableHead}>Product</Text>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Product</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
                 </th>
                 <th>
-                  <Text className={classes.tableHead}>Quantity</Text>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Quantity</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
                 </th>
                 <th>
                   <Text className={classes.tableHead}>Unit Measures</Text>
                 </th>
                 <th style={{ width: '200px' }}>
-                  <Text className={classes.tableHead}>Total Value</Text>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Total Value</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
                 </th>
               </tr>
             </thead>
@@ -69,7 +97,7 @@ export const TotalInventoryTable: React.FC = () => {
           value={page}
           onChange={setPage}
           total={15}
-          sx={{ alignSelf: 'center' }}
+          sx={{ alignSelf: 'end' }}
           color="blue"
         />
       </Stack>
