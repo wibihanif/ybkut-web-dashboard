@@ -1,10 +1,24 @@
-import { Box, Flex, Pagination, Table } from '@mantine/core';
+import { ActionIcon, Box, Flex, Input, Pagination, Table, Text, createStyles } from '@mantine/core';
 import { TableRow } from './VariantTotalTableRow';
 import { faker } from '@faker-js/faker';
 import { totalProduct } from '~/constant/totalProduct';
 import { useState } from 'react';
+import { IconSearch, IconSortDescendingLetters } from '@tabler/icons-react';
+
+const useStyles = createStyles(() => {
+  return {
+    tableHead: { color: 'white' },
+    tableHeadIcon: {
+      ':hover': {
+        backgroundColor: '#abbaff',
+      },
+    },
+  };
+});
 
 export const VariantTotalTable: React.FC = () => {
+  const { classes } = useStyles();
+
   const [page, setPage] = useState<number>(1);
 
   const tableRows = [];
@@ -21,12 +35,43 @@ export const VariantTotalTable: React.FC = () => {
 
   return (
     <Flex direction="column">
+      <Flex justify="space-between">
+        <Box py={8}>
+          <Text color="#61677A" fw="bold" fz="sm" pb={20}>
+            TOTAL VARIAN
+          </Text>
+        </Box>
+        <Box w="50%">
+          <Input
+            placeholder="Search here"
+            icon={<IconSearch size={16} color="#3392E7" />}
+            radius={10}
+            sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
+          />
+        </Box>
+      </Flex>
       <Box style={{ maxHeight: '400px', overflowY: 'auto' }}>
         <Table verticalSpacing="md" highlightOnHover striped>
           <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
             <tr>
-              <th style={{ color: 'white' }}>Product Name</th>
-              <th style={{ color: 'white' }}>Total</th>
+              <th style={{ color: 'white' }}>
+                {' '}
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Product Name</Text>
+                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
+                    <IconSortDescendingLetters color="white" />
+                  </ActionIcon>
+                </Flex>
+              </th>
+              <th style={{ color: 'white' }}>
+                {' '}
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Total</Text>
+                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
+                    <IconSortDescendingLetters color="white" />
+                  </ActionIcon>
+                </Flex>
+              </th>
             </tr>
           </thead>
           <tbody>{tableRows}</tbody>
