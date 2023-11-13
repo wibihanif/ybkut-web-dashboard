@@ -1,4 +1,4 @@
-import { Box, Text, createStyles } from '@mantine/core';
+import { Box, createStyles } from '@mantine/core';
 import { format } from 'date-fns';
 import { StatusBadge } from '~/components/core/StatusBadge';
 
@@ -15,33 +15,6 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-
-const statusBadgeStyle: Record<string, any> = {
-  PENDING: {
-    text: 'Pending',
-    bgColor: 'Yellow',
-  },
-  CANCELED: {
-    text: 'Canceled',
-    bgColor: 'Red',
-  },
-  SUCCESS: {
-    text: 'Success',
-    bgColor: 'Green',
-  },
-  Pending: {
-    text: 'Pending',
-    bgColor: 'Yellow',
-  },
-  Canceled: {
-    text: 'Canceled',
-    bgColor: 'Red',
-  },
-  Success: {
-    text: 'Success',
-    bgColor: 'Green',
-  },
-};
 
 export const TableRow: React.FC<StockOpnameTableRowProps> = ({ productName, date, state }) => {
   const { classes } = useStyles();

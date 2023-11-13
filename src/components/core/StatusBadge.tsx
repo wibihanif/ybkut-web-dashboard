@@ -13,23 +13,23 @@ interface StatusBadgeStyle {
 const statusBadgeStyle: Record<string, StatusBadgeStyle> = {
   PENDING: {
     text: 'Pending',
-    bgColor: 'yellow',
+    bgColor: 'rgba(255, 206, 86)',
   },
   CANCELED: {
     text: 'Canceled',
-    bgColor: 'red',
+    bgColor: 'rgba(255, 99, 132)',
   },
   SUCCESS: {
     text: 'Success',
-    bgColor: 'green',
+    bgColor: 'rgba(75, 192, 192)',
   },
   Pending: {
     text: 'Pending',
-    bgColor: 'rgba(255, 99, 132)',
+    bgColor: 'rgba(255, 206, 86)',
   },
   Canceled: {
     text: 'Canceled',
-    bgColor: 'rgba(255, 206, 86)',
+    bgColor: 'rgba(255, 99, 132)',
   },
   Success: {
     text: 'Success',
