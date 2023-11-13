@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker';
 import { totalProduct } from '~/constant/totalProduct';
 import { useState } from 'react';
 import { IconSearch, IconSortDescendingLetters } from '@tabler/icons-react';
+import { FilterState } from './FilterState';
 
 const useStyles = createStyles(() => {
   return {
@@ -20,6 +21,7 @@ export const StockOpenameTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState<number>(1);
+  const [filterState, setFilterState] = useState<string>('');
 
   const tableRows = [];
 
@@ -42,21 +44,25 @@ export const StockOpenameTable: React.FC = () => {
             STOCK OPNAME
           </Text>
         </Box>
-        <Box w="50%">
-          <Input
-            placeholder="Search here"
-            icon={<IconSearch size={16} color="#3392E7" />}
-            radius={10}
-            sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
-          />
-        </Box>
+        <Flex w="60%" gap={15}>
+          <Box w="80%">
+            <Input
+              placeholder="Search here"
+              icon={<IconSearch size={16} color="#3392E7" />}
+              radius={10}
+              sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
+            />
+          </Box>
+          <Box>
+            <FilterState filterState={filterState} setFilterState={setFilterState} />
+          </Box>
+        </Flex>
       </Flex>
       <Box style={{ maxHeight: '400px', overflowY: 'auto' }}>
         <Table verticalSpacing="md" highlightOnHover striped>
           <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
-                {' '}
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Date</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -65,7 +71,6 @@ export const StockOpenameTable: React.FC = () => {
                 </Flex>
               </th>
               <th style={{ color: 'white' }}>
-                {' '}
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -74,7 +79,6 @@ export const StockOpenameTable: React.FC = () => {
                 </Flex>
               </th>
               <th style={{ color: 'white' }}>
-                {' '}
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>State</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
