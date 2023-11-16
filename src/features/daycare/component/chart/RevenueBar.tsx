@@ -14,6 +14,11 @@ import { faker } from '@faker-js/faker';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const options = {
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
   elements: {
     bar: {
       borderWidth: 2,
@@ -25,32 +30,24 @@ const options = {
       position: 'top' as const,
     },
   },
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
 };
 
-const labels = ['2021', '2022', '2023'];
+const labels = ['Jan', 'Feb', 'Mar'];
 
 const data = {
   labels,
   datasets: [
     {
-      label: 'Reguler',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: 'Member',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(100, 180, 70, 0.5)',
     },
     {
-      label: 'Non-Reguler',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: 'Insidental',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
       borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 120, 0.5)',
+      backgroundColor: 'rgba(100, 180, 171, 0.5)',
     },
   ],
 };

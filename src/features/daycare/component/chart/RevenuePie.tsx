@@ -4,7 +4,7 @@ import { Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 import { faker } from '@faker-js/faker';
-const labels = ['Reguler', 'Non-Reguler'];
+const labels = ['Member', 'Insidental'];
 
 export const data = {
   labels,

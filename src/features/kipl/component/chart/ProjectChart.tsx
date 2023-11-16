@@ -29,7 +29,7 @@ const options = {
   aspectRatio: 1.5,
 };
 
-const labels = ['UT DCare', 'Poliklinit UT', 'YKBUT', 'UT School'];
+const labels = ['Sponsor Fee', 'Customer Training', 'Other'];
 
 const data = {
   labels,
