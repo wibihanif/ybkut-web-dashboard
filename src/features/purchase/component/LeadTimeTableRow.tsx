@@ -15,32 +15,6 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-const statusBadgeStyle: Record<string, any> = {
-  PENDING: {
-    text: 'Pending',
-    bgColor: 'Yellow',
-  },
-  CANCELED: {
-    text: 'Canceled',
-    bgColor: 'Red',
-  },
-  SUCCESS: {
-    text: 'Success',
-    bgColor: 'Green',
-  },
-  Pending: {
-    text: 'Pending',
-    bgColor: 'Yellow',
-  },
-  Canceled: {
-    text: 'Canceled',
-    bgColor: 'Red',
-  },
-  Success: {
-    text: 'Success',
-    bgColor: 'Green',
-  },
-};
 
 export const TableRow: React.FC<LeadTimeTableRowProps> = ({ productName, date, state }) => {
   const { classes } = useStyles();

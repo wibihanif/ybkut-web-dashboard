@@ -21,7 +21,7 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       }}
       navbar={
         <Navbar width={{ base: 300 }} p="xs" zIndex={1}>
-          <Navbar.Section grow>
+          <Navbar.Section>
             <Stack spacing={1}>{sidebarMenus}</Stack>
           </Navbar.Section>
         </Navbar>

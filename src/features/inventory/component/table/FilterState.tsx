@@ -1,6 +1,6 @@
 import { Center, Menu, ThemeIcon, rem } from '@mantine/core';
 import { IconChecks, IconCircleFilled } from '@tabler/icons-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { MenuFilter } from '~/components/core/MenuFilter';
 
 interface FilterStateProps {
