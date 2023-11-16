@@ -32,16 +32,16 @@ const options = {
   },
 };
 
-const labels = ['UT DCare', 'Poliklinit UT', 'YKBUT', 'UT School'];
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
 
 const data = {
   labels,
   datasets: [
     {
-      label: 'Unit',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: 'Member',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
       borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 120, 0.5)',
+      backgroundColor: 'rgba(100, 180, 70, 0.5)',
     },
   ],
 };

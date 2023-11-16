@@ -6,19 +6,14 @@ import {
   Title,
   Tooltip,
   Legend,
-  BarElement,
+  LineElement,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const options = {
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
   elements: {
     bar: {
       borderWidth: 2,
@@ -30,28 +25,36 @@ const options = {
       position: 'top' as const,
     },
   },
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true,
+    },
+  },
 };
 
-const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
+const labels = ['2021', '2022', '2023'];
 
 const data = {
   labels,
   datasets: [
     {
-      label: 'Member',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+      label: 'Reguler',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(100, 180, 70, 0.5)',
     },
     {
-      label: 'Insidental',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+      label: 'Non-Reguler',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 171, 0.5)',
+      backgroundColor: 'rgba(100, 180, 120, 0.5)',
     },
   ],
 };
 
-export const QtyKid = () => {
+export const RevenueBar = () => {
   return <Bar options={options} data={data} />;
 };
