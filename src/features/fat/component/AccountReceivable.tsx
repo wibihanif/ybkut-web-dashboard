@@ -1,17 +1,15 @@
 import { Box, Center, Flex, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import React, { useState } from 'react';
-import { RevenueSection } from './RevenueSection';
-import { GrossProfit } from './GrossProfit';
-import { Expense } from './Expense';
-import { Profit } from './Profit';
 import { DatePickerInput } from '@mantine/dates';
-import { OperationChart } from './chart/OperationChart';
-import { TableService } from './TableService';
+import { AccountReceivableSection } from './AccountReceivableSection';
+import { AccountTable } from './table/AccountTable';
+import { ProfitTMTableTable } from './table/ProfitTMTable';
+import { RevenueTable } from './table/RevenueTable';
 // import { GraphSection } from './GraphSection';
 // import { MapSection } from './MapSection';
 
-export const FatAnalytic: React.FC = () => {
+export const FatAccountAnalytic: React.FC = () => {
   const [value, setValue] = useState<Date | null>(null);
   return (
     <Box>
@@ -37,10 +35,11 @@ export const FatAnalytic: React.FC = () => {
           <Center>
             <Box>
               <Text fz="xl" fw="bold">
-                Service Financial Dashboard
+                Account Receivable and Account Payable Dashboard
               </Text>
               <Text fz="sm" color="#7D7C7C">
-                This page is used to see overall data about Service Financial
+                This page is used to see overall data about Account Receivable and Account Payable
+                Dashboard
               </Text>
             </Box>
           </Center>
@@ -52,19 +51,10 @@ export const FatAnalytic: React.FC = () => {
         </Box>
       </Box>
       <Box mt={20}>
-        <RevenueSection />
+        <AccountReceivableSection />
       </Box>
       <Box mt={20}>
-        <GrossProfit />
-      </Box>
-      <Box mt={20}>
-        <Expense />
-      </Box>
-      <Box mt={20}>
-        <Profit />
-      </Box>
-      <Box mt={20}>
-        <TableService />
+        <AccountTable />
       </Box>
     </Box>
   );
