@@ -11,9 +11,9 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { TableRow } from './TableRow';
 import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
+import { TableRow } from './TableRow';
 
 const TOTAL_ROW = 50;
 
@@ -28,7 +28,7 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalInventoryTable: React.FC = () => {
+export const ScrapTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState(1);

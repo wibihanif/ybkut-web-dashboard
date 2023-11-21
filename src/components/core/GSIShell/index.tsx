@@ -1,4 +1,4 @@
-import { AppShell, Group, Header, Image, Navbar, Stack } from '@mantine/core';
+import { AppShell, Group, Header, Image, Navbar, ScrollArea, Stack } from '@mantine/core';
 import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import gsiLogo from '~/assets/GSI-logo.jpeg';
@@ -21,9 +21,11 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       }}
       navbar={
         <Navbar width={{ base: 300 }} p="xs" zIndex={1}>
-          <Navbar.Section>
-            <Stack spacing={1}>{sidebarMenus}</Stack>
-          </Navbar.Section>
+          <ScrollArea>
+            <Navbar.Section>
+              <Stack spacing={1}>{sidebarMenus}</Stack>
+            </Navbar.Section>
+          </ScrollArea>
         </Navbar>
       }
       header={
