@@ -4,7 +4,6 @@ import { InventoryAnalyticPage } from '~/pages/inventory';
 import { TotalInventoryValuePage } from '~/pages/inventory/TotalInventoryValue';
 import { InventoryStockPage } from '~/pages/inventory/InventoryStock';
 import { InventoryStockOpnamePage } from '~/pages/inventory/InventoryStockOpname';
-import { TotalProductPage } from '~/pages/inventory/TotalProduct';
 import { PendingTransferPage } from '~/pages/inventory/PendingTransfer';
 import { PendingReceiptPage } from '~/pages/inventory/PendingReceipt';
 import { ScrapPage } from '~/pages/inventory/Scrap';

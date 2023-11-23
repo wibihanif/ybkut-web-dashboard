@@ -4,6 +4,7 @@ import React from 'react';
 import { SummarySection } from './SummarySection';
 import { StockAndVariantSection } from './StockAndVariantSection';
 import { StockAndCategorySection } from './StockAndCategorySection';
+import { TotalProductSection } from './TotalProductSection';
 
 export const InventoryAnalytic: React.FC = () => {
   return (
@@ -45,6 +46,9 @@ export const InventoryAnalytic: React.FC = () => {
       </Box>
       <Box mt={20}>
         <StockAndCategorySection />
+      </Box>
+      <Box mt={20}>
+        <TotalProductSection />
       </Box>
     </Box>
   );
