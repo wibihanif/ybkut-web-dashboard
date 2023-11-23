@@ -37,7 +37,10 @@ export const CurrentStockTable: React.FC = () => {
   for (let i = 0; i < TOTAL_ROW; i++) {
     tableRows.push(
       <TableRow
-        barcode={faker.person.middleName('male')}
+        barcode={faker.string.hexadecimal({
+          casing: 'lower',
+          length: 5,
+        })}
         defaultCode={faker.string.hexadecimal({
           casing: 'lower',
           length: 5,

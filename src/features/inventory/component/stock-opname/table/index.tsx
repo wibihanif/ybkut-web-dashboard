@@ -38,7 +38,10 @@ export const StockOpnameTable: React.FC = () => {
     tableRows.push(
       <TableRow
         date={faker.datatype.datetime()}
-        barcode={faker.person.middleName()}
+        barcode={faker.string.hexadecimal({
+          casing: 'lower',
+          length: 5,
+        })}
         defaultCode={faker.string.hexadecimal({
           casing: 'lower',
           length: 5,

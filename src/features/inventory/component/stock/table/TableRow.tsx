@@ -1,4 +1,5 @@
 import { Box, Text, createStyles } from '@mantine/core';
+import Barcode from 'react-barcode';
 
 interface TableRowProps {
   defaultCode: string;
@@ -28,7 +29,9 @@ export const TableRow: React.FC<TableRowProps> = ({ barcode, defaultCode, name, 
         <Text className={classes.tableRowText}>{defaultCode}</Text>
       </td>
       <td>
-        <Text className={classes.tableRowText}>{barcode}</Text>
+        <Text className={classes.tableRowText}>
+          <Barcode value={barcode} height={20} width={1} fontSize={10} />
+        </Text>
       </td>
       <td>
         <Text className={classes.tableRowText}>{sum}</Text>

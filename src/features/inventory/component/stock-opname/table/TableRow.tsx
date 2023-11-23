@@ -1,5 +1,6 @@
 import { Box, Text, createStyles } from '@mantine/core';
 import { format } from 'date-fns';
+import Barcode from 'react-barcode';
 
 interface TableRowProps {
   date: Date;
@@ -46,7 +47,9 @@ export const TableRow: React.FC<TableRowProps> = ({
         <Text className={classes.tableRowText}>{defaultCode}</Text>
       </td>
       <td>
-        <Text className={classes.tableRowText}>{barcode}</Text>
+        <Text className={classes.tableRowText}>
+          <Barcode value={barcode} height={20} width={1} fontSize={10} />
+        </Text>
       </td>
       <td>
         <Text className={classes.tableRowText}>{description}</Text>
