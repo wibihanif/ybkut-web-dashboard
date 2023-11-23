@@ -1,12 +1,13 @@
 import { Box, Text, createStyles } from '@mantine/core';
 import { format } from 'date-fns';
 
-interface ActivityEventTableRowProps {
+interface TableRowProps {
   date: Date;
-  product: string;
-  quantity: string;
-  unitMeasures: string;
-  totalValue: string;
+  name: string;
+  state: string;
+  defaultCode: string;
+  barcode: string;
+  description: string;
 }
 
 const useStyles = createStyles(() => ({
@@ -18,12 +19,13 @@ const useStyles = createStyles(() => ({
   tableRowText: { fontSize: '12px' },
 }));
 
-export const TableRow: React.FC<ActivityEventTableRowProps> = ({
+export const TableRow: React.FC<TableRowProps> = ({
+  barcode,
   date,
-  product,
-  quantity,
-  totalValue,
-  unitMeasures,
+  defaultCode,
+  description,
+  name,
+  state,
 }) => {
   const { classes } = useStyles();
 
@@ -35,16 +37,19 @@ export const TableRow: React.FC<ActivityEventTableRowProps> = ({
         <Text className={classes.tableRowText}>{dateShown}</Text>
       </td>
       <td>
-        <Text className={classes.tableRowText}>{product}</Text>
+        <Text className={classes.tableRowText}>{name}</Text>
       </td>
       <td>
-        <Text className={classes.tableRowText}>{quantity}</Text>
+        <Text className={classes.tableRowText}>{state}</Text>
       </td>
       <td>
-        <Text className={classes.tableRowText}>{unitMeasures}</Text>
+        <Text className={classes.tableRowText}>{defaultCode}</Text>
       </td>
       <td>
-        <Text className={classes.tableRowText}>{totalValue}</Text>
+        <Text className={classes.tableRowText}>{barcode}</Text>
+      </td>
+      <td>
+        <Text className={classes.tableRowText}>{description}</Text>
       </td>
     </Box>
   );

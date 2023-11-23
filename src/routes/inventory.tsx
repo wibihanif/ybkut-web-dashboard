@@ -87,20 +87,20 @@ export const inventoryRoutes: DashboardRoute = {
             },
           ],
         },
-        {
-          key: 'total-product',
-          path: 'inventory/product',
-          title: 'Total Product',
-          subRoutes: [
-            {
-              component: <TotalProductPage />,
-              key: 'total-product',
-              isSidebarMenu: true,
-              path: '',
-              index: true,
-            },
-          ],
-        },
+        // {
+        //   key: 'total-product',
+        //   path: 'inventory/product',
+        //   title: 'Total Product',
+        //   subRoutes: [
+        //     {
+        //       component: <TotalProductPage />,
+        //       key: 'total-product',
+        //       isSidebarMenu: true,
+        //       path: '',
+        //       index: true,
+        //     },
+        //   ],
+        // },
         {
           key: 'pending-transfer',
           path: 'inventory/pending-transfer',

@@ -38,10 +38,14 @@ export const StockOpnameTable: React.FC = () => {
     tableRows.push(
       <TableRow
         date={faker.datatype.datetime()}
-        quantity={faker.datatype.number().toString()}
-        product={faker.person.fullName()}
-        totalValue={faker.datatype.number().toString()}
-        unitMeasures={faker.finance.currencyName()}
+        barcode={faker.person.middleName()}
+        defaultCode={faker.string.hexadecimal({
+          casing: 'lower',
+          length: 5,
+        })}
+        description={faker.lorem.lines()}
+        name={faker.person.fullName()}
+        state={faker.person.firstName()}
       />,
     );
   }
@@ -53,7 +57,7 @@ export const StockOpnameTable: React.FC = () => {
           <Table mb="lg" verticalSpacing="md" highlightOnHover striped>
             <thead style={{ backgroundColor: '#3392E7' }}>
               <tr>
-                <th style={{ width: '200px' }}>
+                <th>
                   <Flex gap={8}>
                     <Text className={classes.tableHead}>Date</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
@@ -61,9 +65,9 @@ export const StockOpnameTable: React.FC = () => {
                     </ActionIcon>
                   </Flex>
                 </th>
-                <th style={{ width: '350px' }}>
+                <th>
                   <Flex gap={8}>
-                    <Text className={classes.tableHead}>Product</Text>
+                    <Text className={classes.tableHead}>Name</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
                     </ActionIcon>
@@ -71,18 +75,31 @@ export const StockOpnameTable: React.FC = () => {
                 </th>
                 <th>
                   <Flex gap={8}>
-                    <Text className={classes.tableHead}>Quantity</Text>
+                    <Text className={classes.tableHead}>State</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
                     </ActionIcon>
                   </Flex>
                 </th>
                 <th>
-                  <Text className={classes.tableHead}>Unit Measures</Text>
-                </th>
-                <th style={{ width: '200px' }}>
                   <Flex gap={8}>
-                    <Text className={classes.tableHead}>Total Value</Text>
+                    <Text className={classes.tableHead}>Default Code</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
+                </th>
+                <th style={{ width: '150px' }}>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Barcode</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
+                </th>
+                <th style={{ width: '400px' }}>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Description</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
                     </ActionIcon>

@@ -37,11 +37,12 @@ export const PendingTransferTable: React.FC = () => {
   for (let i = 0; i < TOTAL_ROW; i++) {
     tableRows.push(
       <TableRow
-        date={faker.datatype.datetime()}
-        quantity={faker.datatype.number().toString()}
-        product={faker.person.fullName()}
-        totalValue={faker.datatype.number().toString()}
-        unitMeasures={faker.finance.currencyName()}
+        initialLocation={faker.location.city()}
+        locationDestination={faker.location.city()}
+        origin={faker.location.city()}
+        partner={faker.person.fullName()}
+        name={faker.person.fullName()}
+        state={faker.person.middleName()}
       />,
     );
   }
@@ -53,17 +54,9 @@ export const PendingTransferTable: React.FC = () => {
           <Table mb="lg" verticalSpacing="md" highlightOnHover striped>
             <thead style={{ backgroundColor: '#3392E7' }}>
               <tr>
-                <th style={{ width: '200px' }}>
+                <th>
                   <Flex gap={8}>
-                    <Text className={classes.tableHead}>Date</Text>
-                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
-                      <IconSortDescendingLetters color="white" />
-                    </ActionIcon>
-                  </Flex>
-                </th>
-                <th style={{ width: '350px' }}>
-                  <Flex gap={8}>
-                    <Text className={classes.tableHead}>Product</Text>
+                    <Text className={classes.tableHead}>Name</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
                     </ActionIcon>
@@ -71,18 +64,39 @@ export const PendingTransferTable: React.FC = () => {
                 </th>
                 <th>
                   <Flex gap={8}>
-                    <Text className={classes.tableHead}>Quantity</Text>
+                    <Text className={classes.tableHead}>Initial Location</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
                     </ActionIcon>
                   </Flex>
                 </th>
                 <th>
-                  <Text className={classes.tableHead}>Unit Measures</Text>
-                </th>
-                <th style={{ width: '200px' }}>
                   <Flex gap={8}>
-                    <Text className={classes.tableHead}>Total Value</Text>
+                    <Text className={classes.tableHead}>Location Destination</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
+                </th>
+                <th>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Partner</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
+                </th>
+                <th>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>Origin</Text>
+                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  </Flex>
+                </th>
+                <th>
+                  <Flex gap={8}>
+                    <Text className={classes.tableHead}>State</Text>
                     <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
                     </ActionIcon>
