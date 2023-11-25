@@ -27,7 +27,7 @@ export const TableRow: React.FC<StockOpnameTableRowProps> = ({
       <td>{productName}</td>
       <td>{defaultCode}</td>
       <td>
-        <Barcode value={barcode} height={20} width={1} fontSize={15} />
+        <Barcode value={barcode} height={20} width={1} fontSize={10} />
       </td>
     </Box>
   );

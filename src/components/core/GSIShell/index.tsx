@@ -1,7 +1,7 @@
 import { AppShell, Group, Header, Image, Navbar, ScrollArea, Stack } from '@mantine/core';
 import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
-import gsiLogo from '~/assets/GSI-logo.jpeg';
+import ybkutLogo from '~/assets/ybkut-dashboard.jpeg';
 import { UserSection } from './UserSection';
 
 interface GSIShellProps {
@@ -32,7 +32,7 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
         <Header height={60} px="xl" style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
           <Group h="100%" display="flex" style={{ justifyContent: 'space-between', width: '100%' }}>
             <Link to="/">
-              <Image width={55} src={gsiLogo} alt="GSI" />
+              <Image width="60%" src={ybkutLogo} alt="GSI" />
             </Link>
             <UserSection />
           </Group>
