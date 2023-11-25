@@ -1,65 +1,44 @@
-import {
-  Circle,
-  FeatureGroup,
-  LayerGroup,
-  LayersControl,
-  MapContainer,
-  Marker,
-  Popup,
-  Rectangle,
-  TileLayer,
-} from 'react-leaflet';
+import { Circle, FeatureGroup, MapContainer, Popup, TileLayer } from 'react-leaflet';
 import '../../style.css';
 import 'leaflet/dist/leaflet.css';
-import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
+import { schoolData } from '../../constant/school';
+
+interface SchoolLocation {
+  area: string;
+  lat: string;
+  long: string;
+  full: string;
+  available_part: string;
+  available: string;
+  no_ar: string;
+  ar: string;
+  no_transaction: string;
+}
 
 export const Maps = () => {
-  const center: LatLngExpression = [51.505, -0.09];
-  const rectangle: LatLngBoundsExpression = [
-    [51.49, -0.08],
-    [51.5, -0.06],
-  ];
+  const center: any = ['-0.9070', '117.8231'];
+
+  const schoolLocations: SchoolLocation[] | undefined =
+    schoolData?.data?.[0]?.level0?.[0]?.perform?.[0]?.nusantara?.[0].mapping;
 
   return (
-    <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+    <MapContainer center={center} zoom={5} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LayersControl position="topright">
-        <LayersControl.Overlay name="Marker with popup">
-          <Marker position={center}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Layer group with circles">
-          <LayerGroup>
-            <Circle center={center} pathOptions={{ fillColor: 'blue' }} radius={200} />
+      {schoolLocations?.map(schoolLocation => {
+        return (
+          <FeatureGroup>
+            <Popup>{schoolLocation.area}</Popup>
             <Circle
-              center={center}
-              pathOptions={{ fillColor: 'red' }}
-              radius={100}
-              stroke={false}
+              center={[schoolLocation?.lat as any, schoolLocation.long as any]}
+              radius={200}
+              pathOptions={{ color: 'purple', weight: 15 }}
             />
-            <LayerGroup>
-              <Circle
-                center={[51.51, -0.08]}
-                pathOptions={{ color: 'green', fillColor: 'green' }}
-                radius={100}
-              />
-            </LayerGroup>
-          </LayerGroup>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="Feature group">
-          <FeatureGroup pathOptions={{ color: 'purple' }}>
-            <Popup>Popup in FeatureGroup</Popup>
-            <Circle center={[51.51, -0.06]} radius={200} />
-            <Rectangle bounds={rectangle} />
           </FeatureGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
+        );
+      })}
     </MapContainer>
   );
 };
