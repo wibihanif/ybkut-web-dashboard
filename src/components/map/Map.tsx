@@ -12,6 +12,7 @@ import {
 import '../../style.css';
 import 'leaflet/dist/leaflet.css';
 import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
+import { useEffect, useState } from 'react';
 
 export const Maps = () => {
   const center: LatLngExpression = [51.505, -0.09];
@@ -19,6 +20,38 @@ export const Maps = () => {
     [51.49, -0.08],
     [51.5, -0.06],
   ];
+  const [data, setData] = useState([]);
+
+  console.log(data);
+
+  const fetchLocation = async () => {
+    try {
+      const response = await fetch('https://vocatic.utschool.sch.id/apps/api/dashboard.db.php');
+
+      console.log(response);
+
+      // Check if the response is successful (status code 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Parse the response as JSON
+      const jsonData = await response.json();
+
+      // Update the state with the parsed data
+      setData(jsonData);
+
+      // Handle the data as needed
+      console.log('Data from API:', jsonData);
+    } catch (error) {
+      // Handle errors during the fetch
+      console.error('Error during fetch:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocation();
+  }, []);
 
   return (
     <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
