@@ -7,13 +7,15 @@ import { InventoryStockOpnamePage } from '~/pages/inventory/InventoryStockOpname
 import { PendingTransferPage } from '~/pages/inventory/PendingTransfer';
 import { PendingReceiptPage } from '~/pages/inventory/PendingReceipt';
 import { ScrapPage } from '~/pages/inventory/Scrap';
+// import { ThemeIcon } from '@mantine/core';
 
 export const inventoryRoutes: DashboardRoute = {
   title: 'INVENTORY',
   key: 'menu',
+  color: '#385fa3',
   subTitleItems: [
     {
-      icon: <IconBuildingWarehouse />,
+      icon: <IconBuildingWarehouse color="white" />,
       key: 'dashboard-inventory',
       subTitle: 'Dashboard Inventory',
       routeItems: [
@@ -21,6 +23,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'inventory',
           path: 'inventory',
           title: 'Home',
+          withNavbar: true,
           subRoutes: [
             {
               component: <InventoryAnalyticPage />,
@@ -34,6 +37,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'inventory-value',
           path: 'inventory/value',
           title: 'Inventory Value',
+          withNavbar: true,
           subRoutes: [
             {
               component: <TotalInventoryValuePage />,
@@ -48,6 +52,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'current-stock',
           path: 'inventory/stock',
           title: 'Stock',
+          withNavbar: true,
           subRoutes: [
             {
               component: <InventoryStockPage />,
@@ -62,6 +67,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'stock-opname',
           path: 'inventory/stock-opname',
           title: 'Stock Opname',
+          withNavbar: true,
           subRoutes: [
             {
               component: <InventoryStockOpnamePage />,
@@ -76,6 +82,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'scrap',
           path: 'inventory/scrap',
           title: 'Scrap',
+          withNavbar: true,
           subRoutes: [
             {
               component: <ScrapPage />,
@@ -104,6 +111,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'pending-transfer',
           path: 'inventory/pending-transfer',
           title: 'Pending Transfer',
+          withNavbar: true,
           subRoutes: [
             {
               component: <PendingTransferPage />,
@@ -118,6 +126,7 @@ export const inventoryRoutes: DashboardRoute = {
           key: 'pending-receipt',
           path: 'inventory/pending-receipt',
           title: 'Pending Receipt',
+          withNavbar: true,
           subRoutes: [
             {
               component: <PendingReceiptPage />,

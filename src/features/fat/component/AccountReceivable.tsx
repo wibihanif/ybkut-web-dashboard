@@ -4,10 +4,6 @@ import React, { useState } from 'react';
 import { DatePickerInput } from '@mantine/dates';
 import { AccountReceivableSection } from './AccountReceivableSection';
 import { AccountTable } from './table/AccountTable';
-import { ProfitTMTableTable } from './table/ProfitTMTable';
-import { RevenueTable } from './table/RevenueTable';
-// import { GraphSection } from './GraphSection';
-// import { MapSection } from './MapSection';
 
 export const FatAccountAnalytic: React.FC = () => {
   const [value, setValue] = useState<Date | null>(null);
@@ -50,7 +46,7 @@ export const FatAccountAnalytic: React.FC = () => {
           </Box>
         </Box>
       </Box>
-      <Box mt={20}>
+      <Box style={{ borderRadius: 5 }} mt={20}>
         <AccountReceivableSection />
       </Box>
       <Box mt={20}>

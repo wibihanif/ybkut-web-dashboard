@@ -1,55 +1,79 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { useEffect } from 'react';
+import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend);
-
-const options = {
-  indexAxis: 'y' as const,
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-  },
-};
-
-const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Actual',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-      borderColor: ['rgba(255, 99, 132, 1)'],
-      borderWidth: 1,
-    },
-    {
-      label: 'Target',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: ['rgba(255, 159, 64, 0.2)'],
-      borderColor: ['rgba(255, 159, 64, 1)'],
-      borderWidth: 1,
-    },
-  ],
-};
-
 export const RevenueChart = () => {
-  return <Bar options={options} data={data} />;
+  useEffect(() => {
+    const labels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Des',
+    ];
+
+    const data = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
+
+    const seriesData = data.map((value, index) => ({
+      x: labels[index],
+      y: value,
+      goals: [
+        {
+          name: 'Expected',
+          value: faker.datatype.number({ min: 0, max: 1000 }), // Replace with your expected values
+          strokeHeight: 5,
+          strokeColor: '#775DD0',
+        },
+      ],
+    }));
+
+    const options = {
+      series: [
+        {
+          name: 'Actual',
+          data: seriesData,
+        },
+      ],
+      chart: {
+        height: 350,
+        type: 'bar',
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: '60%',
+        },
+      },
+      colors: ['#00c1e3'],
+      dataLabels: {
+        enabled: false,
+      },
+      legend: {
+        show: true,
+        showForSingleSeries: true,
+        customLegendItems: ['Actual', 'Expected'],
+        markers: {
+          fillColors: ['#00E396', '#775DD0'],
+        },
+      },
+    };
+
+    const chart = new ApexCharts(document.getElementById('line-chartt'), options);
+
+    chart.render();
+    return () => {
+      chart.destroy();
+    };
+  }, []);
+
+  return <div id="line-chartt"></div>;
 };

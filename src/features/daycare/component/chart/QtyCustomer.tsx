@@ -1,51 +1,76 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { useEffect } from 'react';
+import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend);
-
-const options = {
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-  },
-};
-
-const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Member',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 70, 0.5)',
-    },
-  ],
-};
-
 export const QtyCustomer = () => {
-  return <Bar options={options} data={data} />;
+  useEffect(() => {
+    const labels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Des',
+    ];
+    const options = {
+      chart: {
+        type: 'bar',
+        toolbar: {
+          show: false,
+        },
+        animations: {
+          enabled: true,
+          easing: 'linear',
+          dynamicAnimation: {
+            speed: 1000,
+          },
+        },
+        dropShadow: {
+          enabled: true,
+          opacity: 0.3,
+          blur: 5,
+          left: -7,
+          top: 22,
+        },
+      },
+      series: [
+        {
+          name: 'Member',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        },
+      ],
+      xaxis: {
+        categories: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Des',
+        ],
+      },
+      colors: ['#3131f3'], // Insert the color here
+    };
+
+    const chart = new ApexCharts(document.getElementById('line-charttt'), options);
+
+    chart.render();
+    return () => {
+      chart.destroy();
+    };
+  }, []);
+
+  return <div id="line-charttt"></div>;
 };

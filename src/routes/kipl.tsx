@@ -1,13 +1,15 @@
-import { IconCircleArrowDown } from '@tabler/icons-react';
+import { IconComponents } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
 import { KiplHomePage } from '~/pages/kipl';
+// import { ThemeIcon } from '@mantine/core';
 
 export const kiplRoutes: DashboardRoute = {
   title: 'KIPL',
   key: 'kipl',
+  color: '#7138a3',
   subTitleItems: [
     {
-      icon: <IconCircleArrowDown />,
+      icon: <IconComponents color="white" />,
       key: 'dashboard-kipl',
       subTitle: 'Dashboard KIPL',
       routeItems: [
@@ -15,6 +17,7 @@ export const kiplRoutes: DashboardRoute = {
           key: 'kipl',
           path: 'kipl',
           title: 'Home',
+          withNavbar: true,
           subRoutes: [
             {
               component: <KiplHomePage />,

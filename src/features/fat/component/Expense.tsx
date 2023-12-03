@@ -1,6 +1,5 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
-import { ReactNode } from 'react';
 
 interface SummaryItem {
   title: string;
@@ -13,8 +12,6 @@ interface SummaryItems {
   header: string;
   result: SummaryItem[];
 }
-
-// const labels = ['This Month', 'Last Month', 'Year To Date', 'Year On Year'];
 
 const summaryItemsFirstRow: SummaryItems[] = [
   {
@@ -35,7 +32,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
       {
         title: 'Gap',
         icon: <IconGraph />,
-        amount: -4.315,
+        amount: 4.315,
         action: () => console.log('to detail'),
       },
     ],
@@ -48,7 +45,7 @@ const summaryItemsSecondRow: SummaryItems[] = [
       {
         title: 'Plan',
         icon: <IconGraph />,
-        amount: 160.516,
+        amount: -160.516,
         action: () => console.log('to detail'),
       },
       {
@@ -79,7 +76,7 @@ const summaryItemsThirdRow: SummaryItems[] = [
       {
         title: 'Actual',
         icon: <IconGraph />,
-        amount: 160.516,
+        amount: -160.516,
         action: () => console.log('to detail'),
       },
       {
@@ -113,7 +110,19 @@ const summaryItemsFourthRow: SummaryItems[] = [
 
 export const Expense = () => {
   return (
-    <Paper style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', padding: 20 }}>
+    <Paper
+      style={{
+        borderRadius: 8,
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+        padding: 20,
+        transition: 'transform 0.3s ease-in-out',
+      }}
+      sx={{
+        ':hover': {
+          cursor: 'pointer',
+          transform: 'scale(1.02)',
+        },
+      }}>
       <Flex justify="space-between">
         <Text color="#61677A" fw="bold" fz="lg">
           Operational Expense
@@ -135,21 +144,36 @@ export const Expense = () => {
                 return (
                   <Box
                     bg="white"
-                    style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
-                    sx={{ ':hover': { cursor: 'pointer' } }}
+                    style={{
+                      borderRadius: 8,
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        transform: 'scale(1.1)',
+                      },
+                    }}
                     onClick={summaryItem.action}>
                     <Flex gap={20}>
                       <Box
-                        bg={Number(summaryItem.amount) < 1 ? 'red' : 'white'}
+                        bg="transparent"
                         px={12}
-                        style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}>
-                        <ThemeIcon variant="gradient" size="xl" color="gray" my={15}>
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
+                        <ThemeIcon
+                          variant="light"
+                          size="xl"
+                          radius="xl"
+                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
+                          my={15}>
                           {summaryItem.icon}
                         </ThemeIcon>
                       </Box>
 
                       <Center>
-                        <Box style={{ borderRadius: 8 }}>
+                        <Box>
                           <Text fz="sm" fw="bold">
                             {summaryItem.title}
                           </Text>
@@ -180,21 +204,36 @@ export const Expense = () => {
                 return (
                   <Box
                     bg="white"
-                    style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
-                    sx={{ ':hover': { cursor: 'pointer' } }}
+                    style={{
+                      borderRadius: 8,
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        transform: 'scale(1.1)',
+                      },
+                    }}
                     onClick={summaryItem.action}>
                     <Flex gap={20}>
                       <Box
-                        bg="white"
+                        bg="transparent"
                         px={12}
-                        style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}>
-                        <ThemeIcon variant="gradient" size="xl" color="gray" my={15}>
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
+                        <ThemeIcon
+                          variant="light"
+                          size="xl"
+                          radius="xl"
+                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
+                          my={15}>
                           {summaryItem.icon}
                         </ThemeIcon>
                       </Box>
 
                       <Center>
-                        <Box style={{ borderRadius: 8 }}>
+                        <Box>
                           <Text fz="sm" fw="bold">
                             {summaryItem.title}
                           </Text>
@@ -225,21 +264,36 @@ export const Expense = () => {
                 return (
                   <Box
                     bg="white"
-                    style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
-                    sx={{ ':hover': { cursor: 'pointer' } }}
+                    style={{
+                      borderRadius: 8,
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        transform: 'scale(1.1)',
+                      },
+                    }}
                     onClick={summaryItem.action}>
                     <Flex gap={20}>
                       <Box
-                        bg="white"
+                        bg="transparent"
                         px={12}
-                        style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}>
-                        <ThemeIcon variant="gradient" size="xl" color="gray" my={15}>
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
+                        <ThemeIcon
+                          variant="light"
+                          size="xl"
+                          radius="xl"
+                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
+                          my={15}>
                           {summaryItem.icon}
                         </ThemeIcon>
                       </Box>
 
                       <Center>
-                        <Box style={{ borderRadius: 8 }}>
+                        <Box>
                           <Text fz="sm" fw="bold">
                             {summaryItem.title}
                           </Text>
@@ -265,42 +319,54 @@ export const Expense = () => {
                 {SummaryItems.header}
               </Text>
             </Flex>
-            <Flex justify="center">
-              <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg" mt={10}>
-                {SummaryItems.result.map(summaryItem => {
-                  return (
-                    <Box
-                      bg="white"
-                      style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
-                      w={{ base: 200, sm: 400, lg: 350 }}
-                      sx={{ ':hover': { cursor: 'pointer' } }}
-                      onClick={summaryItem.action}>
-                      <Flex gap={20}>
-                        <Box
-                          bg="white"
-                          px={12}
-                          style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}>
-                          <ThemeIcon variant="gradient" size="xl" color="gray" my={15}>
-                            {summaryItem.icon}
-                          </ThemeIcon>
-                        </Box>
+            <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+              {SummaryItems.result.map(summaryItem => {
+                return (
+                  <Box
+                    bg="white"
+                    style={{
+                      borderRadius: 8,
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        transform: 'scale(1.1)',
+                      },
+                    }}
+                    onClick={summaryItem.action}>
+                    <Flex gap={20}>
+                      <Box
+                        bg="transparent"
+                        px={12}
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
+                        <ThemeIcon
+                          variant="light"
+                          size="xl"
+                          radius="xl"
+                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
+                          my={15}>
+                          {summaryItem.icon}
+                        </ThemeIcon>
+                      </Box>
 
-                        <Center>
-                          <Box style={{ borderRadius: 8 }}>
-                            <Text fz="sm" fw="bold">
-                              {summaryItem.title}
-                            </Text>
-                            <Text fz="sm" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          </Box>
-                        </Center>
-                      </Flex>
-                    </Box>
-                  );
-                })}
-              </SimpleGrid>
-            </Flex>
+                      <Center>
+                        <Box>
+                          <Text fz="sm" fw="bold">
+                            {summaryItem.title}
+                          </Text>
+                          <Text fz="sm" color="#7D7C7C" fw="bold">
+                            {summaryItem.amount}
+                          </Text>
+                        </Box>
+                      </Center>
+                    </Flex>
+                  </Box>
+                );
+              })}
+            </SimpleGrid>
             <Space h="sm" />
           </div>
         );

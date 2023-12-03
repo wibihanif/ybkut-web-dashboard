@@ -1,33 +1,18 @@
-import { faker } from '@faker-js/faker';
-import {
-  ActionIcon,
-  Box,
-  Flex,
-  Pagination,
-  Paper,
-  ScrollArea,
-  Stack,
-  Table,
-  Text,
-  createStyles,
-} from '@mantine/core';
-import { RevenueTableRow } from './RevenueTableRow';
-import { useState } from 'react';
-import { IconSortDescendingLetters } from '@tabler/icons-react';
+import { Box, Flex, Paper, Stack, Table, Text, createStyles } from '@mantine/core';
 import { AccountTableRow } from './AccountTableRow';
 
 const TOTAL_ROW = 5;
 
-interface SummaryItem {
-  unit: string;
-  current: number | string;
-  thirtydays: number | string;
-  sixtydays: number | string;
-  ninetydays: number | string;
-  abovedays: number | string;
-  cp: number | string;
-  action: () => void;
-}
+// interface SummaryItem {
+//   unit: string;
+//   current: number | string;
+//   thirtydays: number | string;
+//   sixtydays: number | string;
+//   ninetydays: number | string;
+//   abovedays: number | string;
+//   cp: number | string;
+//   action: () => void;
+// }
 
 const useStyles = createStyles(() => {
   return {
@@ -42,8 +27,6 @@ const useStyles = createStyles(() => {
 
 export const AccountTable: React.FC = () => {
   const { classes } = useStyles();
-
-  const [page, setPage] = useState(1);
 
   const dataDummy = [
     {
@@ -116,9 +99,14 @@ export const AccountTable: React.FC = () => {
   return (
     <Paper p="md">
       <Stack>
-        <Box py={20} component={ScrollArea}>
+        <Box
+          style={{
+            maxHeight: '400px',
+            overflowY: 'auto',
+            borderRadius: 8,
+          }}>
           <Table mb="lg" verticalSpacing="md" highlightOnHover>
-            <thead style={{ backgroundColor: '#3392E7' }}>
+            <thead style={{ backgroundColor: '#38a33a', color: 'white' }}>
               <tr>
                 <th style={{ width: '200px' }}>
                   <Flex gap={8}>

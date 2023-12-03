@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Paper, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
+import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
@@ -44,43 +44,48 @@ const summaryItems: SummaryItems[] = [
 
 export const SummarySection = () => {
   return (
-    <Paper style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', padding: 20 }}>
-      <Text color="#61677A" fw="bold" fz="sm">
-        SUMMARY
-      </Text>
-      <SimpleGrid cols={5} spacing="lg" verticalSpacing="lg" mt={10}>
-        {summaryItems.map(summaryItem => {
-          return (
-            <Box
-              bg="white"
-              style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
-              sx={{ ':hover': { cursor: 'pointer' } }}
-              onClick={summaryItem.action}>
-              <Flex gap={20}>
-                <Box
-                  bg="white"
-                  px={12}
-                  style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}>
-                  <ThemeIcon variant="gradient" size="xl" color="gray" my={15}>
-                    {summaryItem.icon}
-                  </ThemeIcon>
-                </Box>
+    <SimpleGrid cols={5} spacing="lg" verticalSpacing="lg" mt={10}>
+      {summaryItems.map(summaryItem => {
+        return (
+          <Box
+            bg="white"
+            style={{
+              borderRadius: 8,
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+            sx={{
+              ':hover': {
+                cursor: 'pointer',
+                transform: 'scale(1.1)',
+              },
+            }}
+            onClick={summaryItem.action}>
+            <Flex gap={20}>
+              <Box
+                bg="transparent"
+                px={12}
+                // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+              >
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#ba7ec4" my={15}>
+                  {summaryItem.icon}
+                </ThemeIcon>
+              </Box>
 
-                <Center>
-                  <Box>
-                    <Text fz="sm" fw="bold">
-                      {summaryItem.title}
-                    </Text>
-                    <Text fz="sm" color="#7D7C7C" fw="bold">
-                      {summaryItem.amount}
-                    </Text>
-                  </Box>
-                </Center>
-              </Flex>
-            </Box>
-          );
-        })}
-      </SimpleGrid>
-    </Paper>
+              <Center>
+                <Box>
+                  <Text fz="sm" fw="bold">
+                    {summaryItem.title}
+                  </Text>
+                  <Text fz="sm" color="#7D7C7C" fw="bold">
+                    {summaryItem.amount}
+                  </Text>
+                </Box>
+              </Center>
+            </Flex>
+          </Box>
+        );
+      })}
+    </SimpleGrid>
   );
 };
