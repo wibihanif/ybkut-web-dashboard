@@ -2,7 +2,7 @@ import { AppShell, Group, Header, Image, Navbar, ScrollArea, Stack } from '@mant
 import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import ybkutLogo from '~/assets/ybkut-dashboard.jpeg';
-import ybkutBg from '~/assets/background-landing-page.png';
+import ybkutBg from '~/assets/background-landing-page-copy.png';
 import { UserSection } from './UserSection';
 
 interface GSIShellProps {
