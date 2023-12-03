@@ -1,13 +1,15 @@
-import { IconCircleArrowDown } from '@tabler/icons-react';
+import { IconCreditCard } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
 import { PurchaseAnalyticPage } from '~/pages/purchase-analytic';
+// import { ThemeIcon } from '@mantine/core';
 
 export const purchaseRoutes: DashboardRoute = {
   title: 'PURCHASE',
   key: 'menu',
+  color: '#38a35a',
   subTitleItems: [
     {
-      icon: <IconCircleArrowDown />,
+      icon: <IconCreditCard color="white" />,
       key: 'dashboard-purchase',
       subTitle: 'Dashboard Purchase',
       routeItems: [
@@ -15,6 +17,7 @@ export const purchaseRoutes: DashboardRoute = {
           key: 'purchase',
           path: 'purchase',
           title: 'Analytics',
+          withNavbar: true,
           subRoutes: [
             {
               component: <PurchaseAnalyticPage />,

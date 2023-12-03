@@ -11,7 +11,7 @@ const useStyles = createStyles(() => {
     tableHead: { color: 'white' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#abbaff',
+        backgroundColor: '#a6b2df',
       },
     },
   };
@@ -48,7 +48,7 @@ export const StockOpenameTable: React.FC = () => {
           <Box w="80%">
             <Input
               placeholder="Search here"
-              icon={<IconSearch size={16} color="#3392E7" />}
+              icon={<IconSearch size={16} color="#3845a3" />}
               radius={10}
               sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
             />
@@ -58,9 +58,9 @@ export const StockOpenameTable: React.FC = () => {
           </Box>
         </Flex>
       </Flex>
-      <Box style={{ maxHeight: '400px', overflowY: 'auto' }}>
+      <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
                 <Flex gap={8}>
@@ -93,10 +93,11 @@ export const StockOpenameTable: React.FC = () => {
       </Box>
       <Pagination
         mt={20}
-        color="blue"
         value={page}
         onChange={setPage}
         total={15}
+        color="indigo"
+        variant="filled"
         sx={{ alignSelf: 'center' }}
       />
     </Flex>

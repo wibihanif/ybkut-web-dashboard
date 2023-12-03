@@ -1,5 +1,5 @@
-import { Box, Center, Flex, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+import { Box, Center, Flex, Paper, Text, ThemeIcon } from '@mantine/core';
+import { IconVocabulary } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
 import { GraphSection } from './GraphSection';
@@ -10,39 +10,39 @@ export const KiplHome: React.FC = () => {
     <Box>
       <Box
         style={{
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+          borderBottom: 'solid rgba(0, 0, 0, 0.1)',
           padding: 20,
           paddingLeft: 30,
-          borderRadius: 2,
         }}>
         <Flex gap={20}>
-          <Box
-            bg="white"
-            px={12}
-            style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}>
-            <ThemeIcon variant="gradient" size="xl" color="gray" my={15}>
-              <IconGraph />
+          <Box px={12} style={{ borderRadius: 8 }}>
+            <ThemeIcon variant="light" radius="md" size="50px" color="#38a39a" my={15}>
+              <IconVocabulary color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>
 
           <Center>
             <Box>
-              <Text fz="xl" fw="bold">
+              <Text fz="xl" fw="bold" color="white">
                 KIPL Analytics
               </Text>
-              <Text fz="sm" color="#7D7C7C">
+              <Text fz="sm" color="#c7c6c6">
                 This page is used to see overall data about KIPL
               </Text>
             </Box>
           </Center>
         </Flex>
       </Box>
+
       <Box mt={20}>
-        <SummarySection />
-        <GraphSection />
+        <Paper>
+          <MapSection />
+
+          <SummarySection />
+        </Paper>
       </Box>
       <Box mt={20}>
-        <MapSection />
+        <GraphSection />
       </Box>
     </Box>
   );

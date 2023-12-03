@@ -1,13 +1,15 @@
-import { IconCircleArrowDown } from '@tabler/icons-react';
+import { IconVocabulary } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
 import { AkademikAnalyticsPage } from '~/pages/akademik-analytics';
+// import { ThemeIcon } from '@mantine/core';
 
 export const akademikRoutes: DashboardRoute = {
   title: 'AKADEMIK',
   key: 'menu',
+  color: '#a33858',
   subTitleItems: [
     {
-      icon: <IconCircleArrowDown />,
+      icon: <IconVocabulary color="white" />,
       key: 'dashboard-akademik',
       subTitle: 'Dashboard Akademik',
       routeItems: [
@@ -15,6 +17,7 @@ export const akademikRoutes: DashboardRoute = {
           key: 'akademik',
           path: 'akademik',
           title: 'Home Page',
+          withNavbar: true,
           subRoutes: [
             {
               component: <AkademikAnalyticsPage />,

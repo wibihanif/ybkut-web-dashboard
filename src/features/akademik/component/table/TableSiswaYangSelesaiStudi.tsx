@@ -1,9 +1,21 @@
-import { Flex, Pagination, Table } from '@mantine/core';
+import { Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
 import { TableRow } from './SiswaSelesaiStudiTableRow';
 import { faker } from '@faker-js/faker';
 import { useState } from 'react';
 
+const useStyles = createStyles(() => {
+  return {
+    tableHead: { color: 'white' },
+    tableHeadIcon: {
+      ':hover': {
+        backgroundColor: '#a6b2df',
+      },
+    },
+  };
+});
+
 export const TableSiswaYangSelesaiStudi: React.FC = () => {
+  const { classes } = useStyles();
   const [page, setPage] = useState<number>(0);
 
   const tableRows = [];
@@ -21,17 +33,39 @@ export const TableSiswaYangSelesaiStudi: React.FC = () => {
 
   return (
     <Flex direction="column">
-      <Table verticalSpacing="xs" highlightOnHover striped>
-        <thead>
-          <tr>
-            <th style={{ minWidth: 250 }}>Nama</th>
-            <th>Umur</th>
-            <th>Angkatan</th>
-            <th>Lama Pendidikan (Thn)</th>
-          </tr>
-        </thead>
-        <tbody>{tableRows}</tbody>
-      </Table>
+      <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
+        <Table verticalSpacing="md" highlightOnHover striped>
+          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
+            <tr>
+              <th style={{ color: 'white' }}>
+                {' '}
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Nama</Text>
+                </Flex>
+              </th>
+              <th style={{ color: 'white' }}>
+                {' '}
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Umur</Text>
+                </Flex>
+              </th>
+              <th style={{ color: 'white' }}>
+                {' '}
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Angkatan</Text>
+                </Flex>
+              </th>
+              <th style={{ color: 'white' }}>
+                {' '}
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Lama Pendidikan (Thn)</Text>
+                </Flex>
+              </th>
+            </tr>
+          </thead>
+          <tbody>{tableRows}</tbody>
+        </Table>
+      </Box>
       <Pagination
         pt={20}
         color="green"

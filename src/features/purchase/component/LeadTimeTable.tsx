@@ -17,9 +17,9 @@ export const LeadTimeTable: React.FC = () => {
   }
 
   return (
-    <Box style={{ maxHeight: '400px', overflowY: 'auto' }}>
+    <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
       <Table verticalSpacing="md" highlightOnHover striped>
-        <thead style={{ backgroundColor: '#3392E7', color: 'white' }}>
+        <thead style={{ backgroundColor: '#38a35a', color: 'white' }}>
           <tr>
             <th style={{ color: 'white' }}>Date</th>
             <th style={{ color: 'white' }}>Product Name</th>

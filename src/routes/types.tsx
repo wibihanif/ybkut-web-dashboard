@@ -51,6 +51,7 @@ export interface RouteItem {
   subRoutes: SubRoute[];
   key: string;
   title: string;
+  withNavbar: false | true;
 }
 
 export interface SubTitleItem {
@@ -64,4 +65,5 @@ export interface DashboardRoute {
   title: string;
   subTitleItems: SubTitleItem[];
   key: string;
+  color: string;
 }

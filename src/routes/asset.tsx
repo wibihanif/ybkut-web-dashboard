@@ -1,13 +1,15 @@
-import { IconCircleArrowDown } from '@tabler/icons-react';
+import { IconAsset } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
 import { AssetAnalyticsPage } from '~/pages/asset-analytics';
+// import { ThemeIcon } from '@mantine/core';
 
 export const assetRoutes: DashboardRoute = {
   title: 'ASSET',
   key: 'menu',
+  color: '#a37538',
   subTitleItems: [
     {
-      icon: <IconCircleArrowDown />,
+      icon: <IconAsset color="white" />,
       key: 'dashboard-asset',
       subTitle: 'Dashboard Asset',
       routeItems: [
@@ -15,6 +17,7 @@ export const assetRoutes: DashboardRoute = {
           key: 'asset',
           path: 'asset',
           title: 'Home Page',
+          withNavbar: true,
           subRoutes: [
             {
               component: <AssetAnalyticsPage />,

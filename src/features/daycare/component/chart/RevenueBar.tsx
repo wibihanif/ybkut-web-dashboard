@@ -1,57 +1,85 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { useEffect } from 'react';
+import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-const options = {
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-  },
-};
-
-const labels = ['Jan', 'Feb', 'Mar'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Member',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 70, 0.5)',
-    },
-    {
-      label: 'Insidental',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 171, 0.5)',
-    },
-  ],
-};
-
 export const RevenueBar = () => {
-  return <Bar options={options} data={data} />;
+  useEffect(() => {
+    const labels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Des',
+    ];
+    const options = {
+      chart: {
+        type: 'bar',
+        toolbar: {
+          show: false,
+        },
+        height: '500px',
+        width: '100%',
+        animations: {
+          enabled: true,
+          easing: 'linear',
+          dynamicAnimation: {
+            speed: 10000,
+          },
+        },
+        dropShadow: {
+          enabled: true,
+          opacity: 0.3,
+          blur: 5,
+          left: -7,
+          top: 22,
+        },
+      },
+      series: [
+        {
+          name: 'Insidental',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
+        },
+        {
+          name: 'Member',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
+        },
+      ],
+      xaxis: {
+        categories: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Des',
+        ],
+      },
+      dataLabels: {
+        enabled: false, // Set this to false to hide the values inside the bars
+      },
+      colors: ['#feb329', '#1c0793'], // Insert the color here
+    };
+
+    const chart = new ApexCharts(document.getElementById('line-chartttt'), options);
+
+    chart.render();
+    return () => {
+      chart.destroy();
+    };
+  }, []);
+
+  return <div id="line-chartttt"></div>;
 };

@@ -1,45 +1,16 @@
-import { IconCircleArrowDown } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
 import { FatAnalyticPage } from '~/pages/fat-analytics';
-
-// export const fatRoutes: DashboardRoute = {
-//   title: 'FAT',
-//   key: 'menu',
-//   subTitleItems: [
-//     {
-//       icon: <IconCircleArrowDown />,
-//       key: 'dashboard-fat',
-//       subTitle: 'Dashboard FAT',
-//       routeItems: [
-//         {
-//           key: 'fat',
-//           path: 'fat',
-//           title: 'Analytics',
-//           subRoutes: [
-//             {
-//               component: <FatAnalyticPage />,
-//               key: 'daycare-fat',
-//               path: '',
-//               index: true,
-//             },
-//           ],
-//         },
-//       ],
-//     },
-//   ],
-// };
-import { IconBuildingWarehouse } from '@tabler/icons-react';
-// import { DashboardRoute } from './types';
-import { InventoryAnalyticPage } from '~/pages/inventory';
-import { TotalInventoryValuePage } from '~/pages/inventory/TotalInventoryValue';
+import { IconReportMoney } from '@tabler/icons-react';
 import { FatAccountAnalytic } from '~/features/fat/component/AccountReceivable';
+// import { ThemeIcon } from '@mantine/core';
 
 export const fatRoutes: DashboardRoute = {
   title: 'FAT',
   key: 'menu',
+  color: '#389ea3',
   subTitleItems: [
     {
-      icon: <IconBuildingWarehouse />,
+      icon: <IconReportMoney color="white" />,
       key: 'dashboard-fat',
       subTitle: 'Dashboard FAT',
       routeItems: [
@@ -47,6 +18,7 @@ export const fatRoutes: DashboardRoute = {
           key: 'fat',
           path: 'fat',
           title: 'Service Financial',
+          withNavbar: true,
           subRoutes: [
             {
               component: <FatAnalyticPage />,
@@ -60,6 +32,7 @@ export const fatRoutes: DashboardRoute = {
           key: 'account-receivable',
           path: 'inventory/account',
           title: 'Account Receivable',
+          withNavbar: true,
           subRoutes: [
             {
               component: <FatAccountAnalytic />,

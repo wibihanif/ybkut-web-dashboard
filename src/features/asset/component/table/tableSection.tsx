@@ -8,7 +8,18 @@ export const TableSection = () => {
       <Grid mt={20}>
         <Grid.Col span={5}>
           <Paper
-            style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', padding: 20 }}>
+            style={{
+              borderRadius: 8,
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              padding: 20,
+              transition: 'transform 0.3s ease-in-out',
+            }}
+            sx={{
+              ':hover': {
+                cursor: 'pointer',
+                transform: 'scale(1.02)',
+              },
+            }}>
             <Text color="#61677A" fw="bold" fz="sm" pb={20}>
               Total Scrap Product
             </Text>
@@ -17,7 +28,18 @@ export const TableSection = () => {
         </Grid.Col>
         <Grid.Col span={7}>
           <Paper
-            style={{ borderRadius: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', padding: 20 }}>
+            style={{
+              borderRadius: 8,
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              padding: 20,
+              transition: 'transform 0.3s ease-in-out',
+            }}
+            sx={{
+              ':hover': {
+                cursor: 'pointer',
+                transform: 'scale(1.02)',
+              },
+            }}>
             <Text color="#61677A" fw="bold" fz="sm" pb={20}>
               List Item Depreciation
             </Text>

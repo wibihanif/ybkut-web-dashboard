@@ -1,46 +1,79 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { useEffect } from 'react';
+import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-const options = {
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-  },
-};
-
-const labels = ['Okt 2022', 'Nov 2022'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Siswa',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(100, 180, 120, 0.5)',
-    },
-  ],
-};
-
 export const ChartAlumniTersalurkan = () => {
-  return <Bar options={options} data={data} />;
+  useEffect(() => {
+    const labels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Des',
+    ];
+    const options = {
+      chart: {
+        type: 'bar',
+        toolbar: {
+          show: false,
+        },
+        animations: {
+          enabled: true,
+          easing: 'linear',
+          dynamicAnimation: {
+            speed: 1000,
+          },
+        },
+        dropShadow: {
+          enabled: true,
+          opacity: 0.3,
+          blur: 5,
+          left: -7,
+          top: 22,
+        },
+      },
+      series: [
+        {
+          name: 'Siswa',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        },
+      ],
+      xaxis: {
+        categories: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Des',
+        ],
+      },
+      dataLabels: {
+        enabled: false, // Set this to false to hide the values inside the bars
+      },
+      colors: ['#49b86c'], // Insert the color here
+    };
+
+    const chart = new ApexCharts(document.getElementById('line-chartttttttttt'), options);
+
+    chart.render();
+    return () => {
+      chart.destroy();
+    };
+  }, []);
+
+  return <div id="line-chartttttttttt"></div>;
 };

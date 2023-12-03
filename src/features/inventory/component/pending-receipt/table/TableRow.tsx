@@ -1,5 +1,5 @@
 import { Box, Text, createStyles } from '@mantine/core';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 
 interface ActivityEventTableRowProps {
   name: string;
