@@ -16,20 +16,6 @@ export const ykbutRoutes: DashboardRoute = {
       subTitle: 'YKBUT',
       routeItems: [
         {
-          key: 'inventory',
-          path: 'inventory',
-          title: 'Dashboard Inventory',
-          withNavbar: true,
-          subRoutes: [
-            {
-              component: <InventoryAnalyticPage />,
-              key: 'inventory-analytic',
-              path: '',
-              index: true,
-            },
-          ],
-        },
-        {
           key: 'purchase',
           path: 'purchase',
           title: 'Dashboard Purchase',
@@ -43,6 +29,21 @@ export const ykbutRoutes: DashboardRoute = {
             },
           ],
         },
+        {
+          key: 'inventory',
+          path: 'inventory',
+          title: 'Dashboard Inventory',
+          withNavbar: true,
+          subRoutes: [
+            {
+              component: <InventoryAnalyticPage />,
+              key: 'inventory-analytic',
+              path: '',
+              index: true,
+            },
+          ],
+        },
+
         {
           key: 'asset',
           path: 'asset',
