@@ -43,7 +43,7 @@ export const TableSection = () => {
               },
             }}>
             <Text color="#61677A" fw="bold" fz="sm" pb={20}>
-              Siswa Yang Berhasil Menyelesaikan Studi
+              Alumni Terserap
             </Text>
             <AlumniTerserap />
           </Paper>

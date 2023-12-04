@@ -13,9 +13,11 @@ import { ChartPesertaPelatihan } from './PesertaPelatihan';
 // import { ChartAlumniBelumTersalurkan } from './AlumniBelumTersalurkan';
 // import { ChartAlumniTersalurkan } from './AlumniTersalurkan';
 import { PieSiswaSelesaiStudi } from './PieSiswaSelesaiStudi';
-import { TableActivityEvent } from '../table/TableActivityEvent';
+// import { TableActivityEvent } from '../table/TableActivityEvent';
 import { Alumni } from './Alumni';
 import { OutputTrend } from './OutputTrend';
+import { TableRataRataPerBatch } from '../table/TableRataRataPerBatch';
+import { AlumniTerserap } from './AlumniTerserap';
 
 export const ChartSection = () => {
   return (
@@ -288,7 +290,7 @@ export const ChartSection = () => {
             <ChartAlumniTersalurkan />
           </Paper>
         </Grid.Col> */}
-        <Grid.Col span={8}>
+        {/* <Grid.Col span={4}>
           <Paper
             h="100%"
             style={{
@@ -308,7 +310,7 @@ export const ChartSection = () => {
             </Text>
             <TableActivityEvent />
           </Paper>
-        </Grid.Col>
+        </Grid.Col> */}
         <Grid.Col span={4}>
           <Paper
             h="100%"
@@ -328,6 +330,48 @@ export const ChartSection = () => {
               Siswa Yang Berhasil Menyelesaikan Studi
             </Text>
             <PieSiswaSelesaiStudi />
+          </Paper>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <Paper
+            h="100%"
+            style={{
+              borderRadius: 8,
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              padding: 20,
+              transition: 'transform 0.3s ease-in-out',
+            }}
+            sx={{
+              ':hover': {
+                cursor: 'pointer',
+                transform: 'scale(1.02)',
+              },
+            }}>
+            <Text color="#61677A" fw="bold" fz="sm" pb={20}>
+              Rata-rata Nilai Kelulusan Tiap Batch
+            </Text>
+            <TableRataRataPerBatch />
+          </Paper>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <Paper
+            h="100%"
+            style={{
+              borderRadius: 8,
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              padding: 20,
+              transition: 'transform 0.3s ease-in-out',
+            }}
+            sx={{
+              ':hover': {
+                cursor: 'pointer',
+                transform: 'scale(1.02)',
+              },
+            }}>
+            <Text color="#61677A" fw="bold" fz="sm" pb={20}>
+              Alumni Terserap
+            </Text>
+            <AlumniTerserap />
           </Paper>
         </Grid.Col>
       </Grid>
