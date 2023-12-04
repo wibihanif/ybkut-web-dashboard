@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 
 export const AlumniTerserap = () => {
   useEffect(() => {
-    const labels = ['Berhasil', 'Gagal'];
+    const labels = ['Terserap', 'Belum Terserap'];
     const getChartOptions = () => {
       return {
         series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
@@ -43,7 +43,7 @@ export const AlumniTerserap = () => {
             },
           },
         },
-        labels: ['Berhasil', 'Gagal'],
+        labels: ['Terserap', 'Belum Terserap'],
         dataLabels: {
           enabled: true,
           style: {

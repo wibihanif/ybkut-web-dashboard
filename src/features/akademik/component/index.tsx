@@ -1,9 +1,10 @@
-import { Box, Center, Flex, Text, ThemeIcon } from '@mantine/core';
+import { Box, Center, Flex, Paper, Text, ThemeIcon } from '@mantine/core';
 import { IconVocabulary } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
-import { TableSection } from './table/tableSection';
+// import { TableSection } from './table/tableSection';
+import MyCalendar from './MyCalendar';
 
 export const AkademikAnalytics: React.FC = () => {
   return (
@@ -35,8 +36,15 @@ export const AkademikAnalytics: React.FC = () => {
       </Box>
       <Box mt={20}>
         <SummarySection />
+      </Box>
+      <Box mt={20}>
+        <Paper>
+          <MyCalendar />
+        </Paper>
+      </Box>
+      <Box mt={20}>
         <ChartSection />
-        <TableSection />
+        {/* <TableSection /> */}
       </Box>
     </Box>
   );
