@@ -34,6 +34,7 @@ export const FilterState: React.FC<FilterStateProps> = ({ filterState, setFilter
       setFilterState(state);
     }
   };
+
   return (
     <MenuFilter label="Filter by state status:">
       {filterItems.map(item => (

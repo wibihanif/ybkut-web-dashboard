@@ -1,6 +1,5 @@
 import Axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { env } from '~/config';
-// import { navigate } from 'gatsby';
 import { useStore } from '~/stores';
 
 export class AxiosManager {
