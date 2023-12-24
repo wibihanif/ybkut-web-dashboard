@@ -4,6 +4,10 @@ import { InventoryAnalyticPage } from '~/pages/inventory';
 import { PurchaseAnalyticPage } from '~/pages/purchase-analytic';
 import { AssetAnalyticsPage } from '~/pages/asset-analytics';
 import { FatAnalyticPage } from '~/pages/fat-analytics';
+import { TotalProductDetailPage } from '~/pages/inventory/TotalProductDetail';
+import { TotalInventoryValueDetailPage } from '~/pages/inventory/TotalInventoryValueDetail';
+import { PendingReceiptDetailPage } from '~/pages/inventory/PendingReceiptDetail';
+import { PendingTransferDetailPage } from '~/pages/inventory/PendingTransferDetail';
 
 export const ykbutRoutes: DashboardRoute = {
   title: 'YKBUT',
@@ -41,9 +45,32 @@ export const ykbutRoutes: DashboardRoute = {
               path: '',
               index: true,
             },
+            {
+              component: <TotalProductDetailPage />,
+              key: 'total-product-detail',
+              path: 'total-product',
+              index: true,
+            },
+            {
+              component: <TotalInventoryValueDetailPage />,
+              key: 'total-inventory-value',
+              path: 'total-inventory',
+              index: true,
+            },
+            {
+              component: <PendingReceiptDetailPage />,
+              key: 'pending-receipt',
+              path: 'pending-receipt',
+              index: true,
+            },
+            {
+              component: <PendingTransferDetailPage />,
+              key: 'pending-transfer',
+              path: 'pending-transfer',
+              index: true,
+            },
           ],
         },
-
         {
           key: 'asset',
           path: 'asset',

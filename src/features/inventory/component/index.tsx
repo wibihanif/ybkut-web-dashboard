@@ -6,7 +6,11 @@ import { StockAndVariantSection } from './StockAndVariantSection';
 import { StockAndCategorySection } from './StockAndCategorySection';
 import { TotalProductSection } from './TotalProductSection';
 
-export const InventoryAnalytic: React.FC = () => {
+interface InventoryAnalyticProps {
+  navigateToCertainPage: (route: string) => void;
+}
+
+export const InventoryAnalytic: React.FC<InventoryAnalyticProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
       <Box
@@ -35,16 +39,13 @@ export const InventoryAnalytic: React.FC = () => {
         </Flex>
       </Box>
       <Box mt={20}>
-        <SummarySection />
+        <SummarySection navigateToCertainPage={navigateToCertainPage} />
       </Box>
       <Box mt={20}>
         <StockAndVariantSection />
       </Box>
       <Box mt={20}>
         <StockAndCategorySection />
-      </Box>
-      <Box mt={20}>
-        <TotalProductSection />
       </Box>
     </Box>
   );

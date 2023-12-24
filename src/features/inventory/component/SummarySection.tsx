@@ -1,46 +1,48 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
-// import { TotalProductTable } from './total-product/table';
-import { PendingReceiptPage } from '~/pages/inventory/PendingReceipt';
 
 interface SummaryItems {
   title: string;
   icon: ReactNode;
   amount: number;
-  action: () => void;
+  route: string;
 }
 
-// const myAction = () => <PendingReceiptPage />;
+interface SummarySectionProps {
+  navigateToCertainPage: (route: string) => void;
+}
 
 const summaryItems: SummaryItems[] = [
   {
     title: 'Total Produk',
     icon: <IconGraph />,
     amount: 18,
-    action: () => <PendingReceiptPage />,
+    route: '/inventory/total-product',
   },
   {
     title: 'Total Inventori Value',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/inventory/total-inventory',
   },
   {
     title: 'Pending Transfer',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/inventory/pending-transfer',
   },
   {
     title: 'Pending Receipt',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/inventory/pending-receipt',
   },
 ];
 
-export const SummarySection = () => {
+export const SummarySection: React.FC<SummarySectionProps> = ({
+  navigateToCertainPage: navigateToCertainScreen,
+}) => {
   return (
     <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map(summaryItem => {
@@ -58,13 +60,9 @@ export const SummarySection = () => {
                 transform: 'scale(1.1)',
               },
             }}
-            onClick={summaryItem.action}>
+            onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
-              <Box
-                bg="transparent"
-                px={12}
-                // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-              >
+              <Box bg="transparent" px={12}>
                 <ThemeIcon variant="light" size="xl" radius="xl" color="#a6b2df" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>

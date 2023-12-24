@@ -7,7 +7,6 @@ import { InventoryStockOpnamePage } from '~/pages/inventory/InventoryStockOpname
 import { PendingTransferPage } from '~/pages/inventory/PendingTransfer';
 import { PendingReceiptPage } from '~/pages/inventory/PendingReceipt';
 import { ScrapPage } from '~/pages/inventory/Scrap';
-// import { ThemeIcon } from '@mantine/core';
 
 export const inventoryRoutes: DashboardRoute = {
   title: 'INVENTORY',
