@@ -27,11 +27,11 @@ export const TableRow: React.FC<TableRowProps> = ({
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{name}</td>
-      <td>{locationName}</td>
-      <td>{partnerName}</td>
-      <td>{origin}</td>
-      <td>{state}</td>
+      <td style={{ width: '276px' }}>{name}</td>
+      <td style={{ width: '276px' }}>{locationName}</td>
+      <td style={{ width: '276px' }}>{partnerName}</td>
+      <td style={{ width: '276px' }}>{origin}</td>
+      <td style={{ width: '276px' }}>{state}</td>
     </Box>
   );
 };

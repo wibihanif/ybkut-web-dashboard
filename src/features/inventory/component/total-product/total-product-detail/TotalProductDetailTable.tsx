@@ -42,11 +42,15 @@ export const TotalProductDetailTable: React.FC = () => {
 
   return (
     <Flex direction="column">
-      <Box style={{ maxHeight: '500px', overflowY: 'auto', borderRadius: 8 }}>
-        <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
-            <tr>
-              <th style={{ color: 'white' }}>
+      <Box style={{ borderRadius: 8 }}>
+        <Table
+          verticalSpacing="md"
+          highlightOnHover
+          striped
+          style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+            <tr style={{ display: 'table', width: '100%' }}>
+              <th style={{ color: 'white', width: '33%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -54,7 +58,7 @@ export const TotalProductDetailTable: React.FC = () => {
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
+              <th style={{ color: 'white', width: '33%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Default Code</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -62,12 +66,14 @@ export const TotalProductDetailTable: React.FC = () => {
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '200px' }}>
+              <th style={{ color: 'white', width: '34%' }}>
                 <Text className={classes.tableHead}>Barcode</Text>
               </th>
             </tr>
           </thead>
-          <tbody>{tableRows}</tbody>
+          <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '500px' }}>
+            {tableRows}
+          </tbody>
         </Table>
       </Box>
       <Pagination
