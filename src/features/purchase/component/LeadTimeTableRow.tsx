@@ -23,9 +23,9 @@ export const TableRow: React.FC<LeadTimeTableRowProps> = ({ productName, date, s
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{dateShown}</td>
-      <td>{productName}</td>
-      <td>
+      <td style={{ width: '350px' }}>{dateShown}</td>
+      <td style={{ width: '700px' }}>{productName}</td>
+      <td style={{ width: '350px' }}>
         <StatusBadge state={state} />
       </td>
     </Box>

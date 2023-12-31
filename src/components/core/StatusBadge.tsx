@@ -35,6 +35,30 @@ const statusBadgeStyle: Record<string, StatusBadgeStyle> = {
     text: 'Success',
     bgColor: 'rgba(75, 192, 192)',
   },
+  draft: {
+    text: 'Draft',
+    bgColor: 'rgba(255, 206, 86)',
+  },
+  to_approve: {
+    text: 'To Approve',
+    bgColor: 'rgba(75, 192, 192)',
+  },
+  cancel: {
+    text: 'Cancel',
+    bgColor: 'rgba(75, 192, 192)',
+  },
+  sent: {
+    text: 'Sent',
+    bgColor: 'rgba(75, 192, 192)',
+  },
+  purchase: {
+    text: 'Purchase',
+    bgColor: 'rgba(75, 192, 192)',
+  },
+  headof_approved: {
+    text: 'Headof Approved',
+    bgColor: 'rgba(75, 192, 192)',
+  },
 };
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ state }) => {

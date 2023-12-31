@@ -8,6 +8,10 @@ import { TotalProductDetailPage } from '~/pages/inventory/TotalProductDetail';
 import { TotalInventoryValueDetailPage } from '~/pages/inventory/TotalInventoryValueDetail';
 import { PendingReceiptDetailPage } from '~/pages/inventory/PendingReceiptDetail';
 import { PendingTransferDetailPage } from '~/pages/inventory/PendingTransferDetail';
+import { PendingPurchaseRequestPage } from '~/pages/asset-analytics/PendingPurchaseRequestPage';
+import { PendingPurchaseOrderPage } from '~/pages/asset-analytics/PendingPurchaseOrderPage';
+import { PendingPurchaseReceivedPage } from '~/pages/asset-analytics/PendingPurchaseReceivedPage';
+import { TotalEquipmentPage } from '~/pages/asset-analytics/TotalEquipmentPage';
 
 export const ykbutRoutes: DashboardRoute = {
   title: 'YKBUT',
@@ -81,6 +85,30 @@ export const ykbutRoutes: DashboardRoute = {
               component: <AssetAnalyticsPage />,
               key: 'asset-home-page',
               path: '',
+              index: true,
+            },
+            {
+              component: <PendingPurchaseRequestPage />,
+              key: 'pending-purchase-request-page',
+              path: 'pending-purchase-request',
+              index: true,
+            },
+            {
+              component: <PendingPurchaseOrderPage />,
+              key: 'pending-purchase-order-page',
+              path: 'pending-purchase-order',
+              index: true,
+            },
+            {
+              component: <PendingPurchaseReceivedPage />,
+              key: 'pending-purchase-received-page',
+              path: 'pending-purchase-received',
+              index: true,
+            },
+            {
+              component: <TotalEquipmentPage />,
+              key: 'total-equipment-page',
+              path: 'total-equipment',
               index: true,
             },
           ],

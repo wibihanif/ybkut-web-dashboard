@@ -5,7 +5,11 @@ import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
 import { TableSection } from './table/tableSection';
 
-export const AssetAnalytics: React.FC = () => {
+interface AssetAnalyticProps {
+  navigateToCertainPage: (route: string) => void;
+}
+
+export const AssetAnalytics: React.FC<AssetAnalyticProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
       <Box
@@ -34,7 +38,7 @@ export const AssetAnalytics: React.FC = () => {
         </Flex>
       </Box>
       <Box mt={20}>
-        <SummarySection />
+        <SummarySection navigateToCertainPage={navigateToCertainPage} />
         <ChartSection />
         <TableSection />
       </Box>

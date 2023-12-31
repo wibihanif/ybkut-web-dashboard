@@ -6,45 +6,69 @@ interface SummaryItems {
   title: string;
   icon: ReactNode;
   amount: number;
-  action: () => void;
+  route: string;
+}
+
+interface SummarySectionProps {
+  navigateToCertainPage: (route: string) => void;
 }
 
 const summaryItems: SummaryItems[] = [
   {
+    title: 'Pending Purchase Request',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/pending-purchase-request',
+  },
+  {
+    title: 'Pending Purchase Order',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/pending-purchase-order',
+  },
+  {
+    title: 'Pending Purchase Received',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/pending-purchase-received',
+  },
+  {
     title: 'Total Equipment',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/asset/total-equipment',
   },
   {
-    title: 'Total Asset',
+    title: 'Running Depreciation',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/asset/running-depreciation',
   },
   {
-    title: 'Running Depresiation',
+    title: 'Done Depreciation',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
-  },
-  {
-    title: 'Done Depresiation',
-    icon: <IconGraph />,
-    amount: 18,
-    action: () => console.log('to detail'),
+    route: '/asset/done-depreciation',
   },
   {
     title: 'Pending Depresiation',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/asset/pending-depreciation',
+  },
+  {
+    title: 'Total Scrap Product',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/total-scrap-product',
   },
 ];
 
-export const SummarySection = () => {
+export const SummarySection: React.FC<SummarySectionProps> = ({
+  navigateToCertainPage: navigateToCertainScreen,
+}) => {
   return (
-    <SimpleGrid cols={5} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map(summaryItem => {
         return (
           <Box
@@ -60,13 +84,9 @@ export const SummarySection = () => {
                 transform: 'scale(1.1)',
               },
             }}
-            onClick={summaryItem.action}>
+            onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
-              <Box
-                bg="transparent"
-                px={12}
-                // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-              >
+              <Box bg="transparent" px={12}>
                 <ThemeIcon variant="light" size="xl" radius="xl" color="#dfcda6" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
@@ -74,10 +94,10 @@ export const SummarySection = () => {
 
               <Center>
                 <Box>
-                  <Text fz="sm" fw="bold">
+                  <Text fz="xs" fw="bold">
                     {summaryItem.title}
                   </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
+                  <Text fz="md" color="#7D7C7C" fw="bold">
                     {summaryItem.amount}
                   </Text>
                 </Box>

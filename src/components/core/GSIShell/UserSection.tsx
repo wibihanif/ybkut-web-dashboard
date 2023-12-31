@@ -35,7 +35,7 @@ export const UserSection = () => {
               </Avatar>
               <Box>
                 <Text fz="sm" fw="bold">
-                  Wibi Hanif Wibowo
+                  USER SUPER ADMIN
                 </Text>
                 <Text fz="sm" color="gray">
                   Admin

@@ -24,8 +24,8 @@ export const TableRow: React.FC<CurrentStockTableRowProps> = ({
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{assetName}</td>
-      <td>{dateShown}</td>
+      <td style={{ width: '300px' }}>{assetName}</td>
+      <td style={{ width: '300px' }}>{dateShown}</td>
     </Box>
   );
 };

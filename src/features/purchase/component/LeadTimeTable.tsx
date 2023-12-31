@@ -17,16 +17,18 @@ export const LeadTimeTable: React.FC = () => {
   }
 
   return (
-    <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
+    <Box style={{ maxHeight: '400px', overflowY: 'hidden', borderRadius: 8 }}>
       <Table verticalSpacing="md" highlightOnHover striped>
         <thead style={{ backgroundColor: '#38a35a', color: 'white' }}>
-          <tr>
-            <th style={{ color: 'white' }}>Date</th>
-            <th style={{ color: 'white' }}>Product Name</th>
-            <th style={{ color: 'white' }}>State</th>
+          <tr style={{ display: 'table', width: '100%' }}>
+            <th style={{ color: 'white', width: '25%' }}>Date</th>
+            <th style={{ color: 'white', width: '50%' }}>Product Name</th>
+            <th style={{ color: 'white', width: '25%' }}>State</th>
           </tr>
         </thead>
-        <tbody>{tableRows}</tbody>
+        <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '400px' }}>
+          {tableRows}
+        </tbody>
       </Table>
     </Box>
   );

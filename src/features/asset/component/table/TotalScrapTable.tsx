@@ -30,36 +30,25 @@ export const TotalScrapTable: React.FC = () => {
 
   return (
     <Flex direction="column">
-      {/* <Box style={{ borderRadius: 2 }}>
-        <Table verticalSpacing="xs" highlightOnHover striped>
-          <thead>
-            <tr>
-              <th style={{ width: 300 }}>Asset Name</th>
-              <th>First Depreciation Date</th>
-            </tr>
-          </thead>
-          <tbody>{tableRows}</tbody>
-        </Table>
-      </Box> */}
-      <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
+      <Box style={{ maxHeight: '400px', overflowY: 'hidden', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
           <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
-            <tr>
-              <th style={{ color: 'white' }}>
-                {' '}
+            <tr style={{ display: 'table', width: '100%' }}>
+              <th style={{ color: 'white', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Asset Name</Text>
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
-                {' '}
+              <th style={{ color: 'white', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>First Depreciation Date</Text>
                 </Flex>
               </th>
             </tr>
           </thead>
-          <tbody>{tableRows}</tbody>
+          <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '400px' }}>
+            {tableRows}
+          </tbody>
         </Table>
       </Box>
       <Pagination
