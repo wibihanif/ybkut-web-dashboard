@@ -18,8 +18,8 @@ export const TableRow: React.FC<VariantTotalTableRowProps> = ({ productName, tot
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{productName}</td>
-      <td>{total}</td>
+      <td style={{ width: '330px' }}>{productName}</td>
+      <td style={{ width: '330px' }}>{total}</td>
     </Box>
   );
 };

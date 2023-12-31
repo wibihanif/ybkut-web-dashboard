@@ -52,14 +52,16 @@ export const CurrentStockTable: React.FC = () => {
       </Flex>
       <Box
         style={{
-          maxHeight: '400px',
-          overflowY: 'auto',
           borderRadius: 8,
         }}>
-        <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
-            <tr>
-              <th style={{ color: 'white' }}>
+        <Table
+          verticalSpacing="md"
+          highlightOnHover
+          striped
+          style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+            <tr style={{ display: 'table', width: '100%' }}>
+              <th style={{ color: 'white', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -67,7 +69,7 @@ export const CurrentStockTable: React.FC = () => {
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
+              <th style={{ color: 'white', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Sum</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -77,7 +79,9 @@ export const CurrentStockTable: React.FC = () => {
               </th>
             </tr>
           </thead>
-          <tbody>{tableRows}</tbody>
+          <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '400px' }}>
+            {tableRows}
+          </tbody>
         </Table>
       </Box>
       <Pagination
