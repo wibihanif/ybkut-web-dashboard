@@ -8,6 +8,7 @@ import { TotalProductDetailPage } from '~/pages/inventory/TotalProductDetail';
 import { TotalInventoryValueDetailPage } from '~/pages/inventory/TotalInventoryValueDetail';
 import { PendingReceiptDetailPage } from '~/pages/inventory/PendingReceiptDetail';
 import { PendingTransferDetailPage } from '~/pages/inventory/PendingTransferDetail';
+import { TotalPurchaseDetailPage } from '~/pages/purchase-analytic/TotalPurchaseDetail';
 
 export const ykbutRoutes: DashboardRoute = {
   title: 'YKBUT',
@@ -29,6 +30,12 @@ export const ykbutRoutes: DashboardRoute = {
               component: <PurchaseAnalyticPage />,
               key: 'purchase-analytic',
               path: '',
+              index: true,
+            },
+            {
+              component: <TotalPurchaseDetailPage />,
+              key: 'total-purchase-detail',
+              path: 'total-purchase',
               index: true,
             },
           ],

@@ -5,7 +5,13 @@ import { QtyCustomer } from './QtyCustomer';
 import { RevenueBar } from './RevenueBar';
 import { RevenuePie } from './RevenuePie';
 
-export const ChartSection = () => {
+interface RevenueSectionProps {
+  navigateToCertainPage: (route: string) => void;
+}
+
+export const ChartSection: React.FC<RevenueSectionProps> = ({
+  navigateToCertainPage: navigateToCertainScreen,
+}) => {
   return (
     <>
       <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg" mt={20}>
@@ -79,7 +85,8 @@ export const ChartSection = () => {
               cursor: 'pointer',
               transform: 'scale(1.02)',
             },
-          }}>
+          }}
+          onClick={() => navigateToCertainScreen('/daycare/revenue-list')}>
           <Text color="#61677A" fw="bold" fz="sm" pb={20}>
             Revenue
           </Text>

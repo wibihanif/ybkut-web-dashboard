@@ -6,7 +6,10 @@ interface SummaryItems {
   title: string;
   icon: ReactNode;
   amount: number;
-  action: () => void;
+  route: string;
+}
+interface SummarySectionProps {
+  navigateToCertainPage: (route: string) => void;
 }
 
 const summaryItems: SummaryItems[] = [
@@ -14,29 +17,31 @@ const summaryItems: SummaryItems[] = [
     title: 'Total Purchase Order',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/purchase/total-purchase',
   },
   {
     title: 'Total RFQ',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/purchase/total-purchase-detail',
   },
   {
     title: 'Total Purchase Order',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/purchase/total-purchase-detail',
   },
   {
     title: 'To Approve',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/purchase/total-purchase-detail',
   },
 ];
 
-export const SummarySection = () => {
+export const SummarySection: React.FC<SummarySectionProps> = ({
+  navigateToCertainPage: navigateToCertainScreen,
+}) => {
   return (
     <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map(summaryItem => {
@@ -54,7 +59,7 @@ export const SummarySection = () => {
                 transform: 'scale(1.1)',
               },
             }}
-            onClick={summaryItem.action}>
+            onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
               <Box
                 bg="transparent"
