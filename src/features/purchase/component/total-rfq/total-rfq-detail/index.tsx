@@ -2,9 +2,9 @@ import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
 import { IconGraph, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
-import { TotalPurcaseDetailTable } from './TotalPurchaseDetailTable';
+import { TotalRFQDetailTable } from './TotalPurchaseDetailTable';
 
-export const TotalPurchaseDetail: React.FC = () => {
+export const TotalRFQDetail: React.FC = () => {
   return (
     <Box>
       <HeaderPage
@@ -16,8 +16,8 @@ export const TotalPurchaseDetail: React.FC = () => {
             sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
           />
         }
-        subTitle="This page is used to see total purchase order."
-        title="Total Purchase Order"
+        subTitle="This page is used to see total RFQ."
+        title="Total RFQ"
         icon={
           <ThemeIcon variant="light" size="xl" color="#38a35a" my={15}>
             <IconGraph color="white" />
@@ -33,7 +33,7 @@ export const TotalPurchaseDetail: React.FC = () => {
           transition: 'transform 0.3s ease-in-out',
           height: '100%',
         }}>
-        <TotalPurcaseDetailTable />
+        <TotalRFQDetailTable />
       </Paper>
     </Box>
   );

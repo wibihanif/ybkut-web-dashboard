@@ -23,19 +23,43 @@ const summaryItems: SummaryItems[] = [
     title: 'Total RFQ',
     icon: <IconGraph />,
     amount: 18,
-    route: '/purchase/total-purchase-detail',
+    route: '/purchase/total-rfq',
   },
   {
-    title: 'Total Purchase Order',
+    title: 'Pending PR',
     icon: <IconGraph />,
     amount: 18,
-    route: '/purchase/total-purchase-detail',
+    route: '/purchase/pending-pr',
+  },
+  {
+    title: 'Pending PO',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/purchase/pending-po',
+  },
+  {
+    title: 'Pending Received',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/purchase/pending-received',
+  },
+  {
+    title: 'Quantity by Category',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/purchase/quantity-category',
+  },
+  {
+    title: 'Quantity by Amount',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/purchase/quantity-amount',
   },
   {
     title: 'To Approve',
     icon: <IconGraph />,
     amount: 18,
-    route: '/purchase/total-purchase-detail',
+    route: '/purchase/to-approve',
   },
 ];
 

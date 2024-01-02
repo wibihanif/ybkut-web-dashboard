@@ -1,6 +1,6 @@
 import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
 import { faker } from '@faker-js/faker';
-import { Month } from '~/constant/month';
+import { totalProduct } from '~/constant/totalProduct';
 import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
@@ -16,19 +16,25 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const RevenueListDetailTable: React.FC = () => {
+export const ToApproveDetailTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState<number>(1);
 
   const tableRows = [];
 
-  for (let i = 0; i < Month.length; i++) {
+  for (let i = 0; i < totalProduct; i++) {
     tableRows.push(
       <TableRow
-        month={Month[i]}
-        qty={faker.datatype.number({ min: 0, max: 1000 })}
-        state={faker.helpers.arrayElement(['Insidental', 'Member'])}
+        productName={faker.commerce.productName()}
+        defaultCode={faker.string.hexadecimal({
+          casing: 'lower',
+          length: 5,
+        })}
+        barcode={faker.string.hexadecimal({
+          casing: 'lower',
+          length: 5,
+        })}
         key={i}
       />,
     );
@@ -36,13 +42,13 @@ export const RevenueListDetailTable: React.FC = () => {
 
   return (
     <Flex direction="column">
-      <Box style={{ maxHeight: '600px', overflowY: 'auto', borderRadius: 8 }}>
+      <Box style={{ maxHeight: '500px', overflowY: 'auto', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#a33858', color: 'white' }}>
+          <thead style={{ backgroundColor: '#38a35a', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Month</Text>
+                  <Text className={classes.tableHead}>Product Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
                     <IconSortDescendingLetters color="white" />
                   </ActionIcon>
@@ -50,26 +56,21 @@ export const RevenueListDetailTable: React.FC = () => {
               </th>
               <th style={{ color: 'white' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Quantity</Text>
+                  <Text className={classes.tableHead}>Default Code</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
                     <IconSortDescendingLetters color="white" />
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
-                <Flex gap={8}>
-                  <Text className={classes.tableHead}>State</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
-                </Flex>
+              <th style={{ color: 'white', width: '200px' }}>
+                <Text className={classes.tableHead}>Barcode</Text>
               </th>
             </tr>
           </thead>
           <tbody>{tableRows}</tbody>
         </Table>
       </Box>
-      {/* <Pagination
+      <Pagination
         mt={20}
         value={page}
         onChange={setPage}
@@ -77,7 +78,7 @@ export const RevenueListDetailTable: React.FC = () => {
         color="indigo"
         variant="filled"
         sx={{ alignSelf: 'end' }}
-      /> */}
+      />
     </Flex>
   );
 };

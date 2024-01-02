@@ -28,7 +28,7 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalPurchaseTable: React.FC = () => {
+export const ToApproveTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState(1);

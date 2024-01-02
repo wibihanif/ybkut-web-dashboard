@@ -9,6 +9,13 @@ import { TotalInventoryValueDetailPage } from '~/pages/inventory/TotalInventoryV
 import { PendingReceiptDetailPage } from '~/pages/inventory/PendingReceiptDetail';
 import { PendingTransferDetailPage } from '~/pages/inventory/PendingTransferDetail';
 import { TotalPurchaseDetailPage } from '~/pages/purchase-analytic/TotalPurchaseDetail';
+import { TotalRFQDetailPage } from '~/pages/purchase-analytic/TotalRfqDetail';
+import { PendingPRDetailPage } from '~/pages/purchase-analytic/PendingPRDetail';
+import { PendingPODetailPage } from '~/pages/purchase-analytic/PendingPODetail';
+import { PendingReceivedDetailPage } from '~/pages/purchase-analytic/PendingReceivedDetail';
+import { QtyCategoryDetailPage } from '~/pages/purchase-analytic/QtyCategoryDetail';
+import { QtyAmountDetailPage } from '~/pages/purchase-analytic/QtyAmountDetail';
+import { ToApproveDetailPage } from '~/pages/purchase-analytic/ToApproveDetail';
 
 export const ykbutRoutes: DashboardRoute = {
   title: 'YKBUT',
@@ -36,6 +43,48 @@ export const ykbutRoutes: DashboardRoute = {
               component: <TotalPurchaseDetailPage />,
               key: 'total-purchase-detail',
               path: 'total-purchase',
+              index: true,
+            },
+            {
+              component: <TotalRFQDetailPage />,
+              key: 'total-rfq-detail',
+              path: 'total-rfq',
+              index: true,
+            },
+            {
+              component: <PendingPRDetailPage />,
+              key: 'pending-pr-detail',
+              path: 'pending-pr',
+              index: true,
+            },
+            {
+              component: <PendingPODetailPage />,
+              key: 'pending-po-detail',
+              path: 'pending-po',
+              index: true,
+            },
+            {
+              component: <PendingReceivedDetailPage />,
+              key: 'pending-received-detail',
+              path: 'pending-received',
+              index: true,
+            },
+            {
+              component: <QtyCategoryDetailPage />,
+              key: 'quantity-category-detail',
+              path: 'quantity-category',
+              index: true,
+            },
+            {
+              component: <QtyAmountDetailPage />,
+              key: 'quantity-amount-detail',
+              path: 'quantity-amount',
+              index: true,
+            },
+            {
+              component: <ToApproveDetailPage />,
+              key: 'to-approve-detail',
+              path: 'to-approve',
               index: true,
             },
           ],
