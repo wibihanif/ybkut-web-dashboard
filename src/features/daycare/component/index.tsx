@@ -3,7 +3,11 @@ import { IconUserCheck } from '@tabler/icons-react';
 import React from 'react';
 import { ChartSection } from './chart/ChartSection';
 
-export const DaycareAnalytic: React.FC = () => {
+interface DaycareAnalyticProps {
+  navigateToCertainPage: (route: string) => void;
+}
+
+export const DaycareAnalytic: React.FC<DaycareAnalyticProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
       <Box
@@ -32,7 +36,7 @@ export const DaycareAnalytic: React.FC = () => {
         </Flex>
       </Box>
       <Box mt={20}>
-        <ChartSection />
+        <ChartSection navigateToCertainPage={navigateToCertainPage} />
       </Box>
     </Box>
   );

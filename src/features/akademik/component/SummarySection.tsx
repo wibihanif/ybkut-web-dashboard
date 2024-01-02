@@ -40,11 +40,23 @@ const summaryItems: SummaryItems[] = [
     amount: 18,
     action: () => console.log('to detail'),
   },
+  {
+    title: 'Jumlah Siswa',
+    icon: <IconGraph />,
+    amount: 18,
+    action: () => console.log('to detail'),
+  },
+  {
+    title: 'Jumlah Alumni',
+    icon: <IconGraph />,
+    amount: 18,
+    action: () => console.log('to detail'),
+  },
 ];
 
 export const SummarySection = () => {
   return (
-    <SimpleGrid cols={5} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map(summaryItem => {
         return (
           <Box

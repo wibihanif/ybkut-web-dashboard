@@ -1,6 +1,7 @@
 import { IconUserCheck } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
 import { DaycareAnalyticPage } from '~/pages/daycare-analytics';
+import { RevenueListDetailPage } from '~/pages/daycare-analytics/RevenueListDetail';
 // import { ThemeIcon } from '@mantine/core';
 
 export const daycareRoutes: DashboardRoute = {
@@ -23,6 +24,12 @@ export const daycareRoutes: DashboardRoute = {
               component: <DaycareAnalyticPage />,
               key: 'daycare-analytic',
               path: '',
+              index: true,
+            },
+            {
+              component: <RevenueListDetailPage />,
+              key: 'revenue-list-detail',
+              path: 'revenue-list',
               index: true,
             },
           ],

@@ -5,7 +5,11 @@ import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
 import { LeadTimeSection } from './LeadTimeSection';
 
-export const PurchaseAnalytic: React.FC = () => {
+interface PurchaseAnalyticProps {
+  navigateToCertainPage: (route: string) => void;
+}
+
+export const PurchaseAnalytic: React.FC<PurchaseAnalyticProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
       <Box
@@ -34,7 +38,7 @@ export const PurchaseAnalytic: React.FC = () => {
         </Flex>
       </Box>
       <Box mt={20}>
-        <SummarySection />
+        <SummarySection navigateToCertainPage={navigateToCertainPage} />
         <ChartSection />
         {/* <StockAndVariantSection /> */}
       </Box>
