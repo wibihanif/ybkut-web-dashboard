@@ -29,10 +29,10 @@ export const TableRow: React.FC<VariantTotalTableRowProps> = ({
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{assetName}</td>
-      <td>{toRupiah(bookValue)}</td>
-      <td>{dateShown}</td>
-      <td>{monthsPeriod}</td>
+      <td style={{ width: '200px' }}>{assetName}</td>
+      <td style={{ width: '200px' }}>{toRupiah(bookValue)}</td>
+      <td style={{ width: '200px' }}>{dateShown}</td>
+      <td style={{ width: '200px' }}>{monthsPeriod}</td>
     </Box>
   );
 };

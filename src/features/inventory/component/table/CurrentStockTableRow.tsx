@@ -18,8 +18,8 @@ export const TableRow: React.FC<CurrentStockTableRowProps> = ({ productName, sum
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{productName}</td>
-      <td>{sum}</td>
+      <td style={{ width: '330px' }}>{productName}</td>
+      <td style={{ width: '330px' }}>{sum}</td>
     </Box>
   );
 };

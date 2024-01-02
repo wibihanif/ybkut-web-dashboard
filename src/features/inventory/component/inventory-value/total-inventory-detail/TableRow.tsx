@@ -27,11 +27,11 @@ export const TableRow: React.FC<TableRowProps> = ({
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{date.toDateString()}</td>
-      <td>{productName}</td>
-      <td>{quantity}</td>
-      <td>{uomName}</td>
-      <td>{value}</td>
+      <td style={{ width: '276px' }}>{date.toDateString()}</td>
+      <td style={{ width: '276px' }}>{productName}</td>
+      <td style={{ width: '276px' }}>{quantity}</td>
+      <td style={{ width: '276px' }}>{uomName}</td>
+      <td style={{ width: '276px' }}>{value}</td>
     </Box>
   );
 };

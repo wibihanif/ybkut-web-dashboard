@@ -23,9 +23,9 @@ export const TableRow: React.FC<StockOpnameTableRowProps> = ({ productName, date
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{dateShown}</td>
-      <td>{productName}</td>
-      <td>
+      <td style={{ width: '218px' }}>{dateShown}</td>
+      <td style={{ width: '218px' }}>{productName}</td>
+      <td style={{ width: '225px' }}>
         <StatusBadge state={state} />
       </td>
     </Box>

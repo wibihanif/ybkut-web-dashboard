@@ -16,7 +16,7 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalProductDetailTable: React.FC = () => {
+export const TotalPurchaseReceivedDetailTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState<number>(1);
@@ -26,15 +26,12 @@ export const TotalProductDetailTable: React.FC = () => {
   for (let i = 0; i < totalProduct; i++) {
     tableRows.push(
       <TableRow
-        productName={faker.commerce.productName()}
-        defaultCode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        barcode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
+        name={faker.commerce.productName()}
+        locDesc={faker.address.street()}
+        partnerName={faker.person.firstName()}
+        fiscalPosName={faker.company.name()}
+        origin={faker.commerce.productName()}
+        state={faker.helpers.arrayElement(['purchase', 'draft', 'sent', 'headof_approved'])}
         key={i}
       />,
     );
@@ -42,36 +39,41 @@ export const TotalProductDetailTable: React.FC = () => {
 
   return (
     <Flex direction="column">
-      <Box style={{ borderRadius: 8 }}>
-        <Table
-          verticalSpacing="md"
-          highlightOnHover
-          striped
-          style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+      <Box style={{ maxHeight: '600px', overflowY: 'hidden', borderRadius: 8 }}>
+        <Table verticalSpacing="md" highlightOnHover striped>
+          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '33%' }}>
+              <th style={{ color: 'white', width: '15%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Product Name</Text>
+                  <Text className={classes.tableHead}>Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
                     <IconSortDescendingLetters color="white" />
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '33%' }}>
+              <th style={{ color: 'white', width: '10%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Default Code</Text>
+                  <Text className={classes.tableHead}>Location Desc</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
                     <IconSortDescendingLetters color="white" />
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '34%' }}>
-                <Text className={classes.tableHead}>Barcode</Text>
+              <th style={{ color: 'white', width: '10%' }}>
+                <Text className={classes.tableHead}>Partner Name</Text>
+              </th>
+              <th style={{ color: 'white', width: '15%' }}>
+                <Text className={classes.tableHead}>Fiscal Pos Name</Text>
+              </th>
+              <th style={{ color: 'white', width: '15%' }}>
+                <Text className={classes.tableHead}>Origin</Text>
+              </th>
+              <th style={{ color: 'white', width: '10%' }}>
+                <Text className={classes.tableHead}>State</Text>
               </th>
             </tr>
           </thead>
-          <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '500px' }}>
+          <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '550px' }}>
             {tableRows}
           </tbody>
         </Table>
