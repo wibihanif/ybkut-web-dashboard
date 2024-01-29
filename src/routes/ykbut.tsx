@@ -20,6 +20,15 @@ import { PendingPurchaseRequestPage } from '~/pages/asset-analytics/PendingPurch
 import { PendingPurchaseOrderPage } from '~/pages/asset-analytics/PendingPurchaseOrderPage';
 import { PendingPurchaseReceivedPage } from '~/pages/asset-analytics/PendingPurchaseReceivedPage';
 import { TotalEquipmentPage } from '~/pages/asset-analytics/TotalEquipmentPage';
+import { CurrentStockDetailPage } from '~/pages/inventory/CurrentStockDetail';
+import { TotalCategoryDetailPage } from '~/pages/inventory/TotalCategoryDetail';
+import { TotalAssetPage } from '~/pages/asset-analytics/TotalAsset';
+import { RunningDepreciationPage } from '~/pages/asset-analytics/RunningDepreciation';
+import { DoneDepreciationPage } from '~/pages/asset-analytics/DoneDepreciation';
+import { PendingDepreciationPage } from '~/pages/asset-analytics/PendingDepreciation';
+import { Equipment1Page } from '~/pages/asset-analytics/Equipment1';
+import { Equipment2Page } from '~/pages/asset-analytics/Equipment2';
+import { TotalScrapProductPage } from '~/pages/asset-analytics/TotalScrapProduct';
 
 export const ykbutRoutes: DashboardRoute = {
   title: 'YKBUT',
@@ -129,6 +138,18 @@ export const ykbutRoutes: DashboardRoute = {
               path: 'pending-transfer',
               index: true,
             },
+            {
+              component: <CurrentStockDetailPage />,
+              key: 'current-stock',
+              path: 'current-stock',
+              index: true,
+            },
+            {
+              component: <TotalCategoryDetailPage />,
+              key: 'total-category',
+              path: 'total-category',
+              index: true,
+            },
           ],
         },
         {
@@ -165,6 +186,48 @@ export const ykbutRoutes: DashboardRoute = {
               component: <TotalEquipmentPage />,
               key: 'total-equipment-page',
               path: 'total-equipment',
+              index: true,
+            },
+            {
+              component: <TotalAssetPage />,
+              key: 'total-asset-page',
+              path: 'total-asset',
+              index: true,
+            },
+            {
+              component: <RunningDepreciationPage />,
+              key: 'running-depreciation-page',
+              path: 'running-depreciation',
+              index: true,
+            },
+            {
+              component: <DoneDepreciationPage />,
+              key: 'done-depreciation-page',
+              path: 'done-depreciation',
+              index: true,
+            },
+            {
+              component: <PendingDepreciationPage />,
+              key: 'pending-depreciation-page',
+              path: 'pending-depreciation',
+              index: true,
+            },
+            {
+              component: <Equipment1Page />,
+              key: 'equipment-category-1-page',
+              path: 'equipment-category-1',
+              index: true,
+            },
+            {
+              component: <Equipment2Page />,
+              key: 'equipment-category-2-page',
+              path: 'equipment-category-2',
+              index: true,
+            },
+            {
+              component: <TotalScrapProductPage />,
+              key: 'total-scrap-product-page',
+              path: 'total-scrap-product',
               index: true,
             },
           ],

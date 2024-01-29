@@ -4,7 +4,6 @@ import React from 'react';
 import { SummarySection } from './SummarySection';
 import { StockAndVariantSection } from './StockAndVariantSection';
 import { StockAndCategorySection } from './StockAndCategorySection';
-import { TotalProductSection } from './TotalProductSection';
 
 interface InventoryAnalyticProps {
   navigateToCertainPage: (route: string) => void;

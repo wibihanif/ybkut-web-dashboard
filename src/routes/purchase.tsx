@@ -6,7 +6,7 @@ import { PurchaseAnalyticPage } from '~/pages/purchase-analytic';
 export const purchaseRoutes: DashboardRoute = {
   title: 'PURCHASE',
   key: 'menu',
-  color: '#38a35a',
+  color: '#3845a3',
   subTitleItems: [
     {
       icon: <IconCreditCard color="white" />,

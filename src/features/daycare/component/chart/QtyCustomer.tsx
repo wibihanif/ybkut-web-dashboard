@@ -44,6 +44,10 @@ export const QtyCustomer = () => {
           name: 'Member',
           data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
         },
+        {
+          name: 'Insidental',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        },
       ],
       xaxis: {
         categories: [
@@ -61,7 +65,10 @@ export const QtyCustomer = () => {
           'Des',
         ],
       },
-      colors: ['#3131f3'], // Insert the color here
+      dataLabels: {
+        enabled: false, // Set this to false to hide the values inside the bars
+      },
+      colors: ['#1a9f23', '#3e1a9f'], // Insert the color here
     };
 
     const chart = new ApexCharts(document.getElementById('line-charttt'), options);

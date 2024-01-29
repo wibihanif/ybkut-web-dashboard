@@ -5,12 +5,13 @@ import { faker } from '@faker-js/faker';
 export const OperationChart = () => {
   useEffect(() => {
     const labels = ['UT DCare', 'Poliklinit UT', 'YKBUT', 'UT School'];
+
     const getChartOptions = () => {
       return {
         series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        colors: ['#1C64F2', '#16BDCA', '#9061F9', '#FFA500', '#008080', '#D3D3D3'],
+        colors: ['#38a33a', '#3896a3', '#3845a3', '#a37538'],
         chart: {
-          height: 420,
+          height: '100%',
           width: '100%',
           type: 'pie',
           animations: {

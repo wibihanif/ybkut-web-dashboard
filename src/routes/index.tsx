@@ -8,6 +8,7 @@ import { daycareRoutes } from './daycare';
 import { ykbutRoutes } from './ykbut';
 import { utschoolRoutes } from './utschool';
 import { landingPageRoutes } from './landingPage';
+import { poliklinikRoutes } from './poliklinik';
 // import { fatRoutes } from './fat';
 
 export const routes: DashboardRoute[] = [
@@ -21,4 +22,5 @@ export const routes: DashboardRoute[] = [
   ykbutRoutes,
   daycareRoutes,
   utschoolRoutes,
+  poliklinikRoutes,
 ];

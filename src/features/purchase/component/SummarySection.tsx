@@ -90,7 +90,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 px={12}
                 // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
               >
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#a6dfb8" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#8a92c6" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>

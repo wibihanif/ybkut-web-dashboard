@@ -1,8 +1,9 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
-import { IconGraph, IconSearch } from '@tabler/icons-react';
+import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
 import { QtyCategoryDetailTable } from './TotalPurchaseDetailTable';
+import { Link } from 'react-router-dom';
 
 export const QtyCategoryDetail: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ export const QtyCategoryDetail: React.FC = () => {
         inputComponent={
           <Input
             placeholder="Search here"
-            icon={<IconSearch size={16} color="#38a35a" />}
+            icon={<IconSearch size={16} color="#3845a3" />}
             radius={10}
             sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
           />
@@ -19,9 +20,18 @@ export const QtyCategoryDetail: React.FC = () => {
         subTitle="This page is used to see Quantity by Category."
         title="Quantity by Category"
         icon={
-          <ThemeIcon variant="light" size="xl" color="#38a35a" my={15}>
-            <IconGraph color="white" />
-          </ThemeIcon>
+          <Link to="/purchase">
+            <Box
+              sx={{
+                ':hover': {
+                  cursor: 'pointer',
+                },
+              }}>
+              <ThemeIcon variant="light" size="xl" color="#3845a3" my={15}>
+                <IconArrowLeft color="white" />
+              </ThemeIcon>
+            </Box>
+          </Link>
         }
       />
       <Paper

@@ -1,7 +1,6 @@
-import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
+import { ActionIcon, Box, Flex, Table, Text, createStyles } from '@mantine/core';
 import { faker } from '@faker-js/faker';
 import { Month } from '~/constant/month';
-import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
 
@@ -18,8 +17,6 @@ const useStyles = createStyles(() => {
 
 export const RevenueListDetailTable: React.FC = () => {
   const { classes } = useStyles();
-
-  const [page, setPage] = useState<number>(1);
 
   const tableRows = [];
 
@@ -38,7 +35,7 @@ export const RevenueListDetailTable: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '600px', overflowY: 'auto', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#a33858', color: 'white' }}>
+          <thead style={{ backgroundColor: '#38a33a', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
                 <Flex gap={8}>

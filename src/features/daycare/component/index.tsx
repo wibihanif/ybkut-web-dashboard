@@ -18,7 +18,7 @@ export const DaycareAnalytic: React.FC<DaycareAnalyticProps> = ({ navigateToCert
         }}>
         <Flex gap={20}>
           <Box px={12} style={{ borderRadius: 8 }}>
-            <ThemeIcon variant="light" radius="md" size="50px" color="#a33858" my={15}>
+            <ThemeIcon variant="light" radius="md" size="50px" color="#38a33a" my={15}>
               <IconUserCheck color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>

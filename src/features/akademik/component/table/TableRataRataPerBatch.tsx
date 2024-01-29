@@ -32,7 +32,7 @@ export const TableRataRataPerBatch: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#9338a3', color: 'white' }}>
+          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
                 {' '}

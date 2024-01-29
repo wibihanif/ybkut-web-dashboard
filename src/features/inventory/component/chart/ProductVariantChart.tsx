@@ -8,7 +8,7 @@ export const ProductVariantChart = () => {
     const getChartOptions = () => {
       return {
         series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        colors: ['#1C64F2', '#16BDCA', '#9061F9', '#FFA500', '#008080', '#D3D3D3'],
+        colors: ['#38a33a', '#3896a3', '#3845a3', '#a37538'],
         chart: {
           height: 420,
           width: '100%',

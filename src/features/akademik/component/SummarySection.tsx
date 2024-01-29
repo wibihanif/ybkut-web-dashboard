@@ -2,11 +2,21 @@ import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
+// interface SummaryItems {
+//   title: string;
+//   icon: ReactNode;
+//   amount: number;
+//   action: () => void;
+// }
 interface SummaryItems {
   title: string;
   icon: ReactNode;
   amount: number;
-  action: () => void;
+  route: string;
+}
+
+interface SummarySectionProps {
+  navigateToCertainPage: (route: string) => void;
 }
 
 const summaryItems: SummaryItems[] = [
@@ -14,47 +24,49 @@ const summaryItems: SummaryItems[] = [
     title: 'Semua Lulusan',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/semua-lulusan',
   },
   {
     title: 'Lulusan Reguler',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/lulusan-regular',
   },
   {
     title: 'Lulusan Non-Reguler',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/lulusan-non-regular',
   },
   {
     title: 'Lulusan CSR',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/lulusan-csr',
   },
   {
     title: 'Siswa reguler yang D.O',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/siswa-regular-do',
   },
   {
     title: 'Jumlah Siswa',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/jumlah-siswa',
   },
   {
     title: 'Jumlah Alumni',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/akademik/jumlah-alumni',
   },
 ];
 
-export const SummarySection = () => {
+export const SummarySection: React.FC<SummarySectionProps> = ({
+  navigateToCertainPage: navigateToCertainScreen,
+}) => {
   return (
     <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map(summaryItem => {
@@ -72,14 +84,14 @@ export const SummarySection = () => {
                 transform: 'scale(1.1)',
               },
             }}
-            onClick={summaryItem.action}>
+            onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
               <Box
                 bg="transparent"
                 px={12}
                 // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
               >
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#ba7ec4" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#ceb28d" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>

@@ -68,7 +68,7 @@ export const ProjectChart = () => {
         },
       };
     };
-    const chart = new ApexCharts(document.getElementById('pie-alumni'), getChartOptions());
+    const chart = new ApexCharts(document.getElementById('pie-bast'), getChartOptions());
 
     chart.render();
     return () => {
@@ -76,5 +76,5 @@ export const ProjectChart = () => {
     };
   }, []);
 
-  return <div id="pie-alumni"></div>;
+  return <div id="pie-bast"></div>;
 };

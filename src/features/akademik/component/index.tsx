@@ -5,8 +5,11 @@ import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
 // import { TableSection } from './table/tableSection';
 import MyCalendar from './MyCalendar';
+interface AkademikAnalyticsProps {
+  navigateToCertainPage: (route: string) => void;
+}
 
-export const AkademikAnalytics: React.FC = () => {
+export const AkademikAnalytics: React.FC<AkademikAnalyticsProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
       <Box
@@ -17,7 +20,7 @@ export const AkademikAnalytics: React.FC = () => {
         }}>
         <Flex gap={20}>
           <Box px={12} style={{ borderRadius: 8 }}>
-            <ThemeIcon variant="light" radius="md" size="50px" color="#9338a3" my={15}>
+            <ThemeIcon variant="light" radius="md" size="50px" color="#a37538" my={15}>
               <IconVocabulary color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>
@@ -35,7 +38,7 @@ export const AkademikAnalytics: React.FC = () => {
         </Flex>
       </Box>
       <Box mt={20}>
-        <SummarySection />
+        <SummarySection navigateToCertainPage={navigateToCertainPage} />
       </Box>
       <Box mt={20}>
         <Paper>

@@ -6,57 +6,66 @@ interface SummaryItems {
   title: string;
   icon: ReactNode;
   amount: any;
-  action: () => void;
+  route: string;
+}
+interface SummarySectionProps {
+  navigateToCertainPage: (route: string) => void;
 }
 
 const summaryItemsFirstRow: SummaryItems[] = [
   {
-    title: 'Total Project',
+    title: 'Demand',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/kipl/demand',
   },
   {
-    title: 'Total Revenue',
+    title: 'Project',
     icon: <IconGraph />,
     amount: '18 M',
-    action: () => console.log('to detail'),
+    route: '/kipl/project',
   },
   {
-    title: 'Paid',
+    title: 'Quotation',
     icon: <IconGraph />,
     amount: '18 M / 18 M',
-    action: () => console.log('to detail'),
+    route: '/kipl/quotation',
   },
   {
-    title: 'Jumlah Peserta',
+    title: 'PO/SPK',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/kipl/po-spk',
   },
   {
-    title: 'Jumlah Customer',
+    title: 'Status Event Close',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/kipl/status-close',
   },
   {
-    title: 'Cancel Project',
+    title: 'Reporting',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/kipl/reporting',
   },
   {
-    title: 'Ongoing Project',
+    title: 'AR Performance',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/kipl/ar-performance',
   },
   {
-    title: 'Pending Project',
+    title: 'Customer Coverage',
     icon: <IconGraph />,
     amount: 18,
-    action: () => console.log('to detail'),
+    route: '/kipl/customer-coverage',
+  },
+  {
+    title: 'Non Regular Students',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/kipl/non-regular-students',
   },
 ];
 
@@ -87,9 +96,11 @@ const summaryItemsFirstRow: SummaryItems[] = [
 //   },
 // ];
 
-export const SummarySection = () => {
+export const SummarySection: React.FC<SummarySectionProps> = ({
+  navigateToCertainPage: navigateToCertainScreen,
+}) => {
   return (
-    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map(summaryItem => {
         return (
           <Box
@@ -105,14 +116,14 @@ export const SummarySection = () => {
                 transform: 'scale(1.1)',
               },
             }}
-            onClick={summaryItem.action}>
+            onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
               <Box
                 bg="transparent"
                 px={12}
                 // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
               >
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#a6dddf" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#ceb28d" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>

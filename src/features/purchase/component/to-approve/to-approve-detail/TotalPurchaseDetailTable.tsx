@@ -44,7 +44,7 @@ export const ToApproveDetailTable: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '500px', overflowY: 'auto', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#38a35a', color: 'white' }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
                 <Flex gap={8}>
