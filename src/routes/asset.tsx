@@ -6,7 +6,7 @@ import { AssetAnalyticsPage } from '~/pages/asset-analytics';
 export const assetRoutes: DashboardRoute = {
   title: 'ASSET',
   key: 'menu',
-  color: '#a37538',
+  color: '#3845a3',
   subTitleItems: [
     {
       icon: <IconAsset color="white" />,

@@ -37,7 +37,7 @@ export const EquipmentByCategoryChart = () => {
         {
           name: 'Unit',
           data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-          color: '#a99a42',
+          color: '#3845a3',
         },
       ],
       chart: {
@@ -78,8 +78,8 @@ export const EquipmentByCategoryChart = () => {
         gradient: {
           opacityFrom: 0.55,
           opacityTo: 0,
-          shade: '#38a35a', // Change this to the desired color
-          gradientToColors: ['#38a35a'], // Change this to the desired color
+          shade: '#3845a3', // Change this to the desired color
+          gradientToColors: ['#3845a3'], // Change this to the desired color
         },
       },
       dataLabels: {

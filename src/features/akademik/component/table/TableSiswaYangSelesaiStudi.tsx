@@ -35,7 +35,7 @@ export const TableSiswaYangSelesaiStudi: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
             <tr>
               <th style={{ color: 'white' }}>
                 {' '}

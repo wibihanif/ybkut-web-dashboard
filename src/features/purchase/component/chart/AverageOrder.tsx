@@ -5,6 +5,17 @@ import { faker } from '@faker-js/faker';
 export const AverageOrder = () => {
   useEffect(() => {
     const labels = ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'];
+
+    // Define colors for each label
+    const labelColors: { [key: string]: string } = {
+      'UT DCare': '#38a33a',
+      'Poliklinik UT': '#3896a3',
+      YKBUT: '#3845a3',
+      'UT School': '#a37538',
+    };
+
+    const seriesData = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
+
     const options = {
       chart: {
         type: 'bar',
@@ -29,13 +40,16 @@ export const AverageOrder = () => {
       series: [
         {
           name: 'sales',
-          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+          data: seriesData,
+          color: ({ value }: { value: number }) => {
+            const label = labels[seriesData.indexOf(value)];
+            return labelColors[label];
+          },
         },
       ],
       xaxis: {
-        categories: ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'],
+        categories: labels,
       },
-      colors: ['#49b86c'], // Insert the color here
     };
 
     const chart = new ApexCharts(document.getElementById('line-chartt'), options);

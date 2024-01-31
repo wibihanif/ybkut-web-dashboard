@@ -14,29 +14,35 @@ interface SummarySectionProps {
 }
 
 const summaryItems: SummaryItems[] = [
-  {
-    title: 'Pending Purchase Request',
-    icon: <IconGraph />,
-    amount: 18,
-    route: '/asset/pending-purchase-request',
-  },
-  {
-    title: 'Pending Purchase Order',
-    icon: <IconGraph />,
-    amount: 18,
-    route: '/asset/pending-purchase-order',
-  },
-  {
-    title: 'Pending Purchase Received',
-    icon: <IconGraph />,
-    amount: 18,
-    route: '/asset/pending-purchase-received',
-  },
+  // {
+  //   title: 'Pending Purchase Request',
+  //   icon: <IconGraph />,
+  //   amount: 18,
+  //   route: '/asset/pending-purchase-request',
+  // },
+  // {
+  //   title: 'Pending Purchase Order',
+  //   icon: <IconGraph />,
+  //   amount: 18,
+  //   route: '/asset/pending-purchase-order',
+  // },
+  // {
+  //   title: 'Pending Purchase Received',
+  //   icon: <IconGraph />,
+  //   amount: 18,
+  //   route: '/asset/pending-purchase-received',
+  // },
   {
     title: 'Total Equipment',
     icon: <IconGraph />,
     amount: 18,
     route: '/asset/total-equipment',
+  },
+  {
+    title: 'Total Asset',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/total-asset',
   },
   {
     title: 'Running Depreciation',
@@ -61,6 +67,18 @@ const summaryItems: SummaryItems[] = [
     icon: <IconGraph />,
     amount: 18,
     route: '/asset/total-scrap-product',
+  },
+  {
+    title: 'Equipent by Category 1',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/equipment-category-1',
+  },
+  {
+    title: 'Equipment by Category 2',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/asset/equipment-category-2',
   },
 ];
 
@@ -87,7 +105,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
               <Box bg="transparent" px={12}>
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#dfcda6" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#8a92c6" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>

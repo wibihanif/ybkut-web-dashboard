@@ -19,7 +19,7 @@ export const PendingPurchaseReceivedDetails: React.FC = () => {
         subTitle="This page is used to see total Pending Purchase Received detail."
         title="Pending Purchase Received Detail"
         icon={
-          <ThemeIcon variant="light" size="xl" color="#a37538" my={15}>
+          <ThemeIcon variant="light" size="xl" color="#3845a3" my={15}>
             <IconGraph color="white" />
           </ThemeIcon>
         }

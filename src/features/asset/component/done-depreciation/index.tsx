@@ -1,10 +1,11 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
-import { IconGraph, IconSearch } from '@tabler/icons-react';
+import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
-import { TotalEquipmentDetailTable } from './TotalEquipmentDetailTable';
+import { DoneDepreciationDetailTable } from './TotalEquipmentDetailTable';
+import { Link } from 'react-router-dom';
 
-export const TotalEquipmentDetails: React.FC = () => {
+export const DoneDepreciationDetails: React.FC = () => {
   return (
     <Box>
       <HeaderPage
@@ -16,12 +17,21 @@ export const TotalEquipmentDetails: React.FC = () => {
             sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
           />
         }
-        subTitle="This page is used to see total Equipment detail."
-        title="Total Equipment Detail"
+        subTitle="This page is used to see Running Depreciation detail."
+        title="Running Depreciation Detail"
         icon={
-          <ThemeIcon variant="light" size="xl" color="#a37538" my={15}>
-            <IconGraph color="white" />
-          </ThemeIcon>
+          <Link to="/asset">
+            <Box
+              sx={{
+                ':hover': {
+                  cursor: 'pointer',
+                },
+              }}>
+              <ThemeIcon variant="light" size="xl" color="#3845a3" my={15}>
+                <IconArrowLeft color="white" />
+              </ThemeIcon>
+            </Box>
+          </Link>
         }
       />
       <Paper
@@ -33,7 +43,7 @@ export const TotalEquipmentDetails: React.FC = () => {
           transition: 'transform 0.3s ease-in-out',
           height: '100%',
         }}>
-        <TotalEquipmentDetailTable />
+        <DoneDepreciationDetailTable />
       </Paper>
     </Box>
   );

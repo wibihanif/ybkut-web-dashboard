@@ -8,7 +8,7 @@ export const RevenuePie = () => {
     const getChartOptions = () => {
       return {
         series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        colors: ['#1C64F2', '#16BDCA', '#9061F9', '#FFA500', '#008080', '#D3D3D3'],
+        colors: ['#1a9f23', '#3e1a9f'],
         chart: {
           height: 420,
           width: '100%',

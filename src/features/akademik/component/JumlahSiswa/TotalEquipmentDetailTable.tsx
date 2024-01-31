@@ -16,7 +16,7 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalEquipmentDetailTable: React.FC = () => {
+export const JumlahSiswaDetailTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState<number>(1);

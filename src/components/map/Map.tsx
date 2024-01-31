@@ -22,7 +22,17 @@ export const Maps = () => {
     schoolData?.data?.[0]?.level0?.[0]?.perform?.[0]?.nusantara?.[0].mapping;
 
   return (
-    <MapContainer center={center} zoom={5} scrollWheelZoom={false}>
+    <MapContainer
+      center={center}
+      zoom={5}
+      scrollWheelZoom={false}
+      style={{ height: '500px', width: '100%' }}
+      dragging={false}
+      doubleClickZoom={false}
+      zoomControl={false}
+      touchZoom={false}
+      keyboard={false}
+      tap={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

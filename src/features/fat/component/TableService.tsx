@@ -1,6 +1,6 @@
 import { Flex, Paper, SimpleGrid, Text } from '@mantine/core';
 import { RevenueTable } from './table/RevenueTable';
-import { OperationChart } from './chart/OperationChart';
+// import { OperationChart } from './chart/OperationChart';
 import { RevenueYtdTable } from './table/RevenueYtdTable';
 import { ProfitTMTableTable } from './table/ProfitTMTable';
 import { AccountPayableChart } from './chart/AccountPayable';
@@ -10,7 +10,7 @@ import { AccountTable } from './table/AccountTable';
 export const TableService = () => {
   return (
     <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg">
-      <Paper
+      {/* <Paper
         style={{
           borderRadius: 8,
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
@@ -27,7 +27,7 @@ export const TableService = () => {
           Operation Unit
         </Text>
         <OperationChart />
-      </Paper>
+      </Paper> */}
       <Paper
         style={{
           borderRadius: 8,

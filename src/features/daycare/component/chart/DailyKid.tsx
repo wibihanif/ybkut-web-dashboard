@@ -4,7 +4,20 @@ import { faker } from '@faker-js/faker';
 
 export const DailyKid = () => {
   useEffect(() => {
-    const labels = ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'];
+    const labels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Des',
+    ];
     const options = {
       chart: {
         type: 'bar',
@@ -28,18 +41,34 @@ export const DailyKid = () => {
       },
       series: [
         {
-          name: 'Insidental',
+          name: 'Member',
           data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         },
         {
-          name: 'Member',
+          name: 'Insidental',
           data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         },
       ],
       xaxis: {
-        categories: ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'],
+        categories: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Des',
+        ],
       },
-      colors: ['#e35c84', '#5d4f7c'], // Insert the color here
+      dataLabels: {
+        enabled: false, // Set this to false to hide the values inside the bars
+      },
+      colors: ['#1a9f23', '#3e1a9f'], // Insert the color here
     };
 
     const chart = new ApexCharts(document.getElementById('line-chartt'), options);

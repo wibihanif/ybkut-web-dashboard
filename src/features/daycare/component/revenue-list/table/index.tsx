@@ -16,8 +16,6 @@ import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
 import { Month } from '~/constant/month';
 
-const TOTAL_ROW = 12;
-
 const useStyles = createStyles(() => {
   return {
     tableHead: { color: 'white', fontSize: '12px' },

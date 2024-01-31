@@ -51,7 +51,7 @@ export const QtyCategoryTable: React.FC = () => {
       <Stack>
         <Box py={20} component={ScrollArea}>
           <Table mb="lg" verticalSpacing="md" highlightOnHover striped>
-            <thead style={{ backgroundColor: '#38a35a' }}>
+            <thead style={{ backgroundColor: '#3845a3' }}>
               <tr>
                 <th style={{ width: '200px' }}>
                   <Flex gap={8}>

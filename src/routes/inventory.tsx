@@ -7,6 +7,7 @@ import { InventoryStockOpnamePage } from '~/pages/inventory/InventoryStockOpname
 import { PendingTransferPage } from '~/pages/inventory/PendingTransfer';
 import { PendingReceiptPage } from '~/pages/inventory/PendingReceipt';
 import { ScrapPage } from '~/pages/inventory/Scrap';
+import { CurrentStockPage } from '~/pages/inventory/CurrentStock';
 
 export const inventoryRoutes: DashboardRoute = {
   title: 'INVENTORY',
@@ -130,6 +131,21 @@ export const inventoryRoutes: DashboardRoute = {
             {
               component: <PendingReceiptPage />,
               key: 'pending-receipt',
+              isSidebarMenu: true,
+              path: '',
+              index: true,
+            },
+          ],
+        },
+        {
+          key: 'current-stock',
+          path: 'inventory/current-stock',
+          title: 'Current Stock',
+          withNavbar: true,
+          subRoutes: [
+            {
+              component: <CurrentStockPage />,
+              key: 'current-stock',
               isSidebarMenu: true,
               path: '',
               index: true,

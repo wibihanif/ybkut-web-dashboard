@@ -124,10 +124,10 @@ export const Expense = () => {
         },
       }}>
       <Flex justify="space-between">
-        <Text color="#61677A" fw="bold" fz="lg">
+        <Text color="#61677A" fw="bold" fz="s">
           Operational Expense
         </Text>
-        <Text color="#61677A" fw="bold" fz="lg">
+        <Text color="#61677A" fw="bold" fz="s">
           IDR 1.xxx.xxx
         </Text>
       </Flex>
@@ -139,7 +139,7 @@ export const Expense = () => {
                 {SummaryItems.header}
               </Text>
             </Flex>
-            <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
               {SummaryItems.result.map(summaryItem => {
                 return (
                   <Box
@@ -156,7 +156,7 @@ export const Expense = () => {
                       },
                     }}
                     onClick={summaryItem.action}>
-                    <Flex gap={20}>
+                    <Flex gap={5}>
                       <Box
                         bg="transparent"
                         px={12}
@@ -164,7 +164,7 @@ export const Expense = () => {
                       >
                         <ThemeIcon
                           variant="light"
-                          size="xl"
+                          size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
@@ -174,10 +174,10 @@ export const Expense = () => {
 
                       <Center>
                         <Box>
-                          <Text fz="sm" fw="bold">
+                          <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="sm" color="#7D7C7C" fw="bold">
+                          <Text fz="xs" color="#7D7C7C" fw="bold">
                             {summaryItem.amount}
                           </Text>
                         </Box>
@@ -199,7 +199,7 @@ export const Expense = () => {
                 {SummaryItems.header}
               </Text>
             </Flex>
-            <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
               {SummaryItems.result.map(summaryItem => {
                 return (
                   <Box
@@ -216,7 +216,7 @@ export const Expense = () => {
                       },
                     }}
                     onClick={summaryItem.action}>
-                    <Flex gap={20}>
+                    <Flex gap={5}>
                       <Box
                         bg="transparent"
                         px={12}
@@ -224,7 +224,7 @@ export const Expense = () => {
                       >
                         <ThemeIcon
                           variant="light"
-                          size="xl"
+                          size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
@@ -234,10 +234,10 @@ export const Expense = () => {
 
                       <Center>
                         <Box>
-                          <Text fz="sm" fw="bold">
+                          <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="sm" color="#7D7C7C" fw="bold">
+                          <Text fz="xs" color="#7D7C7C" fw="bold">
                             {summaryItem.amount}
                           </Text>
                         </Box>
@@ -259,7 +259,7 @@ export const Expense = () => {
                 {SummaryItems.header}
               </Text>
             </Flex>
-            <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
               {SummaryItems.result.map(summaryItem => {
                 return (
                   <Box
@@ -276,7 +276,7 @@ export const Expense = () => {
                       },
                     }}
                     onClick={summaryItem.action}>
-                    <Flex gap={20}>
+                    <Flex gap={5}>
                       <Box
                         bg="transparent"
                         px={12}
@@ -284,7 +284,7 @@ export const Expense = () => {
                       >
                         <ThemeIcon
                           variant="light"
-                          size="xl"
+                          size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
@@ -294,10 +294,10 @@ export const Expense = () => {
 
                       <Center>
                         <Box>
-                          <Text fz="sm" fw="bold">
+                          <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="sm" color="#7D7C7C" fw="bold">
+                          <Text fz="xs" color="#7D7C7C" fw="bold">
                             {summaryItem.amount}
                           </Text>
                         </Box>
@@ -319,7 +319,7 @@ export const Expense = () => {
                 {SummaryItems.header}
               </Text>
             </Flex>
-            <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
               {SummaryItems.result.map(summaryItem => {
                 return (
                   <Box
@@ -336,7 +336,7 @@ export const Expense = () => {
                       },
                     }}
                     onClick={summaryItem.action}>
-                    <Flex gap={20}>
+                    <Flex gap={5}>
                       <Box
                         bg="transparent"
                         px={12}
@@ -344,7 +344,7 @@ export const Expense = () => {
                       >
                         <ThemeIcon
                           variant="light"
-                          size="xl"
+                          size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
@@ -354,10 +354,10 @@ export const Expense = () => {
 
                       <Center>
                         <Box>
-                          <Text fz="sm" fw="bold">
+                          <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="sm" color="#7D7C7C" fw="bold">
+                          <Text fz="xs" color="#7D7C7C" fw="bold">
                             {summaryItem.amount}
                           </Text>
                         </Box>

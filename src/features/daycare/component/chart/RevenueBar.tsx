@@ -70,7 +70,7 @@ export const RevenueBar = () => {
       dataLabels: {
         enabled: false, // Set this to false to hide the values inside the bars
       },
-      colors: ['#feb329', '#1c0793'], // Insert the color here
+      colors: ['#1a9f23', '#3e1a9f'], // Insert the color here
     };
 
     const chart = new ApexCharts(document.getElementById('line-chartttt'), options);

@@ -1,8 +1,9 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
-import { IconGraph, IconSearch } from '@tabler/icons-react';
+import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
 import { PendingReceiptDetailTable } from './PendingReceiptTable';
+import { Link } from 'react-router-dom';
 
 export const PendingReceiptDetail: React.FC = () => {
   return (
@@ -19,9 +20,18 @@ export const PendingReceiptDetail: React.FC = () => {
         subTitle="This page is used to see pending receipt detail."
         title="Pending Receipt Detail"
         icon={
-          <ThemeIcon variant="light" size="xl" color="#3845a3" my={15}>
-            <IconGraph color="white" />
-          </ThemeIcon>
+          <Link to="/inventory">
+            <Box
+              sx={{
+                ':hover': {
+                  cursor: 'pointer',
+                },
+              }}>
+              <ThemeIcon variant="light" size="xl" color="#3845a3" my={15}>
+                <IconArrowLeft color="white" />
+              </ThemeIcon>
+            </Box>
+          </Link>
         }
       />
       <Paper

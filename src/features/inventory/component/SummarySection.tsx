@@ -27,6 +27,12 @@ const summaryItems: SummaryItems[] = [
     route: '/inventory/total-inventory',
   },
   {
+    title: 'Current Stock',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/inventory/current-stock',
+  },
+  {
     title: 'Pending Transfer',
     icon: <IconGraph />,
     amount: 18,
@@ -38,13 +44,19 @@ const summaryItems: SummaryItems[] = [
     amount: 18,
     route: '/inventory/pending-receipt',
   },
+  {
+    title: 'Total Per Category',
+    icon: <IconGraph />,
+    amount: 18,
+    route: '/inventory/total-category',
+  },
 ];
 
 export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {
   return (
-    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map(summaryItem => {
         return (
           <Box

@@ -107,7 +107,7 @@ export const ProfitTMTableTable: React.FC = () => {
             borderRadius: 8,
           }}>
           <Table mb="lg" verticalSpacing="md" highlightOnHover>
-            <thead style={{ backgroundColor: '#38a33a', color: 'white' }}>
+            <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
               <tr>
                 <th style={{ width: '200px' }}>
                   <Flex gap={8}>

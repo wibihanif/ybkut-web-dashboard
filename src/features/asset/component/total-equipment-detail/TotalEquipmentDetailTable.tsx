@@ -41,7 +41,7 @@ export const TotalEquipmentDetailTable: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '600px', overflowY: 'hidden', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
             <tr style={{ display: 'table', width: '100%' }}>
               <th style={{ color: 'white', width: '15%' }}>
                 <Flex gap={8}>
