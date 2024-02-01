@@ -1,10 +1,10 @@
 import { ActionIcon, Box, Flex, Input, Pagination, Table, Text, createStyles } from '@mantine/core';
 import { TableRow } from './StockOpnameTableRow';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
 import { useState } from 'react';
 import { IconSearch, IconSortDescendingLetters } from '@tabler/icons-react';
 import { FilterState } from './FilterState';
+import { useDebouncedState } from '@mantine/hooks';
+import { useGetStocksOpname } from '../../api/useGetStocksOpname';
 
 const useStyles = createStyles(() => {
   return {
@@ -17,27 +17,37 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const StockOpenameTable: React.FC = () => {
+const LIMIT_PER_PAGE = 10;
+
+export const StockOpnameTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState<number>(1);
   const [filterState, setFilterState] = useState<string>('');
+  const [searchValue, setSearchValue] = useDebouncedState('', 300);
 
-  const tableRows = [];
+  const { data: stocksOpname } = useGetStocksOpname({
+    page,
+    search: searchValue,
+  });
 
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
-      <TableRow
-        productName={faker.commerce.productName()}
-        date={faker.datatype.datetime()}
-        state={faker.helpers.arrayElement(['Pending', 'Success', 'Canceled'])}
-        key={i}
-      />,
+  const tableRows = stocksOpname?.data.map((stockOpname, index) => {
+    return (
+      <>
+        <TableRow
+          productName={stockOpname.name}
+          date={new Date(stockOpname.date)}
+          state={stockOpname.state}
+          key={index}
+        />
+      </>
     );
-  }
+  });
+
+  const totalPage = Math.ceil((stocksOpname?.meta?.total as number) / LIMIT_PER_PAGE);
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" style={{ height: '100%' }}>
       <Flex justify="space-between">
         <Box p={8}>
           <Text color="#61677A" fw="bold" fz="sm" pb={20}>
@@ -48,6 +58,7 @@ export const StockOpenameTable: React.FC = () => {
           <Box w="80%">
             <Input
               placeholder="Search here"
+              onChange={event => setSearchValue(event.target.value as string)}
               icon={<IconSearch size={16} color="#3845a3" />}
               radius={10}
               sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
@@ -58,7 +69,7 @@ export const StockOpenameTable: React.FC = () => {
           </Box>
         </Flex>
       </Flex>
-      <Box style={{ borderRadius: 8 }}>
+      <Box style={{ borderRadius: 8, flexGrow: 1 }}>
         <Table
           verticalSpacing="md"
           highlightOnHover
@@ -101,7 +112,7 @@ export const StockOpenameTable: React.FC = () => {
         mt={20}
         value={page}
         onChange={setPage}
-        total={15}
+        total={totalPage}
         color="indigo"
         variant="filled"
         sx={{ alignSelf: 'center' }}

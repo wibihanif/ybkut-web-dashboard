@@ -4,9 +4,9 @@ import { PageableResponse, PaginationQueries } from '~/types/pagination';
 import { PendingReceiptDetail } from '../types';
 
 interface PendingReceiptDetailQueries extends PaginationQueries {
-  search: string;
-  origin: string;
-  state: string;
+  search?: string;
+  origin?: string;
+  state?: string;
 }
 
 export const useGetPendingReceiptDetail = (

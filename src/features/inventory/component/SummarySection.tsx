@@ -1,11 +1,17 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
+import { useGetTotalProducts } from '../api/useGetTotalProducts';
+import { useGetTotalValues } from '../api/useGetTotalValues';
+import { useGetCurrentStocks } from '../api/useGetCurrentStocks';
+import { useGetPendingTransfers } from '../api/useGetPendingTransfers';
+import { useGetPendingReceipts } from '../api/useGetPendingReceipts';
+import { formatNumberWithCommas } from '~/utils/format';
 
 interface SummaryItems {
   title: string;
   icon: ReactNode;
-  amount: number;
+  amount: (value: string) => string;
   route: string;
 }
 
@@ -17,37 +23,37 @@ const summaryItems: SummaryItems[] = [
   {
     title: 'Total Produk',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/inventory/total-product',
   },
   {
     title: 'Total Inventori Value',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/inventory/total-inventory',
   },
   {
     title: 'Current Stock',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/inventory/current-stock',
   },
   {
     title: 'Pending Transfer',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/inventory/pending-transfer',
   },
   {
     title: 'Pending Receipt',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/inventory/pending-receipt',
   },
   {
     title: 'Total Per Category',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/inventory/total-category',
   },
 ];
@@ -55,9 +61,25 @@ const summaryItems: SummaryItems[] = [
 export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {
+  const { data: totalProducts } = useGetTotalProducts();
+  const { data: totalValues } = useGetTotalValues();
+  const { data: currentStocks } = useGetCurrentStocks();
+  const { data: pendingTransfers } = useGetPendingTransfers();
+  const { data: pendingReceipts } = useGetPendingReceipts();
+
   return (
     <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
-      {summaryItems.map(summaryItem => {
+      {/* still dont know where total per category come from */}
+      {summaryItems.map((summaryItem, index) => {
+        const groupedInventoryValues = [
+          totalProducts?.totalProducts,
+          totalValues?.totalValues,
+          currentStocks?.currentStocks,
+          pendingTransfers?.pendingTransfers,
+          pendingReceipts?.pendingReceipts,
+          0,
+        ];
+
         return (
           <Box
             bg="white"
@@ -86,7 +108,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                     {summaryItem.title}
                   </Text>
                   <Text fz="sm" color="#7D7C7C" fw="bold">
-                    {summaryItem.amount}
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
                   </Text>
                 </Box>
               </Center>

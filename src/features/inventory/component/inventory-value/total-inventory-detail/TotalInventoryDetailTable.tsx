@@ -1,9 +1,14 @@
 import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
-import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
+import { TotalValuesDetail } from '~/features/inventory/types';
+
+interface TotalInventoryDetailTableProps {
+  totalInventoryValuesDetail: TotalValuesDetail[];
+  page: number;
+  totalPage: number;
+  setPage: (value: number) => void;
+}
 
 const useStyles = createStyles(() => {
   return {
@@ -16,25 +21,26 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalInventoryDetailTable: React.FC = () => {
+export const TotalInventoryDetailTable: React.FC<TotalInventoryDetailTableProps> = ({
+  page,
+  setPage,
+  totalInventoryValuesDetail,
+  totalPage,
+}) => {
   const { classes } = useStyles();
 
-  const [page, setPage] = useState<number>(1);
-
-  const tableRows = [];
-
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
+  const tableRows = totalInventoryValuesDetail.map((totalInventoryValueDetail, index) => {
+    return (
       <TableRow
-        productName={faker.commerce.productName()}
-        date={faker.date.anytime()}
-        quantity={faker.number.int().toString()}
-        uomName={faker.commerce.productName()}
-        value={faker.number.int().toString()}
-        key={i}
-      />,
+        productName={totalInventoryValueDetail.productName}
+        date={new Date(totalInventoryValueDetail.ppCreateDate)}
+        quantity={totalInventoryValueDetail.quantity}
+        uomName={totalInventoryValueDetail.uomName}
+        value={totalInventoryValueDetail.value}
+        key={index}
+      />
     );
-  }
+  });
 
   return (
     <Flex direction="column">
@@ -97,7 +103,7 @@ export const TotalInventoryDetailTable: React.FC = () => {
         mt={20}
         value={page}
         onChange={setPage}
-        total={15}
+        total={totalPage}
         color="indigo"
         variant="filled"
         sx={{ alignSelf: 'end' }}

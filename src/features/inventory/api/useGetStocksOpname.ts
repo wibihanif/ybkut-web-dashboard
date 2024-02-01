@@ -4,7 +4,7 @@ import { PageableResponse, PaginationQueries } from '~/types/pagination';
 import { StockOpname } from '../types';
 
 interface StocksOpnameQueries extends PaginationQueries {
-  search: string;
+  search?: string;
 }
 
 export const useGetStocksOpname = (

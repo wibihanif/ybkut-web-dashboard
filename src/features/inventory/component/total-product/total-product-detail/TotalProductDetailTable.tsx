@@ -1,9 +1,14 @@
 import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
-import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
+import { TotalProductDetail } from '~/features/inventory/types';
+
+interface TotalProductDetailTableProps {
+  totalProductsDetail: TotalProductDetail[];
+  page: number;
+  totalPage: number;
+  setPage: (value: number) => void;
+}
 
 const useStyles = createStyles(() => {
   return {
@@ -16,29 +21,24 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalProductDetailTable: React.FC = () => {
+export const TotalProductDetailTable: React.FC<TotalProductDetailTableProps> = ({
+  page,
+  setPage,
+  totalProductsDetail,
+  totalPage,
+}) => {
   const { classes } = useStyles();
 
-  const [page, setPage] = useState<number>(1);
-
-  const tableRows = [];
-
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
+  const tableRows = totalProductsDetail.map((totalProductDetail, index) => {
+    return (
       <TableRow
-        productName={faker.commerce.productName()}
-        defaultCode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        barcode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        key={i}
-      />,
+        productName={totalProductDetail.name}
+        defaultCode={totalProductDetail.defaultCode}
+        barcode={totalProductDetail.defaultCode}
+        key={index}
+      />
     );
-  }
+  });
 
   return (
     <Flex direction="column">
@@ -80,7 +80,7 @@ export const TotalProductDetailTable: React.FC = () => {
         mt={20}
         value={page}
         onChange={setPage}
-        total={15}
+        total={totalPage}
         color="indigo"
         variant="filled"
         sx={{ alignSelf: 'end' }}

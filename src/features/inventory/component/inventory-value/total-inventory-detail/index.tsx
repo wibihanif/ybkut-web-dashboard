@@ -1,16 +1,31 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
 import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
 import { TotalInventoryDetailTable } from './TotalInventoryDetailTable';
 import { Link } from 'react-router-dom';
+import { useDebouncedState } from '@mantine/hooks';
+import { useGetTotalValuesDetail } from '~/features/inventory/api/useGetTotalValuesDetail';
+
+const LIMIT_PER_PAGE = 10;
 
 export const TotalInventoryDetail: React.FC = () => {
+  const [page, setPage] = useState<number>(1);
+  const [searchValue, setSearchValue] = useDebouncedState('', 300);
+
+  const { data: totalInventoryValuesDetail } = useGetTotalValuesDetail({
+    page,
+    search: searchValue,
+  });
+
+  const totalPage = Math.ceil((totalInventoryValuesDetail?.meta?.total as number) / LIMIT_PER_PAGE);
+
   return (
     <Box>
       <HeaderPage
         inputComponent={
           <Input
+            onChange={event => setSearchValue(event.target.value as string)}
             placeholder="Search here"
             icon={<IconSearch size={16} color="#3845a3" />}
             radius={10}
@@ -43,7 +58,12 @@ export const TotalInventoryDetail: React.FC = () => {
           transition: 'transform 0.3s ease-in-out',
           height: '100%',
         }}>
-        <TotalInventoryDetailTable />
+        <TotalInventoryDetailTable
+          page={page}
+          setPage={setPage}
+          totalInventoryValuesDetail={totalInventoryValuesDetail?.data || []}
+          totalPage={totalPage}
+        />
       </Paper>
     </Box>
   );

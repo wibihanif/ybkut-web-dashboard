@@ -5,7 +5,7 @@ interface PendingReceipts {
   pendingReceipts: number;
 }
 
-export const useGetPendingTransfers = (
+export const useGetPendingReceipts = (
   options?: UseQueryOptions<unknown, unknown, PendingReceipts, any>,
 ) => {
   const { axios, api } = useApiClient();

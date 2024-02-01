@@ -1,9 +1,9 @@
 import { ActionIcon, Box, Flex, Input, Pagination, Table, Text, createStyles } from '@mantine/core';
 import { TableRow } from './CurrentStockTableRow';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
 import { useState } from 'react';
 import { IconSearch, IconSortDescendingLetters } from '@tabler/icons-react';
+import { useGetCurrentStocksDetail } from '../../api/useGetCurrentStocksDetail';
+import { useDebouncedState } from '@mantine/hooks';
 
 const useStyles = createStyles(() => {
   return {
@@ -16,25 +16,31 @@ const useStyles = createStyles(() => {
   };
 });
 
+const LIMIT_PER_PAGE = 10;
+
 export const CurrentStockTable: React.FC = () => {
   const { classes } = useStyles();
 
   const [page, setPage] = useState<number>(1);
+  const [searchValue, setSearchValue] = useDebouncedState('', 300);
 
-  const tableRows = [];
+  const { data: currentStocksDetail } = useGetCurrentStocksDetail({
+    page,
+    search: searchValue,
+  });
 
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
-      <TableRow
-        productName={faker.commerce.productName()}
-        sum={faker.datatype.number({ min: 10, max: 100 })}
-        key={i}
-      />,
+  const tableRows = currentStocksDetail?.data.map((currentStock, index) => {
+    return (
+      <>
+        <TableRow productName={currentStock.name} sum={Number(currentStock.sum)} key={index} />
+      </>
     );
-  }
+  });
+
+  const totalPage = Math.ceil((currentStocksDetail?.meta?.total as number) / LIMIT_PER_PAGE);
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" style={{ height: '100%' }}>
       <Flex justify="space-between">
         <Box py={8}>
           <Text color="#61677A" fw="bold" fz="sm" pb={20}>
@@ -44,6 +50,7 @@ export const CurrentStockTable: React.FC = () => {
         <Box w="50%">
           <Input
             placeholder="Search here"
+            onChange={event => setSearchValue(event.target.value as string)}
             icon={<IconSearch size={16} color="#3845a3" />}
             radius={10}
             sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
@@ -53,6 +60,7 @@ export const CurrentStockTable: React.FC = () => {
       <Box
         style={{
           borderRadius: 8,
+          flexGrow: 1,
         }}>
         <Table
           verticalSpacing="md"
@@ -84,15 +92,17 @@ export const CurrentStockTable: React.FC = () => {
           </tbody>
         </Table>
       </Box>
-      <Pagination
-        mt={20}
-        value={page}
-        onChange={setPage}
-        total={15}
-        color="indigo"
-        variant="filled"
-        sx={{ alignSelf: 'center' }}
-      />
+      {!!currentStocksDetail?.data.length && (
+        <Pagination
+          mt={20}
+          value={page}
+          onChange={setPage}
+          total={totalPage}
+          color="indigo"
+          variant="filled"
+          sx={{ alignSelf: 'center' }}
+        />
+      )}
     </Flex>
   );
 };

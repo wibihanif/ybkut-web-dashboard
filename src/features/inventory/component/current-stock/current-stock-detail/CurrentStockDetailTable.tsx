@@ -1,9 +1,14 @@
 import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
-import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
+import { CurrentStock } from '~/features/inventory/types';
+
+interface CurrentStockkDetailTableProps {
+  currentStocksDetail: CurrentStock[];
+  page: number;
+  totalPage: number;
+  setPage: (value: number) => void;
+}
 
 const useStyles = createStyles(() => {
   return {
@@ -16,29 +21,25 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const CurrentStockDetailTable: React.FC = () => {
+export const CurrentStockDetailTable: React.FC<CurrentStockkDetailTableProps> = ({
+  currentStocksDetail,
+  page,
+  setPage,
+  totalPage,
+}) => {
   const { classes } = useStyles();
 
-  const [page, setPage] = useState<number>(1);
-
-  const tableRows = [];
-
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
+  const tableRows = currentStocksDetail.map((currentStockDetail, index) => {
+    return (
       <TableRow
-        productName={faker.commerce.productName()}
-        defaultCode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        barcode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        key={i}
-      />,
+        productName={currentStockDetail.name}
+        defaultCode={currentStockDetail.defaultCode}
+        barcode={currentStockDetail.defaultCode}
+        sum={Number(currentStockDetail.sum)}
+        key={index}
+      />
     );
-  }
+  });
 
   return (
     <Flex direction="column">
@@ -50,7 +51,7 @@ export const CurrentStockDetailTable: React.FC = () => {
           style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
           <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '33%' }}>
+              <th style={{ color: 'white', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -58,7 +59,7 @@ export const CurrentStockDetailTable: React.FC = () => {
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '33%' }}>
+              <th style={{ color: 'white', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Default Code</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
@@ -66,8 +67,16 @@ export const CurrentStockDetailTable: React.FC = () => {
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '34%' }}>
+              <th style={{ color: 'white', width: '25%' }}>
                 <Text className={classes.tableHead}>Barcode</Text>
+              </th>
+              <th style={{ color: 'white', width: '25%' }}>
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Sum</Text>
+                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
+                    <IconSortDescendingLetters color="white" />
+                  </ActionIcon>
+                </Flex>
               </th>
             </tr>
           </thead>
@@ -80,7 +89,7 @@ export const CurrentStockDetailTable: React.FC = () => {
         mt={20}
         value={page}
         onChange={setPage}
-        total={15}
+        total={totalPage}
         color="indigo"
         variant="filled"
         sx={{ alignSelf: 'end' }}

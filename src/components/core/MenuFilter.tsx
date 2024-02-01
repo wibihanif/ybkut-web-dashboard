@@ -11,7 +11,7 @@ export const MenuFilter: React.FC<PropsWithChildren<MenuFilterProps>> = ({ label
     <Box>
       <Menu shadow="md">
         <Menu.Target>
-          <Button bg="blue">
+          <Button bg="#3845a3">
             <ThemeIcon size="sm">
               <IconAdjustmentsHorizontal />
             </ThemeIcon>

@@ -5,6 +5,7 @@ interface TableRowProps {
   productName: string;
   defaultCode: string;
   barcode: string;
+  sum: number;
 }
 
 const useStyles = createStyles(() => ({
@@ -15,7 +16,7 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const TableRow: React.FC<TableRowProps> = ({ productName, barcode, defaultCode }) => {
+export const TableRow: React.FC<TableRowProps> = ({ productName, barcode, defaultCode, sum }) => {
   const { classes } = useStyles();
 
   return (
@@ -27,6 +28,7 @@ export const TableRow: React.FC<TableRowProps> = ({ productName, barcode, defaul
       <td style={{ width: '469px' }}>
         <Barcode value={barcode} height={20} width={1} fontSize={10} />
       </td>
+      <td style={{ width: '455px' }}>{sum}</td>
     </Box>
   );
 };

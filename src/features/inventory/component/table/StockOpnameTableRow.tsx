@@ -21,12 +21,14 @@ export const TableRow: React.FC<StockOpnameTableRowProps> = ({ productName, date
 
   const dateShown = format(date, 'dd/MM/yyyy');
 
+  // disabling status badge just because we still dont know what the response is
   return (
     <Box component="tr" className={classes.tableRow}>
       <td style={{ width: '218px' }}>{dateShown}</td>
       <td style={{ width: '218px' }}>{productName}</td>
       <td style={{ width: '225px' }}>
-        <StatusBadge state={state} />
+        {/* <StatusBadge state={state} /> */}
+        {state}
       </td>
     </Box>
   );

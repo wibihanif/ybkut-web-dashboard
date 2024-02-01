@@ -47,7 +47,6 @@ export const AkademikAnalytics: React.FC<AkademikAnalyticsProps> = ({ navigateTo
       </Box>
       <Box mt={20}>
         <ChartSection />
-        {/* <TableSection /> */}
       </Box>
     </Box>
   );

@@ -4,9 +4,9 @@ import { PageableResponse, PaginationQueries } from '~/types/pagination';
 import { PendingTransferDetail } from '../types';
 
 interface PendingTransferDetailQueries extends PaginationQueries {
-  search: string;
-  origin: string;
-  state: string;
+  search?: string;
+  origin?: string;
+  state?: string;
 }
 
 export const useGetPendingTransferDetail = (

@@ -3,8 +3,8 @@ import Barcode from 'react-barcode';
 
 interface TableRowProps {
   productName: string;
-  defaultCode: string;
-  barcode: string;
+  defaultCode: string | null;
+  barcode: string | null;
 }
 
 const useStyles = createStyles(() => ({
@@ -25,7 +25,7 @@ export const TableRow: React.FC<TableRowProps> = ({ productName, barcode, defaul
       </td>
       <td style={{ width: '455px' }}>{defaultCode}</td>
       <td style={{ width: '469px' }}>
-        <Barcode value={barcode} height={20} width={1} fontSize={10} />
+        <Barcode value={barcode as string} height={20} width={1} fontSize={10} />
       </td>
     </Box>
   );

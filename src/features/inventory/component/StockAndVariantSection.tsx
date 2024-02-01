@@ -11,6 +11,7 @@ export const StockAndVariantSection = () => {
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
           padding: 20,
           transition: 'transform 0.3s ease-in-out',
+          height: '600px',
         }}
         sx={{
           ':hover': {
@@ -26,6 +27,7 @@ export const StockAndVariantSection = () => {
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
           padding: 20,
           transition: 'transform 0.3s ease-in-out',
+          height: '600px',
         }}
         sx={{
           ':hover': {

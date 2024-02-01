@@ -1,9 +1,14 @@
 import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
-import { useState } from 'react';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
+import { PendingReceiptDetail } from '~/features/inventory/types';
+
+interface PendingReceiptsDetailTableProps {
+  pendingReceiptsDetail: PendingReceiptDetail[];
+  page: number;
+  totalPage: number;
+  setPage: (value: number) => void;
+}
 
 const useStyles = createStyles(() => {
   return {
@@ -16,25 +21,26 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const PendingReceiptDetailTable: React.FC = () => {
+export const PendingReceiptDetailTable: React.FC<PendingReceiptsDetailTableProps> = ({
+  page,
+  pendingReceiptsDetail,
+  setPage,
+  totalPage,
+}) => {
   const { classes } = useStyles();
 
-  const [page, setPage] = useState<number>(1);
-
-  const tableRows = [];
-
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
+  const tableRows = pendingReceiptsDetail.map((pendingReceiptDetail, index) => {
+    return (
       <TableRow
-        locationName={faker.location.city()}
-        name={faker.name.fullName()}
-        origin={faker.location.city()}
-        partnerName={faker.name.fullName()}
-        state={faker.helpers.arrayElement(['Pending', 'Success', 'Canceled'])}
-        key={i}
-      />,
+        locationName={pendingReceiptDetail.stockLocationName}
+        name={pendingReceiptDetail.stockPickingName}
+        origin={pendingReceiptDetail.origin}
+        partnerName={pendingReceiptDetail.partnerName}
+        state={pendingReceiptDetail.state}
+        key={index}
+      />
     );
-  }
+  });
 
   return (
     <Flex direction="column">
@@ -97,7 +103,7 @@ export const PendingReceiptDetailTable: React.FC = () => {
         mt={20}
         value={page}
         onChange={setPage}
-        total={15}
+        total={totalPage}
         color="indigo"
         variant="filled"
         sx={{ alignSelf: 'end' }}
