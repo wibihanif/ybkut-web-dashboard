@@ -1,13 +1,31 @@
-import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { IconSortDescendingLetters } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Loader,
+  Pagination,
+  Table,
+  Text,
+  createStyles,
+} from '@mantine/core';
+import {
+  IconAlertCircle,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
+} from '@tabler/icons-react';
 import { TableRow } from './TableRow';
 import { PendingReceiptDetail } from '~/features/inventory/types';
+import { SortOrder } from '~/types/pagination';
 
 interface PendingReceiptsDetailTableProps {
   pendingReceiptsDetail: PendingReceiptDetail[];
   page: number;
   totalPage: number;
   setPage: (value: number) => void;
+  sortBy: string;
+  sortOrder: SortOrder;
+  handleSort: (sortValue: string, orderValue: SortOrder) => void;
+  isLoadingPendingReceiptsDetail: boolean;
 }
 
 const useStyles = createStyles(() => {
@@ -26,6 +44,10 @@ export const PendingReceiptDetailTable: React.FC<PendingReceiptsDetailTableProps
   pendingReceiptsDetail,
   setPage,
   totalPage,
+  handleSort,
+  isLoadingPendingReceiptsDetail,
+  sortBy,
+  sortOrder,
 }) => {
   const { classes } = useStyles();
 
@@ -55,41 +77,101 @@ export const PendingReceiptDetailTable: React.FC<PendingReceiptsDetailTableProps
               <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'stockPickingName' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('stockPickingName', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('stockPickingName', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Location Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'stockLocationName' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('stockLocationName', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('stockLocationName', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Partner Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'partnerName' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('partnerName', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('partnerName', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Origin</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'origin' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('origin', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('origin', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>State</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'state' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
             </tr>
@@ -97,17 +179,31 @@ export const PendingReceiptDetailTable: React.FC<PendingReceiptsDetailTableProps
           <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '500px' }}>
             {tableRows}
           </tbody>
+          {!isLoadingPendingReceiptsDetail && !pendingReceiptsDetail.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '60vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
+          {isLoadingPendingReceiptsDetail && (
+            <Flex direction="column" align="center" justify="center" style={{ height: '60vh' }}>
+              <Loader color="blue" />
+            </Flex>
+          )}
         </Table>
       </Box>
-      <Pagination
-        mt={20}
-        value={page}
-        onChange={setPage}
-        total={totalPage}
-        color="indigo"
-        variant="filled"
-        sx={{ alignSelf: 'end' }}
-      />
+
+      {!!pendingReceiptsDetail.length && (
+        <Pagination
+          mt={20}
+          value={page}
+          onChange={setPage}
+          total={totalPage}
+          color="indigo"
+          variant="filled"
+          sx={{ alignSelf: 'end' }}
+        />
+      )}
     </Flex>
   );
 };

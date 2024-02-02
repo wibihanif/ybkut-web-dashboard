@@ -1,30 +1,59 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
 import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
 import { TotalInventoryDetailTable } from './TotalInventoryDetailTable';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useDebouncedState } from '@mantine/hooks';
 import { useGetTotalValuesDetail } from '~/features/inventory/api/useGetTotalValuesDetail';
+import { SortOrder } from '~/types/pagination';
+import { useTotalInventoryValuesSearchParams } from '~/features/inventory/hooks/useTotalInventoryValuesSearchParams';
 
 const LIMIT_PER_PAGE = 10;
 
 export const TotalInventoryDetail: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
-  const [searchValue, setSearchValue] = useDebouncedState('', 300);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { data: totalInventoryValuesDetail } = useGetTotalValuesDetail({
-    page,
-    search: searchValue,
-  });
+  const initialSearch = searchParams.get('search') || '';
+  const initialPage = parseInt(searchParams.get('page') || '1');
+  const initialSortBy = searchParams.get('sortBy') || 'productName';
+  const initialSortOrder = searchParams.get('sortOrder') || SortOrder.ASC;
+
+  const [page, setPage] = useState<number>(initialPage);
+  const [searchValue, setSearchValue] = useDebouncedState(initialSearch, 300);
+
+  const [sortBy, setSortBy] = useState(initialSortBy);
+  const [sortOrder, setSortOrder] = useState(initialSortOrder as SortOrder);
+
+  const { data: totalInventoryValuesDetail, isLoading: isLoadingTotalValuesDetail } =
+    useGetTotalValuesDetail({
+      page,
+      search: searchValue ? searchValue : undefined,
+      sortBy,
+      sortOrder,
+    });
 
   const totalPage = Math.ceil((totalInventoryValuesDetail?.meta?.total as number) / LIMIT_PER_PAGE);
+
+  const handleSort = useCallback((sortValue: string, orderValue: SortOrder) => {
+    setSortBy(sortValue);
+    setSortOrder(orderValue);
+  }, []);
+
+  useTotalInventoryValuesSearchParams({
+    debouncedSearched: searchValue,
+    page,
+    setSearchParams,
+    sortBy,
+    sortOrder,
+  });
 
   return (
     <Box>
       <HeaderPage
         inputComponent={
           <Input
+            defaultValue={searchValue}
             onChange={event => setSearchValue(event.target.value as string)}
             placeholder="Search here"
             icon={<IconSearch size={16} color="#3845a3" />}
@@ -63,6 +92,10 @@ export const TotalInventoryDetail: React.FC = () => {
           setPage={setPage}
           totalInventoryValuesDetail={totalInventoryValuesDetail?.data || []}
           totalPage={totalPage}
+          handleSort={handleSort}
+          isLoadingTotalValuesDetail={isLoadingTotalValuesDetail}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
         />
       </Paper>
     </Box>

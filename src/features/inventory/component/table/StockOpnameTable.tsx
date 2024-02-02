@@ -1,10 +1,26 @@
-import { ActionIcon, Box, Flex, Input, Pagination, Table, Text, createStyles } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Input,
+  Loader,
+  Pagination,
+  Table,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import { TableRow } from './StockOpnameTableRow';
-import { useState } from 'react';
-import { IconSearch, IconSortDescendingLetters } from '@tabler/icons-react';
+import { useCallback, useState } from 'react';
+import {
+  IconAlertCircle,
+  IconSearch,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
+} from '@tabler/icons-react';
 import { FilterState } from './FilterState';
 import { useDebouncedState } from '@mantine/hooks';
 import { useGetStocksOpname } from '../../api/useGetStocksOpname';
+import { SortOrder } from '~/types/pagination';
 
 const useStyles = createStyles(() => {
   return {
@@ -26,9 +42,14 @@ export const StockOpnameTable: React.FC = () => {
   const [filterState, setFilterState] = useState<string>('');
   const [searchValue, setSearchValue] = useDebouncedState('', 300);
 
-  const { data: stocksOpname } = useGetStocksOpname({
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState(SortOrder.ASC);
+
+  const { data: stocksOpname, isLoading: isLoadingStocksOpname } = useGetStocksOpname({
     page,
-    search: searchValue,
+    search: searchValue ? searchValue : undefined,
+    sortBy,
+    sortOrder,
   });
 
   const tableRows = stocksOpname?.data.map((stockOpname, index) => {
@@ -45,6 +66,11 @@ export const StockOpnameTable: React.FC = () => {
   });
 
   const totalPage = Math.ceil((stocksOpname?.meta?.total as number) / LIMIT_PER_PAGE);
+
+  const handleSort = useCallback((sortValue: string, orderValue: SortOrder) => {
+    setSortBy(sortValue);
+    setSortOrder(orderValue);
+  }, []);
 
   return (
     <Flex direction="column" style={{ height: '100%' }}>
@@ -80,25 +106,61 @@ export const StockOpnameTable: React.FC = () => {
               <th style={{ color: 'white', width: '33%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Date</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'date' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('date', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('date', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '33%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'name' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '34%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>State</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'state' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
             </tr>
@@ -106,17 +168,31 @@ export const StockOpnameTable: React.FC = () => {
           <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '400px' }}>
             {tableRows}
           </tbody>
+          {!isLoadingStocksOpname && !stocksOpname?.data.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '50vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
+          {isLoadingStocksOpname && (
+            <Flex direction="column" align="center" justify="center" style={{ height: '50vh' }}>
+              <Loader color="blue" />
+            </Flex>
+          )}
         </Table>
       </Box>
-      <Pagination
-        mt={20}
-        value={page}
-        onChange={setPage}
-        total={totalPage}
-        color="indigo"
-        variant="filled"
-        sx={{ alignSelf: 'center' }}
-      />
+
+      {!!stocksOpname?.data.length && (
+        <Pagination
+          mt={20}
+          value={page}
+          onChange={setPage}
+          total={totalPage}
+          color="indigo"
+          variant="filled"
+          sx={{ alignSelf: 'center' }}
+        />
+      )}
     </Flex>
   );
 };

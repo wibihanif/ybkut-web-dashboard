@@ -1,13 +1,31 @@
-import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { IconSortDescendingLetters } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Loader,
+  Pagination,
+  Table,
+  Text,
+  createStyles,
+} from '@mantine/core';
+import {
+  IconAlertCircle,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
+} from '@tabler/icons-react';
 import { TableRow } from './TableRow';
 import { CurrentStock } from '~/features/inventory/types';
+import { SortOrder } from '~/types/pagination';
 
 interface CurrentStockkDetailTableProps {
   currentStocksDetail: CurrentStock[];
   page: number;
   totalPage: number;
   setPage: (value: number) => void;
+  sortBy: string;
+  sortOrder: SortOrder;
+  handleSort: (sortValue: string, orderValue: SortOrder) => void;
+  isLoadingCurrentStocksDetail: boolean;
 }
 
 const useStyles = createStyles(() => {
@@ -26,6 +44,10 @@ export const CurrentStockDetailTable: React.FC<CurrentStockkDetailTableProps> = 
   page,
   setPage,
   totalPage,
+  handleSort,
+  isLoadingCurrentStocksDetail,
+  sortBy,
+  sortOrder,
 }) => {
   const { classes } = useStyles();
 
@@ -54,17 +76,41 @@ export const CurrentStockDetailTable: React.FC<CurrentStockkDetailTableProps> = 
               <th style={{ color: 'white', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'name' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Default Code</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'defaultCode' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('defaultCode', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('defaultCode', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '25%' }}>
@@ -73,9 +119,21 @@ export const CurrentStockDetailTable: React.FC<CurrentStockkDetailTableProps> = 
               <th style={{ color: 'white', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Sum</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'sum' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('sum', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('sum', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
             </tr>
@@ -83,17 +141,31 @@ export const CurrentStockDetailTable: React.FC<CurrentStockkDetailTableProps> = 
           <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '500px' }}>
             {tableRows}
           </tbody>
+          {!isLoadingCurrentStocksDetail && !currentStocksDetail.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '60vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
+          {isLoadingCurrentStocksDetail && (
+            <Flex direction="column" align="center" justify="center" style={{ height: '60vh' }}>
+              <Loader color="blue" />
+            </Flex>
+          )}
         </Table>
       </Box>
-      <Pagination
-        mt={20}
-        value={page}
-        onChange={setPage}
-        total={totalPage}
-        color="indigo"
-        variant="filled"
-        sx={{ alignSelf: 'end' }}
-      />
+
+      {!!currentStocksDetail.length && (
+        <Pagination
+          mt={20}
+          value={page}
+          onChange={setPage}
+          total={totalPage}
+          color="indigo"
+          variant="filled"
+          sx={{ alignSelf: 'end' }}
+        />
+      )}
     </Flex>
   );
 };

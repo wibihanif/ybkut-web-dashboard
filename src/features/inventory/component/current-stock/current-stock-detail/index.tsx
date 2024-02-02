@@ -1,24 +1,52 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
 import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
 import { CurrentStockDetailTable } from './CurrentStockDetailTable';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useDebouncedState } from '@mantine/hooks';
 import { useGetCurrentStocksDetail } from '~/features/inventory/api/useGetCurrentStocksDetail';
+import { SortOrder } from '~/types/pagination';
+import { useCurrentStocksDetailSearchParams } from '~/features/inventory/hooks/useCurrentStocksDetailSearchParams';
 
 const LIMIT_PER_PAGE = 10;
 
 export const CurrentStockDetail: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
-  const [searchValue, setSearchValue] = useDebouncedState('', 300);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { data: currentStocksDetail } = useGetCurrentStocksDetail({
-    page,
-    search: searchValue,
-  });
+  const initialSearch = searchParams.get('search') || '';
+  const initialPage = parseInt(searchParams.get('page') || '1');
+  const initialSortBy = searchParams.get('sortBy') || 'name';
+  const initialSortOrder = searchParams.get('sortOrder') || SortOrder.ASC;
+
+  const [page, setPage] = useState<number>(initialPage);
+  const [searchValue, setSearchValue] = useDebouncedState(initialSearch, 300);
+
+  const [sortBy, setSortBy] = useState(initialSortBy);
+  const [sortOrder, setSortOrder] = useState(initialSortOrder as SortOrder);
+
+  const { data: currentStocksDetail, isLoading: isLoadingCurrentStocksDetail } =
+    useGetCurrentStocksDetail({
+      page,
+      search: searchValue ? searchValue : undefined,
+      sortBy,
+      sortOrder,
+    });
 
   const totalPage = Math.ceil((currentStocksDetail?.meta?.total as number) / LIMIT_PER_PAGE);
+
+  const handleSort = useCallback((sortValue: string, orderValue: SortOrder) => {
+    setSortBy(sortValue);
+    setSortOrder(orderValue);
+  }, []);
+
+  useCurrentStocksDetailSearchParams({
+    debouncedSearched: searchValue,
+    page,
+    setSearchParams,
+    sortBy,
+    sortOrder,
+  });
 
   return (
     <Box>
@@ -26,6 +54,7 @@ export const CurrentStockDetail: React.FC = () => {
         inputComponent={
           <Input
             placeholder="Search here"
+            defaultValue={searchValue}
             onChange={event => setSearchValue(event.target.value as string)}
             icon={<IconSearch size={16} color="#3845a3" />}
             radius={10}
@@ -63,6 +92,10 @@ export const CurrentStockDetail: React.FC = () => {
           page={page}
           setPage={setPage}
           totalPage={totalPage}
+          handleSort={handleSort}
+          isLoadingCurrentStocksDetail={isLoadingCurrentStocksDetail}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
         />
       </Paper>
     </Box>

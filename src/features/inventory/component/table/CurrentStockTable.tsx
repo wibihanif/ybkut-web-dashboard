@@ -1,9 +1,25 @@
-import { ActionIcon, Box, Flex, Input, Pagination, Table, Text, createStyles } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Input,
+  Loader,
+  Pagination,
+  Table,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import { TableRow } from './CurrentStockTableRow';
-import { useState } from 'react';
-import { IconSearch, IconSortDescendingLetters } from '@tabler/icons-react';
+import { useCallback, useState } from 'react';
+import {
+  IconSearch,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
+} from '@tabler/icons-react';
 import { useGetCurrentStocksDetail } from '../../api/useGetCurrentStocksDetail';
 import { useDebouncedState } from '@mantine/hooks';
+import { IconAlertCircle } from '@tabler/icons-react';
+import { SortOrder } from '~/types/pagination';
 
 const useStyles = createStyles(() => {
   return {
@@ -24,20 +40,27 @@ export const CurrentStockTable: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [searchValue, setSearchValue] = useDebouncedState('', 300);
 
-  const { data: currentStocksDetail } = useGetCurrentStocksDetail({
-    page,
-    search: searchValue,
-  });
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState(SortOrder.ASC);
+
+  const { data: currentStocksDetail, isLoading: isLoadingCurrentStocksDetail } =
+    useGetCurrentStocksDetail({
+      page,
+      search: searchValue ? searchValue : undefined,
+      sortBy,
+      sortOrder,
+    });
 
   const tableRows = currentStocksDetail?.data.map((currentStock, index) => {
-    return (
-      <>
-        <TableRow productName={currentStock.name} sum={Number(currentStock.sum)} key={index} />
-      </>
-    );
+    return <TableRow productName={currentStock.name} sum={Number(currentStock.sum)} key={index} />;
   });
 
   const totalPage = Math.ceil((currentStocksDetail?.meta?.total as number) / LIMIT_PER_PAGE);
+
+  const handleSort = useCallback((sortValue: string, orderValue: SortOrder) => {
+    setSortBy(sortValue);
+    setSortOrder(orderValue);
+  }, []);
 
   return (
     <Flex direction="column" style={{ height: '100%' }}>
@@ -72,17 +95,42 @@ export const CurrentStockTable: React.FC = () => {
               <th style={{ color: 'white', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+
+                  {sortBy === 'name' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Sum</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  {sortBy === 'sum' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('sum', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('sum', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
             </tr>
@@ -90,8 +138,20 @@ export const CurrentStockTable: React.FC = () => {
           <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '400px' }}>
             {tableRows}
           </tbody>
+          {!isLoadingCurrentStocksDetail && !currentStocksDetail?.data.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '50vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
+          {isLoadingCurrentStocksDetail && (
+            <Flex direction="column" align="center" justify="center" style={{ height: '50vh' }}>
+              <Loader color="blue" />
+            </Flex>
+          )}
         </Table>
       </Box>
+
       {!!currentStocksDetail?.data.length && (
         <Pagination
           mt={20}

@@ -30,8 +30,8 @@ export const TableRow: React.FC<TableRowProps> = ({
       <td style={{ width: '276px' }}>{date.toDateString()}</td>
       <td style={{ width: '276px' }}>{productName}</td>
       <td style={{ width: '276px' }}>{quantity}</td>
-      <td style={{ width: '276px' }}>{uomName}</td>
-      <td style={{ width: '276px' }}>{value}</td>
+      <td style={{ width: '275px' }}>{uomName}</td>
+      <td style={{ width: '265px' }}>{value}</td>
     </Box>
   );
 };

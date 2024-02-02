@@ -4,7 +4,7 @@ import { PageableResponse, PaginationQueries } from '~/types/pagination';
 import { TotalProductDetail } from '../types';
 
 interface TotalProductsDetailQueries extends PaginationQueries {
-  search: string;
+  search?: string;
 }
 
 export const useGetTotalProductsDetail = (
