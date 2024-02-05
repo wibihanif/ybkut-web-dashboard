@@ -6,7 +6,7 @@ interface VariantTotalTableRowProps {
   assetName: string;
   bookValue: number;
   firstDepreciationDate: Date;
-  monthsPeriod: number;
+  valueResidual: number;
 }
 
 const useStyles = createStyles(() => ({
@@ -21,7 +21,7 @@ export const TableRow: React.FC<VariantTotalTableRowProps> = ({
   assetName,
   bookValue,
   firstDepreciationDate,
-  monthsPeriod,
+  valueResidual,
 }) => {
   const { classes } = useStyles();
 
@@ -30,9 +30,9 @@ export const TableRow: React.FC<VariantTotalTableRowProps> = ({
   return (
     <Box component="tr" className={classes.tableRow}>
       <td style={{ width: '200px' }}>{assetName}</td>
-      <td style={{ width: '200px' }}>{toRupiah(bookValue)}</td>
       <td style={{ width: '200px' }}>{dateShown}</td>
-      <td style={{ width: '200px' }}>{monthsPeriod}</td>
+      <td style={{ width: '200px' }}>{toRupiah(bookValue)}</td>
+      <td style={{ width: '200px' }}>{toRupiah(valueResidual)}</td>
     </Box>
   );
 };

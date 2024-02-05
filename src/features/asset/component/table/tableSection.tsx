@@ -1,4 +1,4 @@
-import { Grid, Paper, Text } from '@mantine/core';
+import { Grid, Paper } from '@mantine/core';
 import { TotalScrapTable } from './TotalScrapTable';
 import { ItemDepreciationTable } from './ItemDepresiationTable';
 
@@ -20,9 +20,6 @@ export const TableSection = () => {
                 transform: 'scale(1.02)',
               },
             }}>
-            <Text color="#61677A" fw="bold" fz="sm" pb={20}>
-              Total Scrap Product
-            </Text>
             <TotalScrapTable />
           </Paper>
         </Grid.Col>
@@ -40,9 +37,6 @@ export const TableSection = () => {
                 transform: 'scale(1.02)',
               },
             }}>
-            <Text color="#61677A" fw="bold" fz="sm" pb={20}>
-              List Item Depreciation
-            </Text>
             <ItemDepreciationTable />
           </Paper>
         </Grid.Col>
