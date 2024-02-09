@@ -1,5 +1,7 @@
 import { IconBuildingWarehouse } from '@tabler/icons-react';
 import { DashboardRoute } from './types';
+import { PoliklinikAnalyticPage } from '~/pages/poliklinik-analytics';
+// import { NusantaraPage } from '~/pages/nusantara';
 
 export const poliklinikRoutes: DashboardRoute = {
   title: 'Poliklinik',
@@ -10,7 +12,22 @@ export const poliklinikRoutes: DashboardRoute = {
       icon: <IconBuildingWarehouse color="white" />,
       key: 'poliklinik-section',
       subTitle: 'Poliklinik',
-      routeItems: [],
+      routeItems: [
+        {
+          key: 'poliklinik-analytic',
+          path: 'poliklinik-analytic',
+          title: 'Poliklinik',
+          withNavbar: true,
+          subRoutes: [
+            {
+              component: <PoliklinikAnalyticPage />,
+              key: 'poliklinik-page',
+              path: '',
+              index: false,
+            },
+          ],
+        },
+      ],
     },
   ],
 };

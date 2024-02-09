@@ -76,7 +76,7 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
             parsedNowLocation === 'asset/equipment-category-1' ||
             parsedNowLocation === 'asset/equipment-category-2' ||
             parsedNowLocation === 'fat') ? (
-            <Box key={index} p={10}>
+            <Box key={index}>
               {/* <Text color={route.color} fz="xs" fw="bold" pb={10}>
                 {route.title}
               </Text> */}
@@ -141,7 +141,7 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
             </Box>
           ) : route.title !== 'LANDING PAGE' &&
             (parsedNowLocation === 'daycare' || parsedNowLocation === 'daycare/revenue-list') ? (
-            <Box key={index} p={10}>
+            <Box key={index}>
               {/* <Text color={route.color} fz="xs" fw="bold" pb={10}>
                 {route.title}
               </Text> */}
@@ -224,11 +224,76 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
               parsedNowLocation === 'akademik/jumlah-siswa' ||
               parsedNowLocation === 'akademik/jumlah-alumni' ||
               parsedNowLocation === 'akademik') ? (
-            <Box key={index} p={10}>
+            <Box key={index}>
               {/* <Text color={route.color} fz="xs" fw="bold" pb={10}>
                 {route.title}
               </Text> */}
               {route.title === 'UT-SCHOOL'
+                ? route.subTitleItems.map((subTitle, index) => {
+                    console.log(route, 'INIROUTE');
+                    console.log(routes, 'ROUTE');
+                    return (
+                      <Box key={index}>
+                        <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
+                          <Accordion.Control
+                            sx={{
+                              ':hover': {
+                                cursor: 'pointer',
+                                backgroundColor: 'rgba(160, 160, 160, 0.577)',
+                              },
+                            }}>
+                            <Flex gap={10}>
+                              <ThemeIcon variant="light" radius="sm" size="sm" color={route.color}>
+                                {subTitle.icon}
+                              </ThemeIcon>
+                              <Text
+                                fz="sm"
+                                fw={activeSubtitle === subTitle.subTitle ? '1000' : '800'}
+                                color={route.color}>
+                                {subTitle.subTitle}
+                              </Text>
+                            </Flex>
+                          </Accordion.Control>
+                          {subTitle.routeItems.map((routeItem, index) => {
+                            const isActive = parsedNowLocation === routeItem.path;
+                            return (
+                              <Link
+                                to={routeItem.path}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                key={index}>
+                                <Accordion.Panel
+                                  sx={{
+                                    paddingLeft: 30,
+                                    paddingTop: 7,
+                                    borderRadius: 8,
+                                    ':hover': {
+                                      cursor: 'pointer',
+                                      backgroundColor: route.color,
+                                      borderRadius: 8,
+                                    },
+                                    backgroundColor: isActive ? route.color : 'none',
+                                    opacity: isActive ? 0.7 : 0.5,
+                                  }}>
+                                  <Text fz="sm" color="#ffffff" fw="bold">
+                                    {routeItem.title}
+                                  </Text>
+                                </Accordion.Panel>
+                              </Link>
+                            );
+                          })}
+                        </Accordion.Item>
+                      </Box>
+                    );
+                  })
+                : null}
+            </Box>
+          ) : (route.title !== 'LANDING PAGE' && parsedNowLocation === 'poliklinik') ||
+            parsedNowLocation === 'poliklinik-analytic' ? (
+            <Box key={index}>
+              {/* <Text color={route.color} fz="xs" fw="bold" pb={10}>
+              {route.title}
+            </Text> */}
+              {route.title === 'Poliklinik'
                 ? route.subTitleItems.map((subTitle, index) => {
                     console.log(route, 'INIROUTE');
                     console.log(routes, 'ROUTE');
@@ -295,6 +360,7 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
 
   return (
     <Accordion
+      p={10}
       sx={{ backgroundColor: 'rgba(160, 160, 160, 0.577)', borderRadius: 8 }}
       defaultValue={accordionActiveValue}>
       {renderAccordion()}
