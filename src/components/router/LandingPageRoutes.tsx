@@ -44,7 +44,7 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
   });
 
   const saveLogo = [ybkutLogo, dcareLogo, schoolLogo, poliLogo];
-  const linkEntity = ['purchase', 'daycare', 'nusantara-dashboard', 'poliklinik'];
+  const linkEntity = ['purchase', 'daycare', 'nusantara-dashboard', 'poliklinik-analytic'];
 
   const renderAccordion = () => {
     return (
@@ -54,9 +54,9 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
             return (
               <React.Fragment key={index}>
                 {route.title !== 'LANDING PAGE' ? (
-                  <Flex justify="center">
+                  <Flex justify="center" align="center">
                     <Box>
-                      <Flex justify="center">
+                      <Flex h="100%" justify="center" align="center">
                         <Box
                           sx={{
                             backgroundColor: 'rgba(160, 160, 160, 0.577)',
