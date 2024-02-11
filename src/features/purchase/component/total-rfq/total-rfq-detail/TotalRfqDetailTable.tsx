@@ -14,18 +14,18 @@ import {
   IconSortDescendingLetters,
 } from '@tabler/icons-react';
 import { TableRow } from './TableRow';
-import { TotalPurchaseOrderDetail } from '~/features/purchase/types';
+import { TotalRfqDetail } from '~/features/purchase/types';
 import { SortOrder } from '~/types/pagination';
 
-interface TotalPurchaseOrderDetailTableProps {
-  totalPurchaseOrdersDetail: TotalPurchaseOrderDetail[];
+interface TotalRfqDetailTableProps {
+  totalRfqDetail: TotalRfqDetail[];
   page: number;
   totalPage: number;
   setPage: (value: number) => void;
   sortBy: string;
   sortOrder: SortOrder;
   handleSort: (sortValue: string, orderValue: SortOrder) => void;
-  isLoadingPurchaseOrderDetail: boolean;
+  isLoadingRfqDetail: boolean;
 }
 
 const useStyles = createStyles(() => {
@@ -39,25 +39,25 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const TotalPurcaseDetailTable: React.FC<TotalPurchaseOrderDetailTableProps> = ({
+export const TotalRFQDetailTable: React.FC<TotalRfqDetailTableProps> = ({
   handleSort,
-  isLoadingPurchaseOrderDetail,
+  isLoadingRfqDetail,
   page,
   setPage,
   sortBy,
   sortOrder,
   totalPage,
-  totalPurchaseOrdersDetail,
+  totalRfqDetail,
 }) => {
   const { classes } = useStyles();
 
-  const tableRows = totalPurchaseOrdersDetail.map((totalPurchaseOrder, index) => {
+  const tableRows = totalRfqDetail.map((rfqDetail, index) => {
     return (
       <TableRow
-        amountTotal={totalPurchaseOrder.amountTotal}
-        partnerName={totalPurchaseOrder.partnerName}
-        purchaseOrderName={totalPurchaseOrder.purchaseOrderName}
-        state={totalPurchaseOrder.state}
+        amountTotal={rfqDetail.amountTotal}
+        partnerName={rfqDetail.partnerName}
+        purchaseOrderName={rfqDetail.purchaseOrderName}
+        state={rfqDetail.state}
         key={index}
       />
     );
@@ -141,13 +141,14 @@ export const TotalPurcaseDetailTable: React.FC<TotalPurchaseOrderDetailTableProp
           <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '500px' }}>
             {tableRows}
           </tbody>
-          {!isLoadingPurchaseOrderDetail && !totalPurchaseOrdersDetail.length && (
+
+          {!isLoadingRfqDetail && !totalRfqDetail.length && (
             <Flex align="center" justify="center" gap={10} style={{ height: '60vh' }}>
               <IconAlertCircle size={20} color="red" />
               <Text>Data Not Found</Text>
             </Flex>
           )}
-          {isLoadingPurchaseOrderDetail && (
+          {isLoadingRfqDetail && (
             <Flex direction="column" align="center" justify="center" style={{ height: '60vh' }}>
               <Loader color="blue" />
             </Flex>
@@ -155,7 +156,7 @@ export const TotalPurcaseDetailTable: React.FC<TotalPurchaseOrderDetailTableProp
         </Table>
       </Box>
 
-      {!!totalPurchaseOrdersDetail.length && (
+      {!!totalRfqDetail.length && (
         <Pagination
           mt={20}
           value={page}

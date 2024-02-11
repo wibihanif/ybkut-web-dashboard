@@ -1,11 +1,15 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
+import { useGetTotalApprove } from '../api/useGetTotalApprove';
+import { useGetTotalPurchaseOrders } from '../api/useGetTotalPurchaseOrder';
+import { useGetTotalRfq } from '../api/useGetTotalRfq';
+import { formatNumberWithCommas } from '~/utils/format';
 
 interface SummaryItems {
   title: string;
   icon: ReactNode;
-  amount: number;
+  amount: (value: string) => string;
   route: string;
 }
 interface SummarySectionProps {
@@ -16,49 +20,49 @@ const summaryItems: SummaryItems[] = [
   {
     title: 'Total Purchase Order',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/total-purchase',
   },
   {
     title: 'Total RFQ',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/total-rfq',
   },
   {
     title: 'Pending PR',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/pending-pr',
   },
   {
     title: 'Pending PO',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/pending-po',
   },
   {
     title: 'Pending Received',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/pending-received',
   },
   {
     title: 'Quantity by Category',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/quantity-category',
   },
   {
     title: 'Quantity by Amount',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/quantity-amount',
   },
   {
     title: 'To Approve',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/purchase/to-approve',
   },
 ];
@@ -66,9 +70,28 @@ const summaryItems: SummaryItems[] = [
 export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {
+  const { data: totalApprove } = useGetTotalApprove();
+  const { data: totalPurchaseOrders } = useGetTotalPurchaseOrders();
+  const { data: totalRfq } = useGetTotalRfq();
+
   return (
     <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
-      {summaryItems.map(summaryItem => {
+      {summaryItems.map((summaryItem, index) => {
+        {
+          /* still dont know where pending pr, pending po, 
+          pending received, quantity by category, quantity by amount, come from */
+        }
+        const groupedInventoryValues = [
+          totalPurchaseOrders?.sum,
+          totalRfq?.sum,
+          0,
+          0,
+          0,
+          0,
+          0,
+          totalApprove?.sum,
+        ];
+
         return (
           <Box
             bg="white"
@@ -101,7 +124,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                     {summaryItem.title}
                   </Text>
                   <Text fz="sm" color="#7D7C7C" fw="bold">
-                    {summaryItem.amount}
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
                   </Text>
                 </Box>
               </Center>
