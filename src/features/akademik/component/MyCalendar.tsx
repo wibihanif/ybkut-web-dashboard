@@ -23,7 +23,6 @@ const MyCalendar: React.FC = () => {
       end: new Date(2023, 11, 15, 14, 0),
     },
   ]);
-  console.log(setEvents);
 
   return (
     <div>

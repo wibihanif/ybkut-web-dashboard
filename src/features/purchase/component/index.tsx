@@ -40,7 +40,6 @@ export const PurchaseAnalytic: React.FC<PurchaseAnalyticProps> = ({ navigateToCe
       <Box mt={20}>
         <SummarySection navigateToCertainPage={navigateToCertainPage} />
         <ChartSection />
-        {/* <StockAndVariantSection /> */}
       </Box>
       <Box mt={20}>
         <LeadTimeSection />
