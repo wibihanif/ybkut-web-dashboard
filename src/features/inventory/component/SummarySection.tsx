@@ -50,12 +50,12 @@ const summaryItems: SummaryItems[] = [
     amount: (value: string) => value,
     route: '/inventory/pending-receipt',
   },
-  {
-    title: 'Total Per Category',
-    icon: <IconGraph />,
-    amount: (value: string) => value,
-    route: '/inventory/total-category',
-  },
+  // {
+  //   title: 'Total Per Category',
+  //   icon: <IconGraph />,
+  //   amount: (value: string) => value,
+  //   route: '/inventory/total-category',
+  // },
 ];
 
 export const SummarySection: React.FC<SummarySectionProps> = ({

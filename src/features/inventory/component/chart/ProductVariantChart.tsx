@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
-import { faker } from '@faker-js/faker';
+import { useGetProductPerCategory } from '../../api/useGetProductPerCategory';
 
 export const ProductVariantChart = () => {
+  const { data: productPerCategory } = useGetProductPerCategory();
+
   useEffect(() => {
-    const labels = ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'];
+    const labels = productPerCategory && productPerCategory?.map(product => product.type);
+    const series = productPerCategory && productPerCategory?.map(product => Number(product.count));
+
     const getChartOptions = () => {
       return {
-        series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        series,
         colors: ['#38a33a', '#3896a3', '#3845a3', '#a37538'],
         chart: {
           height: 420,
@@ -43,7 +47,7 @@ export const ProductVariantChart = () => {
             },
           },
         },
-        labels: ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'],
+        labels,
         dataLabels: {
           enabled: true,
           style: {
@@ -68,13 +72,13 @@ export const ProductVariantChart = () => {
         },
       };
     };
-    const chart = new ApexCharts(document.getElementById('line-charttt'), getChartOptions());
+    const chart = new ApexCharts(document.getElementById('pie-chart'), getChartOptions());
 
     chart.render();
     return () => {
       chart.destroy();
     };
-  }, []);
+  }, [productPerCategory]);
 
-  return <div id="line-charttt"></div>;
+  return <div id="pie-chart"></div>;
 };
