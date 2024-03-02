@@ -56,13 +56,13 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
                 {route.title !== 'LANDING PAGE' ? (
                   <Flex justify="center" align="center">
                     <Box>
-                      <Flex h="100%" justify="center" align="center">
+                      <Flex h="300px" justify="center" align="center">
                         <Box
                           sx={{
                             backgroundColor: 'rgba(160, 160, 160, 0.577)',
                             borderRadius: 8,
-                            height: '60%',
-                            width: '60%',
+                            // height: '60%',
+                            // width: '60%',
                             ':hover': {
                               cursor: 'pointer',
                               backgroundColor: 'rgba(211, 211, 211, 0.577)',
@@ -71,16 +71,16 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
                           }}
                           // key={idx}
                           p={10}>
-                          <Flex justify="center" align="center" direction="row">
+                          <Flex h="250px" justify="center" align="center" direction="row">
                             <Link
                               to={linkEntity[index - 1]}
                               style={{ textDecoration: 'none', color: 'white' }}
                               key={index}>
                               <Image
                                 sx={{ objectFit: 'cover' }}
-                                width="100%"
+                                // width="400px"
                                 // mb={20}
-                                // height="100%"
+                                // height="100px"
                                 src={saveLogo[index - 1]}
                                 alt="GSI"
                               />

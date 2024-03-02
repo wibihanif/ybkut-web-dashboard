@@ -21,7 +21,7 @@ export const ChartSection = () => {
             },
           }}>
           <Text color="#61677A" fw="bold" fz="sm" pb={20}>
-            EQUIPMENT BY BRANCH
+            EQUIPMENT BY ENTITY
           </Text>
           <EquipmentByBranchChart />
         </Paper>

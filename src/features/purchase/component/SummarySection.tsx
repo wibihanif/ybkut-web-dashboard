@@ -47,18 +47,18 @@ const summaryItems: SummaryItems[] = [
     amount: (value: string) => value,
     route: '/purchase/pending-received',
   },
-  {
-    title: 'Quantity by Category',
-    icon: <IconGraph />,
-    amount: (value: string) => value,
-    route: '/purchase/quantity-category',
-  },
-  {
-    title: 'Quantity by Amount',
-    icon: <IconGraph />,
-    amount: (value: string) => value,
-    route: '/purchase/quantity-amount',
-  },
+  // {
+  //   title: 'Quantity by Category',
+  //   icon: <IconGraph />,
+  //   amount: (value: string) => value,
+  //   route: '/purchase/quantity-category',
+  // },
+  // {
+  //   title: 'Quantity by Amount',
+  //   icon: <IconGraph />,
+  //   amount: (value: string) => value,
+  //   route: '/purchase/quantity-amount',
+  // },
   {
     title: 'To Approve',
     icon: <IconGraph />,
@@ -75,7 +75,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   const { data: totalRfq } = useGetTotalRfq();
 
   return (
-    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map((summaryItem, index) => {
         {
           /* still dont know where pending pr, pending po, 

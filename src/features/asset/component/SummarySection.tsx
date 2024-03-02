@@ -57,18 +57,18 @@ const summaryItems: SummaryItems[] = [
     amount: (value: string) => value,
     route: '/asset/total-scrap-product',
   },
-  {
-    title: 'Equipent by Category 1',
-    icon: <IconGraph />,
-    amount: (value: string) => value,
-    route: '/asset/equipment-category-1',
-  },
-  {
-    title: 'Equipment by Category 2',
-    icon: <IconGraph />,
-    amount: (value: string) => value,
-    route: '/asset/equipment-category-2',
-  },
+  // {
+  //   title: 'Equipent by Category 1',
+  //   icon: <IconGraph />,
+  //   amount: (value: string) => value,
+  //   route: '/asset/equipment-category-1',
+  // },
+  // {
+  //   title: 'Equipment by Category 2',
+  //   icon: <IconGraph />,
+  //   amount: (value: string) => value,
+  //   route: '/asset/equipment-category-2',
+  // },
 ];
 
 export const SummarySection: React.FC<SummarySectionProps> = ({
@@ -82,7 +82,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   const { data: totalScrapProduct } = useGetTotalScrapProduct();
 
   return (
-    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map((summaryItem, index) => {
         const groupedAssetsValues = [
           totalEquipment?.totalEquipment,

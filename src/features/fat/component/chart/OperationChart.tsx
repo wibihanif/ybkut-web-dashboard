@@ -9,7 +9,7 @@ export const OperationChart = () => {
     const getChartOptions = () => {
       return {
         series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        colors: ['#38a33a', '#3896a3', '#3845a3', '#a37538'],
+        colors: ['#38a33a', '#58dbec', '#3845a3', '#d3d026'],
         chart: {
           height: '100%',
           width: '100%',

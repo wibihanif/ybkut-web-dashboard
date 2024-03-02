@@ -9,9 +9,9 @@ export const AverageOrder = () => {
     // Define colors for each label
     const labelColors: { [key: string]: string } = {
       'UT DCare': '#38a33a',
-      'Poliklinik UT': '#3896a3',
+      'Poliklinik UT': '#58dbec',
       YKBUT: '#3845a3',
-      'UT School': '#a37538',
+      'UT School': '#d3d026',
     };
 
     const seriesData = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
