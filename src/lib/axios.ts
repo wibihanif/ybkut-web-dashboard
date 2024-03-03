@@ -9,13 +9,13 @@ export class AxiosManager {
 
   constructor() {
     this.axios = Axios.create({
-      baseURL: env.VITE_API_URL,
+      baseURL: 'http://104.43.65.128:8086',
     });
     this.axiosWithAuth = Axios.create({
-      baseURL: env.VITE_API_URL,
+      baseURL: 'http://104.43.65.128:8086',
     });
     this.refreshTokenAxios = Axios.create({
-      baseURL: env.VITE_API_URL,
+      baseURL: 'http://104.43.65.128:8086',
     });
 
     this.axios.interceptors.response.use(
