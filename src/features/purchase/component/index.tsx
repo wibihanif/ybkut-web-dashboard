@@ -27,10 +27,10 @@ export const PurchaseAnalytic: React.FC<PurchaseAnalyticProps> = ({ navigateToCe
 
           <Center>
             <Box>
-              <Text fz="xl" fw="bold" color="white">
+              <Text fz="xl" fw="bold" color="black">
                 Dashboard Purchase
               </Text>
-              <Text fz="sm" color="#c7c6c6">
+              <Text fz="sm" color="black">
                 This page is used to see overall data about purchase
               </Text>
             </Box>

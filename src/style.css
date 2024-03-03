@@ -1,5 +1,8 @@
-.leaflet-container {
-    height: 70vh;
-    z-index: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+.leaflet-container {
+  height: 70vh;
+  z-index: 0;
+}

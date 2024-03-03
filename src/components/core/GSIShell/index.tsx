@@ -2,7 +2,7 @@ import { AppShell, Group, Header, Image, Navbar, ScrollArea, Stack } from '@mant
 import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import ybkutLogo from '~/assets/ybkut-dashboard.jpeg';
-import ybkutBg from '~/assets/background-landing-page-copy.png';
+import ybkutBg from '~/assets/Group3.jpg';
 import { UserSection } from './UserSection';
 
 interface GSIShellProps {
@@ -24,7 +24,8 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       //   backgroundImage: '#ebf0f4',
       // }}
       sx={{
-        backgroundImage: `url(${ybkutBg})`, // Use url() to specify the background image
+        backgroundColor: 'rgba(239, 233, 206, 1)',
+        // backgroundImage: `url(${ybkutBg})`, // Use url() to specify the background image
         backgroundSize: 'cover', // Adjust the background size as needed
       }}
       navbar={
@@ -43,14 +44,19 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
         ) : undefined
       }
       header={
-        <Header height={60} px="xl" style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-          <Group h="100%" display="flex" style={{ justifyContent: 'space-between', width: '100%' }}>
-            <Link to="/">
-              <Image width="60%" src={ybkutLogo} alt="GSI" />
-            </Link>
-            <UserSection />
-          </Group>
-        </Header>
+        React.isValidElement(sidebarMenus) && sidebarMenus.props.location.pathname !== '/' ? (
+          <Header height={60} px="xl" style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+            <Group
+              h="100%"
+              display="flex"
+              style={{ justifyContent: 'space-between', width: '100%' }}>
+              <Link to="/">
+                <Image width="60%" src={ybkutLogo} alt="GSI" />
+              </Link>
+              <UserSection />
+            </Group>
+          </Header>
+        ) : undefined
       }>
       {children}
     </AppShell>
