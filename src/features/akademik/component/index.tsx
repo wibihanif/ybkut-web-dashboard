@@ -1,10 +1,10 @@
-import { Box, Center, Flex, Paper, Text, ThemeIcon } from '@mantine/core';
+import { Box, Center, Flex, Text, ThemeIcon } from '@mantine/core';
 import { IconVocabulary } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
 // import { TableSection } from './table/tableSection';
-import MyCalendar from './MyCalendar';
+// import MyCalendar from './MyCalendar';
 interface AkademikAnalyticsProps {
   navigateToCertainPage: (route: string) => void;
 }
@@ -40,11 +40,11 @@ export const AkademikAnalytics: React.FC<AkademikAnalyticsProps> = ({ navigateTo
       <Box mt={20}>
         <SummarySection navigateToCertainPage={navigateToCertainPage} />
       </Box>
-      <Box mt={20}>
+      {/* <Box mt={20}>
         <Paper>
           <MyCalendar />
         </Paper>
-      </Box>
+      </Box> */}
       <Box mt={20}>
         <ChartSection />
       </Box>

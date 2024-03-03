@@ -1,5 +1,6 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
+import { IconArrowBadgeUpFilled, IconArrowBadgeDownFilled } from '@tabler/icons-react';
 
 interface SummaryItem {
   title: string;
@@ -32,7 +33,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
       {
         title: 'Gap',
         icon: <IconGraph />,
-        amount: -4.315,
+        amount: 0,
         action: () => console.log('to detail'),
       },
     ],
@@ -162,14 +163,37 @@ export const RevenueSection = () => {
                         px={12}
                         // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
                       >
-                        <ThemeIcon
+                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
+                            {summaryItem.icon}
+                          </ThemeIcon>
+                        ) : (
+                          <ThemeIcon
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            color={
+                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
+                                ? '#cc7b7b'
+                                : '#a9cc7b'
+                            }
+                            my={15}>
+                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                              <IconArrowBadgeDownFilled />
+                            ) : (
+                              <IconArrowBadgeUpFilled />
+                            )}
+                            {/* {summaryItem.icon} */}
+                          </ThemeIcon>
+                        )}
+                        {/* <ThemeIcon
                           variant="light"
                           size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
                           {summaryItem.icon}
-                        </ThemeIcon>
+                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -177,9 +201,19 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="xs" color="#7D7C7C" fw="bold">
-                            {summaryItem.amount}
-                          </Text>
+                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {summaryItem.amount}
+                            </Text>
+                          ) : (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {parseFloat(
+                                (
+                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
+                                ).toFixed(2),
+                              )}
+                            </Text>
+                          )}
                         </Box>
                       </Center>
                     </Flex>
@@ -222,14 +256,37 @@ export const RevenueSection = () => {
                         px={12}
                         // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
                       >
-                        <ThemeIcon
+                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
+                            {summaryItem.icon}
+                          </ThemeIcon>
+                        ) : (
+                          <ThemeIcon
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            color={
+                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
+                                ? '#cc7b7b'
+                                : '#a9cc7b'
+                            }
+                            my={15}>
+                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                              <IconArrowBadgeDownFilled />
+                            ) : (
+                              <IconArrowBadgeUpFilled />
+                            )}
+                            {/* {summaryItem.icon} */}
+                          </ThemeIcon>
+                        )}
+                        {/* <ThemeIcon
                           variant="light"
                           size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
                           {summaryItem.icon}
-                        </ThemeIcon>
+                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -237,9 +294,19 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="xs" color="#7D7C7C" fw="bold">
-                            {summaryItem.amount}
-                          </Text>
+                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {summaryItem.amount}
+                            </Text>
+                          ) : (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {parseFloat(
+                                (
+                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
+                                ).toFixed(2),
+                              )}
+                            </Text>
+                          )}
                         </Box>
                       </Center>
                     </Flex>
@@ -282,14 +349,37 @@ export const RevenueSection = () => {
                         px={12}
                         // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
                       >
-                        <ThemeIcon
+                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
+                            {summaryItem.icon}
+                          </ThemeIcon>
+                        ) : (
+                          <ThemeIcon
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            color={
+                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
+                                ? '#cc7b7b'
+                                : '#a9cc7b'
+                            }
+                            my={15}>
+                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                              <IconArrowBadgeDownFilled />
+                            ) : (
+                              <IconArrowBadgeUpFilled />
+                            )}
+                            {/* {summaryItem.icon} */}
+                          </ThemeIcon>
+                        )}
+                        {/* <ThemeIcon
                           variant="light"
                           size="sm"
                           radius="xl"
                           color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
                           my={15}>
                           {summaryItem.icon}
-                        </ThemeIcon>
+                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -297,9 +387,19 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="xs" color="#7D7C7C" fw="bold">
-                            {summaryItem.amount}
-                          </Text>
+                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {summaryItem.amount}
+                            </Text>
+                          ) : (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {parseFloat(
+                                (
+                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
+                                ).toFixed(2),
+                              )}
+                            </Text>
+                          )}
                         </Box>
                       </Center>
                     </Flex>

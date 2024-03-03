@@ -235,7 +235,7 @@ export const ykbutRoutes: DashboardRoute = {
         {
           key: 'fat',
           path: 'fat',
-          title: 'Dashboard Financial',
+          title: 'Dashboard Accounting',
           withNavbar: true,
           subRoutes: [
             {

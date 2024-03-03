@@ -1,16 +1,14 @@
-import React from 'react';
+// import React from 'react';
 import { Box, Center, Flex, Paper, Text, ThemeIcon } from '@mantine/core';
 import { IconUserCheck } from '@tabler/icons-react';
 import Lottie from 'react-lottie';
 import animationData from './maintenance.json'; // Import your downloaded animation JSON file
 
-interface PoliklinikAnalyticProps {
-  navigateToCertainPage: (route: string) => void;
-}
+// interface PoliklinikAnalyticProps {
+//   navigateToCertainPage: (route: string) => void;
+// }
 
-export const PoliklinikAnalytic: React.FC<PoliklinikAnalyticProps> = ({
-  navigateToCertainPage,
-}) => {
+export const PoliklinikAnalytic = () => {
   // Lottie options
   const defaultOptions = {
     loop: true,
