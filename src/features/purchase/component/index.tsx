@@ -41,9 +41,9 @@ export const PurchaseAnalytic: React.FC<PurchaseAnalyticProps> = ({ navigateToCe
         <SummarySection navigateToCertainPage={navigateToCertainPage} />
         <ChartSection />
       </Box>
-      <Box mt={20}>
+      {/* <Box mt={20}>
         <LeadTimeSection />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

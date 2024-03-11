@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
-import { faker } from '@faker-js/faker';
+import { useGetAverageOrderValue } from '../../api/useGetAverageOrderValue';
 
 export const AverageOrder = () => {
+  const { data: averageOrderValue } = useGetAverageOrderValue();
+
   useEffect(() => {
-    const labels = ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'];
+    // const labels = ['UT DCare', 'Poliklinik UT', 'YKBUT', 'UT School'];
+    const labels = averageOrderValue?.map(order => new Date(order.tahun).getFullYear());
 
     // Define colors for each label
     const labelColors: { [key: string]: string } = {
@@ -14,7 +17,7 @@ export const AverageOrder = () => {
       'UT School': '#d3d026',
     };
 
-    const seriesData = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
+    const seriesData = averageOrderValue?.map(order => order.avg);
 
     const options = {
       chart: {
@@ -41,10 +44,10 @@ export const AverageOrder = () => {
         {
           name: 'sales',
           data: seriesData,
-          color: ({ value }: { value: number }) => {
-            const label = labels[seriesData.indexOf(value)];
-            return labelColors[label];
-          },
+          // color: ({ value }: { value: number }) => {
+          //   const label = labels[seriesData.indexOf(value)];
+          //   return labelColors[label];
+          // },
         },
       ],
       xaxis: {
@@ -58,7 +61,7 @@ export const AverageOrder = () => {
     return () => {
       chart.destroy();
     };
-  }, []);
+  }, [averageOrderValue]);
 
   return <div id="line-chartt"></div>;
 };

@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
+import { useGetNominalOrderAsset } from '../../api/useGetNominalOrderAsset';
 
 export const NominalPurchase = () => {
+  const { data: nominalOrderAsset } = useGetNominalOrderAsset();
+  console.log(nominalOrderAsset);
+
+  const labels = nominalOrderAsset?.map(order => order.name);
+  const values = nominalOrderAsset?.map(order => order.count);
+
   useEffect(() => {
-    const labels = ['Laptop', 'Tablet E-Learning', 'Projector', 'Simulator Electric', 'Computer'];
     const options = {
       xaxis: {
         show: true,
@@ -36,7 +42,7 @@ export const NominalPurchase = () => {
       series: [
         {
           name: 'Unit',
-          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+          data: values,
           color: '#3845a3',
         },
       ],

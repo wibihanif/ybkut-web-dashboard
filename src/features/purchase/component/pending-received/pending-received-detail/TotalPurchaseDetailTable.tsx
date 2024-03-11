@@ -1,9 +1,32 @@
-import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
-import { useState } from 'react';
-import { IconSortDescendingLetters } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Loader,
+  Pagination,
+  Table,
+  Text,
+  createStyles,
+} from '@mantine/core';
+import {
+  IconAlertCircle,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
+} from '@tabler/icons-react';
 import { TableRow } from './TableRow';
+import { TotalPendingReceiveDetail } from '~/features/purchase/types';
+import { SortOrder } from '~/types/pagination';
+
+interface TotalPendingReceiveTableProps {
+  totalPendingReceiveDetails: TotalPendingReceiveDetail[];
+  page: number;
+  totalPage: number;
+  setPage: (value: number) => void;
+  sortBy: string;
+  sortOrder: SortOrder;
+  handleSort: (sortValue: string, orderValue: SortOrder) => void;
+  isLoadingTotalPendingReceiveDetails: boolean;
+}
 
 const useStyles = createStyles(() => {
   return {
@@ -16,69 +39,127 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const PendingReceivedDetailTable: React.FC = () => {
+export const PendingReceivedDetailTable: React.FC<TotalPendingReceiveTableProps> = ({
+  handleSort,
+  isLoadingTotalPendingReceiveDetails,
+  page,
+  setPage,
+  sortBy,
+  sortOrder,
+  totalPage,
+  totalPendingReceiveDetails,
+}) => {
   const { classes } = useStyles();
 
-  const [page, setPage] = useState<number>(1);
-
-  const tableRows = [];
-
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
+  const tableRows = totalPendingReceiveDetails.map((totalPendingReceiveDetail, index) => {
+    return (
       <TableRow
-        productName={faker.commerce.productName()}
-        defaultCode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        barcode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        key={i}
-      />,
+        name={totalPendingReceiveDetail.name}
+        origin={totalPendingReceiveDetail.origin}
+        state={totalPendingReceiveDetail.state}
+        key={index}
+      />
     );
-  }
+  });
 
   return (
     <Flex direction="column">
-      <Box style={{ maxHeight: '500px', overflowY: 'auto', borderRadius: 8 }}>
-        <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
-            <tr>
-              <th style={{ color: 'white' }}>
+      <Box style={{ borderRadius: 8 }}>
+        <Table
+          verticalSpacing="md"
+          highlightOnHover
+          striped
+          style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+            <tr style={{ display: 'table', width: '100%' }}>
+              <th style={{ color: 'white', width: '33%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Product Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  <Text className={classes.tableHead}>Name</Text>
+                  {sortBy === 'name' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('name', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
+              <th style={{ color: 'white', width: '33%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Default Code</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  <Text className={classes.tableHead}>Origin</Text>
+                  {sortBy === 'origin' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('origin', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('origin', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '200px' }}>
-                <Text className={classes.tableHead}>Barcode</Text>
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>State</Text>
+                  {sortBy === 'state' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
+                </Flex>
               </th>
             </tr>
           </thead>
           <tbody>{tableRows}</tbody>
+          {!isLoadingTotalPendingReceiveDetails && !totalPendingReceiveDetails.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '60vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
+          {isLoadingTotalPendingReceiveDetails && (
+            <Flex direction="column" align="center" justify="center" style={{ height: '60vh' }}>
+              <Loader color="blue" />
+            </Flex>
+          )}
         </Table>
       </Box>
-      <Pagination
-        mt={20}
-        value={page}
-        onChange={setPage}
-        total={15}
-        color="indigo"
-        variant="filled"
-        sx={{ alignSelf: 'end' }}
-      />
+
+      {!!totalPendingReceiveDetails.length && (
+        <Pagination
+          mt={20}
+          value={page}
+          onChange={setPage}
+          total={totalPage}
+          color="indigo"
+          variant="filled"
+          sx={{ alignSelf: 'end' }}
+        />
+      )}
     </Flex>
   );
 };

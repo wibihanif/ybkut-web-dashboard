@@ -1,11 +1,44 @@
 import { Box, Input, Paper, ThemeIcon } from '@mantine/core';
 import { IconArrowLeft, IconSearch } from '@tabler/icons-react';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { HeaderPage } from '~/components/core/HeaderPage';
 import { PendingReceivedDetailTable } from './TotalPurchaseDetailTable';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { SortOrder } from '~/types/pagination';
+import { useDebouncedState } from '@mantine/hooks';
+import { useGetTotalPendingReceiveDetail } from '~/features/purchase/api/useGetTotalPendingReceiveDetail';
+
+const LIMIT_PER_PAGE = 10;
 
 export const PendingReceivedDetail: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const initialSearch = searchParams.get('search') || '';
+  const initialPage = parseInt(searchParams.get('page') || '1');
+  const initialSortBy = searchParams.get('sortBy') || 'name';
+  const initialSortOrder = searchParams.get('sortOrder') || SortOrder.ASC;
+
+  const [page, setPage] = useState<number>(initialPage);
+  const [searchValue, setSearchValue] = useDebouncedState(initialSearch, 300);
+
+  const [sortBy, setSortBy] = useState(initialSortBy);
+  const [sortOrder, setSortOrder] = useState(initialSortOrder as SortOrder);
+
+  const { data: totalPendingReceiveDetails, isLoading: isLoadingTotalPendingReceiveDetails } =
+    useGetTotalPendingReceiveDetail({
+      page,
+      search: searchValue ? searchValue : undefined,
+      sortBy,
+      sortOrder,
+    });
+
+  const totalPage = Math.ceil((totalPendingReceiveDetails?.meta?.total as number) / LIMIT_PER_PAGE);
+
+  const handleSort = useCallback((sortValue: string, orderValue: SortOrder) => {
+    setSortBy(sortValue);
+    setSortOrder(orderValue);
+  }, []);
+
   return (
     <Box>
       <HeaderPage
@@ -43,7 +76,16 @@ export const PendingReceivedDetail: React.FC = () => {
           transition: 'transform 0.3s ease-in-out',
           height: '100%',
         }}>
-        <PendingReceivedDetailTable />
+        <PendingReceivedDetailTable
+          handleSort={handleSort}
+          isLoadingTotalPendingReceiveDetails={isLoadingTotalPendingReceiveDetails}
+          page={page}
+          setPage={setPage}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          totalPage={totalPage}
+          totalPendingReceiveDetails={totalPendingReceiveDetails?.data || []}
+        />
       </Paper>
     </Box>
   );

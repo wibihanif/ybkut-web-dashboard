@@ -1,9 +1,32 @@
-import { ActionIcon, Box, Flex, Pagination, Table, Text, createStyles } from '@mantine/core';
-import { faker } from '@faker-js/faker';
-import { totalProduct } from '~/constant/totalProduct';
-import { useState } from 'react';
-import { IconSortDescendingLetters } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Loader,
+  Pagination,
+  Table,
+  Text,
+  createStyles,
+} from '@mantine/core';
+import {
+  IconAlertCircle,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
+} from '@tabler/icons-react';
 import { TableRow } from './TableRow';
+import { TotalPendingPODetail } from '~/features/purchase/types';
+import { SortOrder } from '~/types/pagination';
+
+interface TotalProductDetailTableProps {
+  totalPendingPODetails: TotalPendingPODetail[];
+  page: number;
+  totalPage: number;
+  setPage: (value: number) => void;
+  sortBy: string;
+  sortOrder: SortOrder;
+  handleSort: (sortValue: string, orderValue: SortOrder) => void;
+  isLoadingTotalPendingPODetail: boolean;
+}
 
 const useStyles = createStyles(() => {
   return {
@@ -16,69 +39,147 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const PendingPODetailTable: React.FC = () => {
+export const PendingPODetailTable: React.FC<TotalProductDetailTableProps> = ({
+  handleSort,
+  isLoadingTotalPendingPODetail,
+  page,
+  setPage,
+  sortBy,
+  sortOrder,
+  totalPage,
+  totalPendingPODetails,
+}) => {
   const { classes } = useStyles();
 
-  const [page, setPage] = useState<number>(1);
-
-  const tableRows = [];
-
-  for (let i = 0; i < totalProduct; i++) {
-    tableRows.push(
+  const tableRows = totalPendingPODetails.map((totalPendingPODetail, index) => {
+    return (
       <TableRow
-        productName={faker.commerce.productName()}
-        defaultCode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        barcode={faker.string.hexadecimal({
-          casing: 'lower',
-          length: 5,
-        })}
-        key={i}
-      />,
+        amountTotal={totalPendingPODetail.amountTotal}
+        partnerName={totalPendingPODetail.partnerName}
+        purchaseOrderName={totalPendingPODetail.purchaseOrderName}
+        state={totalPendingPODetail.state}
+      />
     );
-  }
+  });
 
   return (
     <Flex direction="column">
-      <Box style={{ maxHeight: '500px', overflowY: 'auto', borderRadius: 8 }}>
-        <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
-            <tr>
-              <th style={{ color: 'white' }}>
+      <Box style={{ borderRadius: 8 }}>
+        <Table
+          verticalSpacing="md"
+          highlightOnHover
+          striped
+          style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
+          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+            <tr style={{ display: 'table', width: '100%' }}>
+              <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Product Name</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  <Text className={classes.tableHead}>Name</Text>
+                  {sortBy === 'purchaseOrderName' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('purchaseOrderName', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('purchaseOrderName', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
+              <th style={{ color: 'white', width: '20%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Default Code</Text>
-                  <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
-                  </ActionIcon>
+                  <Text className={classes.tableHead}>Amount</Text>
+                  {sortBy === 'amountTotal' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('amountTotal', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('amountTotal', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '200px' }}>
-                <Text className={classes.tableHead}>Barcode</Text>
+              <th style={{ color: 'white', width: '20%' }}>
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>State</Text>
+                  {sortBy === 'state' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('state', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
+                </Flex>
+              </th>
+              <th style={{ color: 'white', width: '20%' }}>
+                <Flex gap={8}>
+                  <Text className={classes.tableHead}>Partner Name</Text>
+                  {sortBy === 'partnerName' && sortOrder === SortOrder.DESC ? (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('partnerName', SortOrder.ASC)}>
+                      <IconSortDescendingLetters color="white" />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon
+                      size="sm"
+                      className={classes.tableHeadIcon}
+                      onClick={() => handleSort('partnerName', SortOrder.DESC)}>
+                      <IconSortAscendingLetters color="white" />
+                    </ActionIcon>
+                  )}
+                </Flex>
               </th>
             </tr>
           </thead>
           <tbody>{tableRows}</tbody>
+          {!isLoadingTotalPendingPODetail && !totalPendingPODetails.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '60vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
+          {isLoadingTotalPendingPODetail && (
+            <Flex direction="column" align="center" justify="center" style={{ height: '60vh' }}>
+              <Loader color="blue" />
+            </Flex>
+          )}
         </Table>
       </Box>
-      <Pagination
-        mt={20}
-        value={page}
-        onChange={setPage}
-        total={15}
-        color="indigo"
-        variant="filled"
-        sx={{ alignSelf: 'end' }}
-      />
+
+      {!!totalPendingPODetails.length && (
+        <Pagination
+          mt={20}
+          value={page}
+          onChange={setPage}
+          total={totalPage}
+          color="indigo"
+          variant="filled"
+          sx={{ alignSelf: 'end' }}
+        />
+      )}
     </Flex>
   );
 };

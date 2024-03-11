@@ -5,6 +5,9 @@ import { useGetTotalApprove } from '../api/useGetTotalApprove';
 import { useGetTotalPurchaseOrders } from '../api/useGetTotalPurchaseOrder';
 import { useGetTotalRfq } from '../api/useGetTotalRfq';
 import { formatNumberWithCommas } from '~/utils/format';
+import { useGetTotalPendingPO } from '../api/useGetTotalPendingPO';
+import { useGetTotalPendingPR } from '../api/useGetTotalPendingPR';
+import { useGetTotalPendingReceive } from '../api/useGetTotalPendingReceive';
 
 interface SummaryItems {
   title: string;
@@ -73,22 +76,19 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   const { data: totalApprove } = useGetTotalApprove();
   const { data: totalPurchaseOrders } = useGetTotalPurchaseOrders();
   const { data: totalRfq } = useGetTotalRfq();
+  const { data: totalPendingPR } = useGetTotalPendingPR();
+  const { data: totalPendingPO } = useGetTotalPendingPO();
+  const { data: totalPendingReceive } = useGetTotalPendingReceive();
 
   return (
     <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItems.map((summaryItem, index) => {
-        {
-          /* still dont know where pending pr, pending po, 
-          pending received, quantity by category, quantity by amount, come from */
-        }
         const groupedInventoryValues = [
           totalPurchaseOrders?.sum,
           totalRfq?.sum,
-          0,
-          0,
-          0,
-          0,
-          0,
+          totalPendingPR?.count,
+          totalPendingPO?.count,
+          totalPendingReceive?.count,
           totalApprove?.sum,
         ];
 

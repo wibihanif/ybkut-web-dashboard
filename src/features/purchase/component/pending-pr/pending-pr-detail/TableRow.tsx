@@ -2,9 +2,10 @@ import { Box, createStyles } from '@mantine/core';
 import Barcode from 'react-barcode';
 
 interface TableRowProps {
-  productName: string;
-  defaultCode: string;
-  barcode: string;
+  name: string;
+  state: string;
+  purchaseCount: string;
+  estimatedCost: string;
 }
 
 const useStyles = createStyles(() => ({
@@ -15,16 +16,20 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const TableRow: React.FC<TableRowProps> = ({ productName, barcode, defaultCode }) => {
+export const TableRow: React.FC<TableRowProps> = ({
+  estimatedCost,
+  name,
+  purchaseCount,
+  state,
+}) => {
   const { classes } = useStyles();
 
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td>{productName}</td>
-      <td>{defaultCode}</td>
-      <td>
-        <Barcode value={barcode} height={20} width={1} fontSize={10} />
-      </td>
+      <td style={{ width: '276px' }}>{name}</td>
+      <td style={{ width: '276px' }}>{estimatedCost}</td>
+      <td style={{ width: '276px' }}>{purchaseCount}</td>
+      <td style={{ width: '276px' }}>{state}</td>
     </Box>
   );
 };
