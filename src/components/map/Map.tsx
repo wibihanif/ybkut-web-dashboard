@@ -1,25 +1,14 @@
 import { Circle, FeatureGroup, MapContainer, Popup, TileLayer } from 'react-leaflet';
 import '../../style.css';
 import 'leaflet/dist/leaflet.css';
-import { schoolData } from '../../constant/school';
+import { SchoolLocation } from '~/features/nusantara/types';
 
-interface SchoolLocation {
-  area: string;
-  lat: string;
-  long: string;
-  full: string;
-  available_part: string;
-  available: string;
-  no_ar: string;
-  ar: string;
-  no_transaction: string;
+interface MapsProps {
+  schoolLocations: SchoolLocation[];
 }
 
-export const Maps = () => {
+export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
   const center: any = ['-0.9070', '117.8231'];
-
-  const schoolLocations: SchoolLocation[] | undefined =
-    schoolData?.data?.[0]?.level0?.[0]?.perform?.[0]?.nusantara?.[0].mapping;
 
   return (
     <MapContainer

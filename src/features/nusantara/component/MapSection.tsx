@@ -1,7 +1,10 @@
 import { Box, Paper, SimpleGrid, Text } from '@mantine/core';
 import { Maps } from '../../../components/map/Map';
+import { useGetSchoolLocations } from '../api/useGetSchoolLocations';
 
 export const MapSection = () => {
+  const { data: schoolLocations } = useGetSchoolLocations();
+
   return (
     <SimpleGrid cols={1}>
       <Paper
@@ -22,7 +25,7 @@ export const MapSection = () => {
           MAPS
         </Text>
         <Box>
-          <Maps />
+          <Maps schoolLocations={schoolLocations} />
         </Box>
       </Paper>
     </SimpleGrid>

@@ -1,6 +1,10 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
+import { useGetSchoolGraduates } from '../api/useGetSchoolGraduates';
+import { useGetSchoolStudents } from '../api/useGetSchoolStudents';
+import { useGetSchoolSales } from '../api/useGetSchoolSales';
+import { toRupiah } from '~/utils/format';
 
 interface SummaryItems {
   title: string;
@@ -9,85 +13,42 @@ interface SummaryItems {
   action: () => void;
 }
 
-const summaryItemsFirstRow: SummaryItems[] = [
-  {
-    title: 'Number of Graduates',
-    icon: <IconGraph />,
-    amount: 18,
-    action: () => console.log('to detail'),
-  },
-  {
-    title: 'Number of Students and Participants',
-    icon: <IconGraph />,
-    amount: '18 M',
-    action: () => console.log('to detail'),
-  },
-  {
-    title: 'Sales Performance',
-    icon: <IconGraph />,
-    amount: '18 M / 18 M',
-    action: () => console.log('to detail'),
-  },
-  //   {
-  //     title: 'Jumlah Peserta',
-  //     icon: <IconGraph />,
-  //     amount: 18,
-  //     action: () => console.log('to detail'),
-  //   },
-  //   {
-  //     title: 'Jumlah Customer',
-  //     icon: <IconGraph />,
-  //     amount: 18,
-  //     action: () => console.log('to detail'),
-  //   },
-  //   {
-  //     title: 'Cancel Project',
-  //     icon: <IconGraph />,
-  //     amount: 18,
-  //     action: () => console.log('to detail'),
-  //   },
-  //   {
-  //     title: 'Ongoing Project',
-  //     icon: <IconGraph />,
-  //     amount: 18,
-  //     action: () => console.log('to detail'),
-  //   },
-  //   {
-  //     title: 'Pending Project',
-  //     icon: <IconGraph />,
-  //     amount: 18,
-  //     action: () => console.log('to detail'),
-  //   },
-];
-
-// const summaryItemsSecondRow: SummaryItems[] = [
-//   {
-//     title: 'Jumlah Customer',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-//   {
-//     title: 'Cancel Project',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-//   {
-//     title: 'Ongoing Project',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-//   {
-//     title: 'Pending Project',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-// ];
-
 export const SummarySection = () => {
+  const { data: graduates } = useGetSchoolGraduates();
+  const { data: students } = useGetSchoolStudents();
+  const { data: sales } = useGetSchoolSales();
+
+  let totalAmount = 0;
+
+  if (sales) {
+    sales[0].top_customer?.forEach((cust: any) => {
+      if (cust.status == 'APPROVAL') {
+        totalAmount += Number(cust.amount);
+      }
+    });
+  }
+
+  const summaryItemsFirstRow: SummaryItems[] = [
+    {
+      title: 'Number of Graduates',
+      icon: <IconGraph />,
+      amount: Number(graduates ? graduates[0].total_graduate : 0),
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'Number of Students and Participants',
+      icon: <IconGraph />,
+      amount: Number(students ? students[0].total_student : 0),
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'Sales Performance',
+      icon: <IconGraph />,
+      amount: sales ? `${toRupiah(totalAmount)} JT` : 0,
+      action: () => console.log('to detail'),
+    },
+  ];
+
   return (
     <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map(summaryItem => {

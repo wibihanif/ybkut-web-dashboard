@@ -40,9 +40,6 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
 
   const renderAccordion = () => {
     return routes.map((route, index) => {
-      // console.log(route, 'ROUTE');
-      // console.log(parsedNowLocation, 'LOC');
-      // console.log(parsedNowLocation, 'LOC');
       return (
         <>
           {route.title !== 'LANDING PAGE' &&
@@ -82,8 +79,6 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
               </Text> */}
               {route.title === 'YKBUT'
                 ? route.subTitleItems.map((subTitle, index) => {
-                    console.log(route, 'INIROUTE');
-                    console.log(routes, 'ROUTE');
                     return (
                       <Box key={index}>
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
@@ -142,13 +137,8 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
           ) : route.title !== 'LANDING PAGE' &&
             (parsedNowLocation === 'daycare' || parsedNowLocation === 'daycare/revenue-list') ? (
             <Box key={index}>
-              {/* <Text color={route.color} fz="xs" fw="bold" pb={10}>
-                {route.title}
-              </Text> */}
               {route.title === 'UT DAYCARE'
                 ? route.subTitleItems.map((subTitle, index) => {
-                    console.log(route, 'INIROUTE');
-                    console.log(routes, 'ROUTE');
                     return (
                       <Box key={index}>
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
@@ -230,8 +220,6 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
               </Text> */}
               {route.title === 'UT-SCHOOL'
                 ? route.subTitleItems.map((subTitle, index) => {
-                    console.log(route, 'INIROUTE');
-                    console.log(routes, 'ROUTE');
                     return (
                       <Box key={index}>
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
@@ -295,8 +283,6 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
             </Text> */}
               {route.title === 'Poliklinik'
                 ? route.subTitleItems.map((subTitle, index) => {
-                    console.log(route, 'INIROUTE');
-                    console.log(routes, 'ROUTE');
                     return (
                       <Box key={index}>
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>

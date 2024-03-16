@@ -32,8 +32,6 @@ export const PendingPRDetail: React.FC = () => {
       sortOrder,
     });
 
-  console.log(totalPendingPrDetail);
-
   const totalPage = Math.ceil((totalPendingPrDetail?.meta?.total as number) / LIMIT_PER_PAGE);
 
   const handleSort = useCallback((sortValue: string, orderValue: SortOrder) => {
