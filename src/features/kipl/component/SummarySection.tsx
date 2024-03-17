@@ -69,33 +69,6 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
 ];
 
-// const summaryItemsSecondRow: SummaryItems[] = [
-//   {
-//     title: 'Jumlah Customer',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-//   {
-//     title: 'Cancel Project',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-//   {
-//     title: 'Ongoing Project',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-//   {
-//     title: 'Pending Project',
-//     icon: <IconGraph />,
-//     amount: 18,
-//     action: () => console.log('to detail'),
-//   },
-// ];
-
 export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {

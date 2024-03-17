@@ -5,7 +5,6 @@ import { useGetNominalOrderAsset } from '../../api/useGetNominalOrderAsset';
 
 export const NominalPurchase = () => {
   const { data: nominalOrderAsset } = useGetNominalOrderAsset();
-  console.log(nominalOrderAsset);
 
   const labels = nominalOrderAsset?.map(order => order.name);
   const values = nominalOrderAsset?.map(order => order.count);
