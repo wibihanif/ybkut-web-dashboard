@@ -8,6 +8,15 @@ export class AxiosManager {
   private readonly refreshTokenAxios: AxiosInstance;
 
   constructor() {
+    // this.axios = Axios.create({
+    //   baseURL: env.VITE_API_URL,
+    // });
+    // this.axiosWithAuth = Axios.create({
+    //   baseURL: env.VITE_API_URL,
+    // });
+    // this.refreshTokenAxios = Axios.create({
+    //   baseURL: env.VITE_API_URL,
+    // });
     this.axios = Axios.create({
       baseURL: 'http://104.43.65.128:8086',
     });
