@@ -1,6 +1,8 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
+import { useGetAcademic } from '../api/useGetAcademic';
+import { formatNumberWithCommas } from '~/utils/format';
 
 // interface SummaryItems {
 //   title: string;
@@ -11,7 +13,7 @@ import { ReactNode } from 'react';
 interface SummaryItems {
   title: string;
   icon: ReactNode;
-  amount: number;
+  amount: (value: string) => string;
   route: string;
 }
 
@@ -21,55 +23,68 @@ interface SummarySectionProps {
 
 const summaryItems: SummaryItems[] = [
   {
-    title: 'Semua Lulusan',
-    icon: <IconGraph />,
-    amount: 18,
-    route: '/akademik/semua-lulusan',
-  },
-  {
     title: 'Lulusan Reguler',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/akademik/lulusan-regular',
   },
   {
     title: 'Lulusan Non-Reguler',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/akademik/lulusan-non-regular',
+  },
+  {
+    title: 'Semua Lulusan',
+    icon: <IconGraph />,
+    amount: (value: string) => value,
+    route: '/akademik/semua-lulusan',
   },
   {
     title: 'Lulusan CSR',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/akademik/lulusan-csr',
-  },
-  {
-    title: 'Siswa reguler yang D.O',
-    icon: <IconGraph />,
-    amount: 18,
-    route: '/akademik/siswa-regular-do',
   },
   {
     title: 'Jumlah Siswa',
     icon: <IconGraph />,
-    amount: 18,
+    amount: (value: string) => value,
     route: '/akademik/jumlah-siswa',
   },
   {
-    title: 'Jumlah Alumni',
+    title: 'Siswa reguler yang D.O',
     icon: <IconGraph />,
-    amount: 18,
-    route: '/akademik/jumlah-alumni',
+    amount: (value: string) => value,
+    route: '/akademik/siswa-regular-do',
   },
+  // {
+  //   title: 'Jumlah Alumni',
+  //   icon: <IconGraph />,
+  //   amount: (value: string) => value,
+  //   route: '/akademik/jumlah-alumni',
+  // },
 ];
 
 export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {
+  const { data: academic } = useGetAcademic();
+  if (!academic || !academic[0] || !academic[0]?.output || !academic[0]?.execution) {
+    return null; // Return null or loading indicator if academic data is not available yet
+  }
   return (
-    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
-      {summaryItems.map(summaryItem => {
+    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+      {summaryItems.map((summaryItem, index) => {
+        const groupedInventoryValues = [
+          academic[0]?.output[0]?.jumlah_alumni[0]?.reguler,
+          academic[0]?.output[0]?.jumlah_alumni[0]?.non_reguler,
+          academic[0]?.output[0]?.jumlah_alumni[0]?.total,
+          academic[0]?.output[0]?.jumlah_alumni[0]?.csr,
+          academic[0]?.execution[0]?.siswa[0]?.total,
+        ];
+        // const groupedInventoryValues = [academic[0]?.execution[0]?.siswa[0]?.non_reguler];
+        // const groupedInventoryValues = [academic[0]?.execution[0]?.siswa[0]?.total];
         return (
           <Box
             bg="white"
@@ -102,7 +117,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                     {summaryItem.title}
                   </Text>
                   <Text fz="sm" color="#7D7C7C" fw="bold">
-                    {summaryItem.amount}
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
                   </Text>
                 </Box>
               </Center>

@@ -3,6 +3,7 @@ import { IconVocabulary } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
 import { ChartSection } from './chart/ChartSection';
+import { useGetAcademic } from '../api/useGetAcademic';
 // import { TableSection } from './table/tableSection';
 // import MyCalendar from './MyCalendar';
 interface AkademikAnalyticsProps {
@@ -10,6 +11,9 @@ interface AkademikAnalyticsProps {
 }
 
 export const AkademikAnalytics: React.FC<AkademikAnalyticsProps> = ({ navigateToCertainPage }) => {
+  // console.log(useGetAcademic());
+  const { data: academic } = useGetAcademic();
+  console.log(academic, 'ACADEMIC');
   return (
     <Box>
       <Box
