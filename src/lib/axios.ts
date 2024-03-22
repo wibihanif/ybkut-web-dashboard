@@ -18,13 +18,13 @@ export class AxiosManager {
     //   baseURL: env.VITE_API_URL,
     // });
     this.axios = Axios.create({
-      baseURL: 'http://104.43.65.128:8086',
+      baseURL: 'http://137.116.147.25:8086',
     });
     this.axiosWithAuth = Axios.create({
-      baseURL: 'http://104.43.65.128:8086',
+      baseURL: 'http://137.116.147.25:8086',
     });
     this.refreshTokenAxios = Axios.create({
-      baseURL: 'http://104.43.65.128:8086',
+      baseURL: 'http://137.116.147.25:8086',
     });
 
     this.axios.interceptors.response.use(
