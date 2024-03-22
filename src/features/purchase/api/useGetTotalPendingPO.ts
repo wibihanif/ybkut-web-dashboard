@@ -13,7 +13,7 @@ export const useGetTotalPendingPO = (
   return useQuery(
     ['total-pending-po'],
     async () => {
-      const response = await api<TotalPendingPO>(axios.get('purchase/total-pending-po'));
+      const response = await api<TotalPendingPO>(axios.get('purchase/total-orders'));
 
       return response;
     },

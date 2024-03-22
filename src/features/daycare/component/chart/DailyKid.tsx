@@ -1,82 +1,94 @@
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
-import { faker } from '@faker-js/faker';
+import axios from 'axios';
+
+interface DailyReport {
+  label: string;
+  member: number;
+  incidental: number;
+}
 
 export const DailyKid = () => {
   useEffect(() => {
-    const labels = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Des',
-    ];
-    const options = {
-      chart: {
-        type: 'bar',
-        toolbar: {
-          show: false,
-        },
-        animations: {
-          enabled: true,
-          easing: 'linear',
-          dynamicAnimation: {
-            speed: 1000,
+    const fetchData = async () => {
+      try {
+        // const data = [
+        //   {
+        //     label: 'January',
+        //     member: 239,
+        //     incidental: 4,
+        //   },
+        //   {
+        //     label: 'February',
+        //     member: 205,
+        //     incidental: 2,
+        //   },
+        //   {
+        //     label: 'March',
+        //     member: 207,
+        //     incidental: 4,
+        //   },
+        // ];
+        const response = await axios.get<DailyReport[]>(
+          'https://0aee-2001-448a-2002-bbb3-9198-22b1-5f06-3a55.ngrok-free.app/api/report-daily-kids',
+        );
+        const data = response.data;
+
+        const labels = data.map(item => item.label);
+        const memberData = data.map(item => item.member);
+        const incidentalData = data.map(item => item.incidental);
+
+        const options = {
+          chart: {
+            type: 'bar',
+            toolbar: {
+              show: false,
+            },
+            animations: {
+              enabled: true,
+              easing: 'linear',
+              dynamicAnimation: {
+                speed: 1000,
+              },
+            },
+            dropShadow: {
+              enabled: true,
+              opacity: 0.3,
+              blur: 5,
+              left: -7,
+              top: 22,
+            },
           },
-        },
-        dropShadow: {
-          enabled: true,
-          opacity: 0.3,
-          blur: 5,
-          left: -7,
-          top: 22,
-        },
-      },
-      series: [
-        {
-          name: 'Member',
-          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        },
-        {
-          name: 'Insidental',
-          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        },
-      ],
-      xaxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Des',
-        ],
-      },
-      dataLabels: {
-        enabled: false, // Set this to false to hide the values inside the bars
-      },
-      colors: ['#1a9f23', '#3e1a9f'], // Insert the color here
+          series: [
+            {
+              name: 'Member',
+              data: memberData,
+            },
+            {
+              name: 'Incidental',
+              data: incidentalData,
+            },
+          ],
+          xaxis: {
+            categories: labels,
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          colors: ['#1a9f23', '#3e1a9f'],
+        };
+
+        const chart = new ApexCharts(document.getElementById('line-chartt'), options);
+        chart.render();
+        return () => {
+          chart.destroy();
+        };
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
-    const chart = new ApexCharts(document.getElementById('line-chartt'), options);
-
-    chart.render();
-    return () => {
-      chart.destroy();
-    };
+    fetchData();
   }, []);
 
   return <div id="line-chartt"></div>;
