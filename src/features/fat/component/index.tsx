@@ -8,6 +8,11 @@ import { Profit } from './Profit';
 import { Calendar } from '@mantine/dates';
 import { TableService } from './TableService';
 import { OperationChart } from './chart/OperationChart';
+import { AccountReceivableSection } from './AccountReceivableSection';
+import { AccountTable } from './table/AccountTable';
+import { CorporateSocial } from './CorporateSocial';
+import { CorporateTable } from './CorporateTable';
+import { CorporateTableTable } from './table/CorporateTableTable';
 // import MyCalendar from '~/features/akademik/component/MyCalendar';
 // import { AccountReceivableSection } from './AccountReceivableSection';
 // import { AccountPayableChart } from './chart/AccountPayable';
@@ -122,6 +127,18 @@ export const FatAnalytic: React.FC = () => {
       </Grid> */}
       <Box mt={20}>
         <TableService />
+      </Box>
+      <Box mt={20}>
+        <AccountTable />
+      </Box>
+      <Box mt={20}>
+        <CorporateSocial />
+      </Box>
+      <Box mt={20}>
+        <CorporateTable />
+      </Box>
+      <Box mt={20}>
+        <CorporateTableTable />
       </Box>
     </Box>
   );
