@@ -1,11 +1,14 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
 import { IconGraph } from '@tabler/icons-react';
 import { IconArrowBadgeUpFilled, IconArrowBadgeDownFilled } from '@tabler/icons-react';
+import { useGetRevenueActual } from '../api/useGetRevenueActual';
+import { startOfYear, endOfYear, format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
+import { useGetRevenuePlan } from '../api/useGetRevenuePlan';
 
 interface SummaryItem {
   title: string;
   icon: React.ReactNode;
-  amount: number | string;
+  amount: number;
   action: () => void;
 }
 
@@ -89,27 +92,110 @@ const summaryItemsThirdRow: SummaryItems[] = [
     ],
   },
 ];
-const summaryItemsFourthRow: SummaryItems[] = [
-  {
-    header: 'Year To Year',
-    result: [
-      {
-        title: 'Gap',
-        icon: <IconGraph />,
-        amount: 18,
-        action: () => console.log('to detail'),
-      },
-      {
-        title: 'Growth',
-        icon: <IconGraph />,
-        amount: '90%',
-        action: () => console.log('to detail'),
-      },
-    ],
-  },
-];
+
+// const summaryItemsFourthRow: SummaryItems[] = [
+//   {
+//     header: 'Year To Year',
+//     result: [
+//       {
+//         title: 'Gap',
+//         icon: <IconGraph />,
+//         amount: 18,
+//         action: () => console.log('to detail'),
+//       },
+//       {
+//         title: 'Growth',
+//         icon: <IconGraph />,
+//         amount: '90%',
+//         action: () => console.log('to detail'),
+//       },
+//     ],
+//   },
+// ];
 
 export const RevenueSection = () => {
+  const firstDayOfYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
+  const lastDayOfYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
+
+  const lastMonth = subMonths(new Date(), 1);
+  const firstDateLastMonth = format(startOfMonth(lastMonth), 'yyyy-MM-dd');
+  const endDateLastMonth = format(endOfMonth(lastMonth), 'yyyy-MM-dd');
+
+  const today = format(new Date(), 'yyyy-MM-dd');
+
+  const { data: revenuePlanThisYear } = useGetRevenuePlan({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+
+  const { data: revenueActualThisYear } = useGetRevenueActual({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+
+  let revenueGapThisYear;
+
+  if (revenuePlanThisYear?.plan && revenueActualThisYear?.revenue) {
+    revenueGapThisYear = revenuePlanThisYear.plan - revenueActualThisYear.revenue;
+  } else {
+    revenueGapThisYear = 0;
+  }
+
+  const revenueInSequencesThisYear = [
+    revenuePlanThisYear?.plan === null ? 0 : revenuePlanThisYear?.plan,
+    revenueActualThisYear?.revenue === null ? 0 : revenueActualThisYear?.revenue,
+    revenueGapThisYear,
+  ];
+
+  const { data: revenuePlanThisMonth } = useGetRevenuePlan({
+    endDate: firstDateLastMonth,
+    startDate: endDateLastMonth,
+  });
+
+  const { data: revenueActualThisMonth } = useGetRevenueActual({
+    endDate: firstDateLastMonth,
+    startDate: endDateLastMonth,
+  });
+
+  let revenueGapThisMonth;
+
+  if (revenuePlanThisMonth?.plan && revenueActualThisMonth?.revenue) {
+    revenueGapThisMonth = revenuePlanThisMonth.plan - revenueActualThisMonth.revenue;
+  } else {
+    revenueGapThisMonth = 0;
+  }
+
+  const revenueInSequencesThisMonth = [
+    revenuePlanThisMonth?.plan === null ? 0 : revenuePlanThisMonth?.plan,
+    revenueActualThisMonth?.revenue === null ? 0 : revenueActualThisMonth?.revenue,
+    revenueGapThisMonth,
+  ];
+
+  const { data: revenuePlanYTD } = useGetRevenuePlan({
+    startDate: firstDayOfYear,
+    endDate: today,
+  });
+
+  // Fetch Year-To-Date (YTD) revenue actual
+  const { data: revenueActualYTD } = useGetRevenueActual({
+    startDate: firstDayOfYear,
+    endDate: today,
+  });
+
+  let revenueGapYTD;
+
+  if (revenuePlanYTD?.plan && revenueActualYTD?.revenue) {
+    revenueGapYTD = revenuePlanYTD.plan - revenueActualYTD.revenue;
+  } else {
+    revenueGapYTD = 0;
+  }
+
+  const revenueInSequencesYTD = [
+    revenuePlanYTD?.plan === null ? 0 : revenuePlanYTD?.plan,
+    revenueActualYTD?.revenue === null ? 0 : revenueActualYTD?.revenue,
+    revenueGapYTD,
+  ];
+
   return (
     <Paper
       style={{
@@ -128,9 +214,9 @@ export const RevenueSection = () => {
         <Text color="#61677A" fw="bold" fz="s">
           Revenue
         </Text>
-        <Text color="#61677A" fw="bold" fz="s">
+        {/* <Text color="#61677A" fw="bold" fz="s">
           IDR 1.xxx.xxx
-        </Text>
+        </Text> */}
       </Flex>
       {summaryItemsFirstRow.map(SummaryItems => {
         return (
@@ -141,7 +227,7 @@ export const RevenueSection = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -201,7 +287,15 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            maw="20%"
+                            style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
+                            {revenueInSequencesThisYear[index]}
+                          </Text>
+                          {/* {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                             <Text fz="xs" color="#7D7C7C" fw="bold">
                               {summaryItem.amount}
                             </Text>
@@ -213,7 +307,7 @@ export const RevenueSection = () => {
                                 ).toFixed(2),
                               )}
                             </Text>
-                          )}
+                          )} */}
                         </Box>
                       </Center>
                     </Flex>
@@ -225,6 +319,7 @@ export const RevenueSection = () => {
           </div>
         );
       })}
+
       {summaryItemsSecondRow.map(SummaryItems => {
         return (
           <div>
@@ -234,7 +329,7 @@ export const RevenueSection = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -294,7 +389,15 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            maw="20%"
+                            style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
+                            {revenueInSequencesThisMonth[index]}
+                          </Text>
+                          {/* {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                             <Text fz="xs" color="#7D7C7C" fw="bold">
                               {summaryItem.amount}
                             </Text>
@@ -306,7 +409,7 @@ export const RevenueSection = () => {
                                 ).toFixed(2),
                               )}
                             </Text>
-                          )}
+                          )} */}
                         </Box>
                       </Center>
                     </Flex>
@@ -327,7 +430,7 @@ export const RevenueSection = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -387,7 +490,15 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            maw="20%"
+                            style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
+                            {revenueInSequencesYTD[index]}
+                          </Text>
+                          {/* {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                             <Text fz="xs" color="#7D7C7C" fw="bold">
                               {summaryItem.amount}
                             </Text>
@@ -399,7 +510,7 @@ export const RevenueSection = () => {
                                 ).toFixed(2),
                               )}
                             </Text>
-                          )}
+                          )} */}
                         </Box>
                       </Center>
                     </Flex>
@@ -411,7 +522,7 @@ export const RevenueSection = () => {
           </div>
         );
       })}
-      {summaryItemsFourthRow.map(SummaryItems => {
+      {/* {summaryItemsFourthRow.map(SummaryItems => {
         return (
           <div>
             <Flex justify="center">
@@ -470,7 +581,7 @@ export const RevenueSection = () => {
             <Space h="sm" />
           </div>
         );
-      })}
+      })} */}
     </Paper>
   );
 };
