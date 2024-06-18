@@ -7,7 +7,11 @@ interface OpexPlanQueries {
 }
 
 interface OpexPlan {
-  plan: number;
+  plan_opex: number;
+}
+
+interface TransformedOpexPlan {
+  planOpex: number;
 }
 
 export const useGetOpexPlan = (
@@ -17,13 +21,15 @@ export const useGetOpexPlan = (
   const { axios, api } = useApiClient();
 
   return useQuery(
-    ['revenue-plan', queries],
+    ['opex-plan', queries],
     async () => {
-      const response = await api<OpexPlan>(
-        axios.get('accounting/revenue-plan', { params: queries }),
-      );
+      const response = await api<OpexPlan>(axios.get('accounting/opex-plan', { params: queries }));
 
-      return response;
+      const transformedResponse: TransformedOpexPlan = {
+        planOpex: response.plan_opex,
+      };
+
+      return transformedResponse;
     },
     options,
   );

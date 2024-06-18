@@ -176,7 +176,6 @@ export const RevenueSection = () => {
     endDate: today,
   });
 
-  // Fetch Year-To-Date (YTD) revenue actual
   const { data: revenueActualYTD } = useGetRevenueActual({
     startDate: firstDayOfYear,
     endDate: today,
@@ -244,11 +243,7 @@ export const RevenueSection = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -258,30 +253,16 @@ export const RevenueSection = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={revenueGapThisYear < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {revenueGapThisYear < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
-
                       <Center>
                         <Box>
                           <Text fz="xs" fw="bold">
@@ -291,23 +272,9 @@ export const RevenueSection = () => {
                             fz="xs"
                             color="#7D7C7C"
                             fw="bold"
-                            maw="20%"
-                            style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
                             {revenueInSequencesThisYear[index]}
                           </Text>
-                          {/* {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )} */}
                         </Box>
                       </Center>
                     </Flex>
@@ -346,11 +313,7 @@ export const RevenueSection = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -360,28 +323,15 @@ export const RevenueSection = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={revenueGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {revenueGapThisMonth < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -397,19 +347,6 @@ export const RevenueSection = () => {
                             style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
                             {revenueInSequencesThisMonth[index]}
                           </Text>
-                          {/* {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )} */}
                         </Box>
                       </Center>
                     </Flex>
@@ -421,6 +358,7 @@ export const RevenueSection = () => {
           </div>
         );
       })}
+
       {summaryItemsThirdRow.map(SummaryItems => {
         return (
           <div>
@@ -447,11 +385,7 @@ export const RevenueSection = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -461,28 +395,15 @@ export const RevenueSection = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={revenueGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {revenueGapThisMonth < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -498,19 +419,6 @@ export const RevenueSection = () => {
                             style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
                             {revenueInSequencesYTD[index]}
                           </Text>
-                          {/* {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )} */}
                         </Box>
                       </Center>
                     </Flex>
@@ -522,6 +430,7 @@ export const RevenueSection = () => {
           </div>
         );
       })}
+
       {/* {summaryItemsFourthRow.map(SummaryItems => {
         return (
           <div>
