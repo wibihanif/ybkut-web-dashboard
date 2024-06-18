@@ -95,12 +95,12 @@ export const FatAnalytic: React.FC = () => {
         </Grid>
         <Grid mt={10}>
           <Grid.Col mt={20} span={3}>
-            {/* <Flex align="center" w="100%" h="100%">
+            <Flex align="center" w="100%" h="100%">
               <Text color="#61677A" fw="bold" fz="sm" pb={20}>
                 Operation Unit
               </Text>
               <OperationChart />
-            </Flex> */}
+            </Flex>
           </Grid.Col>
           <Grid.Col span={4}>
             <Box mt={20}>
@@ -114,21 +114,21 @@ export const FatAnalytic: React.FC = () => {
           </Grid.Col>
         </Grid>
       </Paper>
-      {/* <Grid mt={10}>
+      <Grid mt={10}>
         <Box mt={20}>
           <OperationChart />
         </Box>
-        <Box mt={20}>
+        {/* <Box mt={20}>
           <Expense />
         </Box>
         <Box mt={20}>
           <Profit />
-        </Box>
-      </Grid> */}
+        </Box> */}
+      </Grid>
       <Box mt={20}>
         <TableService />
       </Box>
-      {/* <Box mt={20}>
+      <Box mt={20}>
         <AccountTable />
       </Box>
       <Box mt={20}>
@@ -139,7 +139,7 @@ export const FatAnalytic: React.FC = () => {
       </Box>
       <Box mt={20}>
         <CorporateTableTable />
-      </Box> */}
+      </Box>
     </Box>
   );
 };
