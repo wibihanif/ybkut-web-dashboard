@@ -4,7 +4,7 @@ import { IconArrowBadgeDownFilled, IconArrowBadgeUpFilled, IconGraph } from '@ta
 interface SummaryItem {
   title: string;
   icon: React.ReactNode;
-  amount: number | string;
+  amount: number;
   action: () => void;
 }
 
@@ -88,25 +88,25 @@ const summaryItemsThirdRow: SummaryItems[] = [
     ],
   },
 ];
-const summaryItemsFourthRow: SummaryItems[] = [
-  {
-    header: 'Year To Year',
-    result: [
-      {
-        title: 'Gap',
-        icon: <IconGraph />,
-        amount: 18,
-        action: () => console.log('to detail'),
-      },
-      {
-        title: 'Growth',
-        icon: <IconGraph />,
-        amount: '90%',
-        action: () => console.log('to detail'),
-      },
-    ],
-  },
-];
+// const summaryItemsFourthRow: SummaryItems[] = [
+//   {
+//     header: 'Year To Year',
+//     result: [
+//       {
+//         title: 'Gap',
+//         icon: <IconGraph />,
+//         amount: 18,
+//         action: () => console.log('to detail'),
+//       },
+//       {
+//         title: 'Growth',
+//         icon: <IconGraph />,
+//         amount: '90%',
+//         action: () => console.log('to detail'),
+//       },
+//     ],
+//   },
+// ];
 
 export const Profit = () => {
   return (
@@ -127,9 +127,9 @@ export const Profit = () => {
         <Text color="#61677A" fw="bold" fz="s">
           Operational Profit
         </Text>
-        <Text color="#61677A" fw="bold" fz="s">
+        {/* <Text color="#61677A" fw="bold" fz="s">
           IDR 1.xxx.xxx
-        </Text>
+        </Text> */}
       </Flex>
       {summaryItemsFirstRow.map(SummaryItems => {
         return (
@@ -410,7 +410,7 @@ export const Profit = () => {
           </div>
         );
       })}
-      {summaryItemsFourthRow.map(SummaryItems => {
+      {/* {summaryItemsFourthRow.map(SummaryItems => {
         return (
           <div>
             <Flex justify="center">
@@ -469,7 +469,7 @@ export const Profit = () => {
             <Space h="sm" />
           </div>
         );
-      })}
+      })} */}
     </Paper>
   );
 };
