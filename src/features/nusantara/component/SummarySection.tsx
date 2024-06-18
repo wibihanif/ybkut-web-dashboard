@@ -30,6 +30,30 @@ export const SummarySection = () => {
 
   const summaryItemsFirstRow: SummaryItems[] = [
     {
+      title: 'Total Projects',
+      icon: <IconGraph />,
+      amount: 18,
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'On Going Projects',
+      icon: <IconGraph />,
+      amount: 18,
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'Pending Projects',
+      icon: <IconGraph />,
+      amount: 18,
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'Canceled Projects',
+      icon: <IconGraph />,
+      amount: 18,
+      action: () => console.log('to detail'),
+    },
+    {
       title: 'Number of Graduates',
       icon: <IconGraph />,
       amount: Number(graduates ? graduates[0].total_graduate : 0),
@@ -45,6 +69,12 @@ export const SummarySection = () => {
       title: 'Sales Performance',
       icon: <IconGraph />,
       amount: sales ? `${toRupiah(totalAmount)} JT` : 0,
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'Winning Ratio',
+      icon: <IconGraph />,
+      amount: 0,
       action: () => console.log('to detail'),
     },
   ];
