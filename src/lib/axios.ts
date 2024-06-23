@@ -17,6 +17,7 @@ export class AxiosManager {
     // this.refreshTokenAxios = Axios.create({
     //   baseURL: 'http://localhost:8086/',
     // });
+
     this.axios = Axios.create({
       baseURL: 'http://137.116.147.25:8086',
     });

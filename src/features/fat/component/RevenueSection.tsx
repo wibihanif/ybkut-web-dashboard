@@ -263,6 +263,7 @@ export const RevenueSection = () => {
                           </ThemeIcon>
                         )}
                       </Box>
+
                       <Center>
                         <Box>
                           <Text fz="xs" fw="bold">
