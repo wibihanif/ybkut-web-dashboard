@@ -1,32 +1,34 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { useApiClient } from '~/providers/ApiClientProvider';
 
-interface OprPlanQueries {
+interface OprActualQueries {
   startDate?: string;
   endDate?: string;
 }
 
-interface OprPlan {
-  plan_opr_profit: number;
+interface OprActual {
+  opr_profit: number;
 }
 
-interface TransformedOprPlan {
-  planOprProfit: number;
+interface TransformedOprActual {
+  actualOprProfit: number;
 }
 
-export const useGetOperationalProfitPlan = (
-  queries?: OprPlanQueries,
-  options?: UseQueryOptions<unknown, unknown, TransformedOprPlan, any>,
+export const useGetOperationalProfitActual = (
+  queries?: OprActualQueries,
+  options?: UseQueryOptions<unknown, unknown, TransformedOprActual, any>,
 ) => {
   const { axios, api } = useApiClient();
 
   return useQuery(
-    ['opex-actual', queries],
+    ['opr-actual', queries],
     async () => {
-      const response = await api<OprPlan>(axios.get('accounting/opex-plan', { params: queries }));
+      const response = await api<OprActual>(
+        axios.get('accounting/opr-actual', { params: queries }),
+      );
 
-      const transformedResponse: TransformedOprPlan = {
-        planOprProfit: response.plan_opr_profit,
+      const transformedResponse: TransformedOprActual = {
+        actualOprProfit: response.opr_profit,
       };
 
       return transformedResponse;
