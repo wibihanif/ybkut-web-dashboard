@@ -10,7 +10,7 @@ interface OpexPlan {
   opex: number;
 }
 
-export const useGetOpexPlan = (
+export const useGetOpexActual = (
   queries?: OpexPlanQueries,
   options?: UseQueryOptions<unknown, unknown, OpexPlan, any>,
 ) => {
@@ -19,7 +19,9 @@ export const useGetOpexPlan = (
   return useQuery(
     ['opex-actual', queries],
     async () => {
-      const response = await api<OpexPlan>(axios.get('accounting/opex-plan', { params: queries }));
+      const response = await api<OpexPlan>(
+        axios.get('accounting/opex-actual', { params: queries }),
+      );
 
       return response;
     },

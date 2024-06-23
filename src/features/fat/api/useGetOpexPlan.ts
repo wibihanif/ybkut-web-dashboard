@@ -16,7 +16,7 @@ interface TransformedOpexPlan {
 
 export const useGetOpexPlan = (
   queries?: OpexPlanQueries,
-  options?: UseQueryOptions<unknown, unknown, OpexPlan, any>,
+  options?: UseQueryOptions<unknown, unknown, TransformedOpexPlan, any>,
 ) => {
   const { axios, api } = useApiClient();
 

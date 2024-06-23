@@ -1,6 +1,8 @@
 import { ActionIcon, Box, Flex, Paper, Stack, Table, Text, createStyles } from '@mantine/core';
 import { IconSortDescendingLetters } from '@tabler/icons-react';
 import { ProfitTMTableRow } from './ProfitTMTableRow';
+import { endOfMonth, endOfToday, format, startOfMonth, startOfYear } from 'date-fns';
+import { useGetProfitability } from '../../api/useGetProfitability';
 
 const TOTAL_ROW = 5;
 
@@ -26,75 +28,34 @@ const useStyles = createStyles(() => {
   };
 });
 
-export const ProfitYtdTableTable: React.FC = () => {
+export const ProfitYtdTable: React.FC = () => {
   const { classes } = useStyles();
 
-  const dataDummy = [
-    {
-      unit: 'UT School',
-      cost: 160.516,
-      gp: 160.516,
-      gpm: 160.516,
-      opex: 160.516,
-      op: 160.516,
-      opm: 160.516,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'Poliklinik',
-      cost: 160.516,
-      gp: 160.516,
-      gpm: 160.516,
-      opex: 160.516,
-      op: 160.516,
-      opm: 160.516,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'Daycare',
-      cost: 160.516,
-      gp: 160.516,
-      gpm: 160.516,
-      opex: 160.516,
-      op: 160.516,
-      opm: 160.516,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'VLC',
-      cost: 160.516,
-      gp: 160.516,
-      gpm: 160.516,
-      opex: 160.516,
-      op: 160.516,
-      opm: 160.516,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'Total',
-      cost: 160.516,
-      gp: 160.516,
-      gpm: 160.516,
-      opex: 160.516,
-      op: 160.516,
-      opm: 160.516,
-      action: () => console.log('to detail'),
-    },
-  ];
+  const now = new Date();
+  const firstDay = startOfYear(now);
+  const lastDay = endOfToday();
+
+  const { data: profitability } = useGetProfitability({
+    startDate: format(firstDay, 'yyyy-MM-dd'),
+    endDate: format(lastDay, 'yyyy-MM-dd'),
+  });
 
   const tableRows = [];
-  for (let i = 0; i < TOTAL_ROW; i++) {
-    tableRows.push(
-      <ProfitTMTableRow
-        unit={dataDummy[i].unit}
-        cost={dataDummy[i].cost}
-        gp={dataDummy[i].gp}
-        gpm={dataDummy[i].gpm}
-        opex={dataDummy[i].opex}
-        op={dataDummy[i].op}
-        opm={dataDummy[i].opm}
-      />,
-    );
+
+  if (profitability?.length) {
+    for (let i = 0; i < profitability.length; i++) {
+      tableRows.push(
+        <ProfitTMTableRow
+          unit={profitability[i].unit}
+          cost={profitability[i].cost}
+          gp={profitability[i].gp}
+          gpm={profitability[i].gpm}
+          opex={profitability[i].opex}
+          op={profitability[i].op}
+          opm={profitability[i].opm}
+        />,
+      );
+    }
   }
 
   return (

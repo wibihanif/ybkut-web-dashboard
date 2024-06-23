@@ -3,6 +3,8 @@ import { IconArrowBadgeDownFilled, IconArrowBadgeUpFilled, IconGraph } from '@ta
 import { endOfMonth, endOfYear, format, startOfMonth, startOfYear, subMonths } from 'date-fns';
 import { useGetOperationalProfitPlan } from '../api/useGetOperationalProfitPlan';
 import { useGetOperationalProfitActual } from '../api/useGetOperationalProfitActual';
+import { useGetGpPlan } from '../api/useGetGpPlan';
+import { useGetGpActual } from '../api/useGetGpActual';
 
 interface SummaryItem {
   title: string;
@@ -121,95 +123,79 @@ export const GrossProfit = () => {
 
   const today = format(new Date(), 'yyyy-MM-dd');
 
-  const { data: operationalProfitPlanThisYear } = useGetOperationalProfitPlan({
+  const { data: operationalProfitPlanThisYear } = useGetGpPlan({
     endDate: lastDayOfYear,
     startDate: firstDayOfYear,
   });
 
-  const { data: operationalProfitActualThisYear } = useGetOperationalProfitActual({
+  const { data: operationalProfitActualThisYear } = useGetGpActual({
     endDate: lastDayOfYear,
     startDate: firstDayOfYear,
   });
 
   let operationalProfitGapThisYear;
 
-  if (
-    operationalProfitPlanThisYear?.planOprProfit &&
-    operationalProfitActualThisYear?.actualOprProfit
-  ) {
+  if (operationalProfitPlanThisYear?.planGp && operationalProfitActualThisYear?.planGp) {
     operationalProfitGapThisYear =
-      operationalProfitPlanThisYear.planOprProfit - operationalProfitActualThisYear.actualOprProfit;
+      operationalProfitPlanThisYear.planGp - operationalProfitActualThisYear.planGp;
   } else {
     operationalProfitGapThisYear = 0;
   }
 
   const operationalProfitThisYearInSequences = [
-    operationalProfitPlanThisYear?.planOprProfit === null
-      ? 0
-      : operationalProfitPlanThisYear?.planOprProfit,
-    operationalProfitActualThisYear?.actualOprProfit === null
-      ? 0
-      : operationalProfitActualThisYear?.actualOprProfit,
+    operationalProfitPlanThisYear?.planGp === null ? 0 : operationalProfitPlanThisYear?.planGp,
+    operationalProfitActualThisYear?.planGp === null ? 0 : operationalProfitActualThisYear?.planGp,
     operationalProfitGapThisYear,
   ];
 
-  const { data: operationalProfitPlanThisMonth } = useGetOperationalProfitPlan({
+  const { data: operationalProfitPlanThisMonth } = useGetGpPlan({
     endDate: firstDateLastMonth,
     startDate: endDateLastMonth,
   });
 
-  const { data: operationalProfitActualThisMonth } = useGetOperationalProfitActual({
+  const { data: operationalProfitActualThisMonth } = useGetGpActual({
     endDate: firstDateLastMonth,
     startDate: endDateLastMonth,
   });
 
   let operationalGapThisMonth;
 
-  if (
-    operationalProfitPlanThisMonth?.planOprProfit &&
-    operationalProfitActualThisMonth?.actualOprProfit
-  ) {
+  if (operationalProfitPlanThisMonth?.planGp && operationalProfitActualThisMonth?.planGp) {
     operationalGapThisMonth =
-      operationalProfitPlanThisMonth.planOprProfit -
-      operationalProfitActualThisMonth.actualOprProfit;
+      operationalProfitPlanThisMonth.planGp - operationalProfitActualThisMonth.planGp;
   } else {
     operationalGapThisMonth = 0;
   }
 
   const operationalProfitThisMonthInSequences = [
-    operationalProfitPlanThisMonth?.planOprProfit === null
+    operationalProfitPlanThisMonth?.planGp === null ? 0 : operationalProfitPlanThisMonth?.planGp,
+    operationalProfitActualThisMonth?.planGp === null
       ? 0
-      : operationalProfitPlanThisMonth?.planOprProfit,
-    operationalProfitActualThisMonth?.actualOprProfit === null
-      ? 0
-      : operationalProfitActualThisMonth?.actualOprProfit,
+      : operationalProfitActualThisMonth?.planGp,
     operationalGapThisMonth,
   ];
 
-  const { data: operationalProfitPlanYTD } = useGetOperationalProfitPlan({
+  const { data: operationalProfitPlanYTD } = useGetGpPlan({
     startDate: firstDayOfYear,
     endDate: today,
   });
 
-  const { data: operationalProfitActualYTD } = useGetOperationalProfitActual({
+  const { data: operationalProfitActualYTD } = useGetGpActual({
     startDate: firstDayOfYear,
     endDate: today,
   });
 
   let operationalProfitGapYTD;
 
-  if (operationalProfitPlanYTD?.planOprProfit && operationalProfitActualYTD?.actualOprProfit) {
-    operationalProfitGapYTD =
-      operationalProfitPlanYTD.planOprProfit - operationalProfitActualYTD.actualOprProfit;
+  if (operationalProfitPlanYTD?.planGp && operationalProfitActualYTD?.planGp) {
+    operationalProfitGapYTD = operationalProfitPlanYTD.planGp - operationalProfitActualYTD.planGp;
   } else {
     operationalProfitGapYTD = 0;
   }
 
   const operationalProfitYTDInSequences = [
-    operationalProfitPlanYTD?.planOprProfit === null ? 0 : operationalProfitPlanYTD?.planOprProfit,
-    operationalProfitActualYTD?.actualOprProfit === null
-      ? 0
-      : operationalProfitActualYTD?.actualOprProfit,
+    operationalProfitPlanYTD?.planGp === null ? 0 : operationalProfitPlanYTD?.planGp,
+    operationalProfitActualYTD?.planGp === null ? 0 : operationalProfitActualYTD?.planGp,
     operationalProfitGapYTD,
   ];
 
@@ -432,7 +418,7 @@ export const GrossProfit = () => {
                             color="#7D7C7C"
                             fw="bold"
                             style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
-                            {operationalProfitThisYearInSequences[index]}
+                            {operationalProfitYTDInSequences[index]}
                           </Text>
                         </Box>
                       </Center>

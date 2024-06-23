@@ -1,6 +1,7 @@
 import { ActionIcon, Box, Flex, Paper, Stack, Table, Text, createStyles } from '@mantine/core';
-import { IconSortDescendingLetters } from '@tabler/icons-react';
+import { IconAlertCircle, IconSortDescendingLetters } from '@tabler/icons-react';
 import { RevenueYtdTableRow } from './RevenueYtdTableRow';
+import { useGetRevenueYtd } from '../../api/useGetRevenueYtd';
 
 const TOTAL_ROW = 5;
 
@@ -64,16 +65,21 @@ export const RevenueYtdTable: React.FC = () => {
     },
   ];
 
+  const { data: revenueYtd } = useGetRevenueYtd();
+
   const tableRows = [];
-  for (let i = 0; i < TOTAL_ROW; i++) {
-    tableRows.push(
-      <RevenueYtdTableRow
-        unit={dataDummy[i].unit}
-        plan={dataDummy[i].plan}
-        actual={dataDummy[i].actual}
-        achievement={dataDummy[i].achievement}
-      />,
-    );
+
+  if (revenueYtd?.length) {
+    for (let i = 0; i < revenueYtd?.length; i++) {
+      tableRows.push(
+        <RevenueYtdTableRow
+          unit={revenueYtd[i].unit}
+          plan={revenueYtd[i].plan}
+          actual={revenueYtd[i].actual}
+          achievement={revenueYtd[i].achievement}
+        />,
+      );
+    }
   }
 
   return (
@@ -91,39 +97,45 @@ export const RevenueYtdTable: React.FC = () => {
                 <th style={{ width: '200px' }}>
                   <Flex gap={8}>
                     <Text className={classes.tableHead}>Unit</Text>
-                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                    {/* <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
-                    </ActionIcon>
+                    </ActionIcon> */}
                   </Flex>
                 </th>
                 <th style={{ width: '350px' }}>
                   <Flex gap={8}>
                     <Text className={classes.tableHead}>Plan</Text>
-                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                    {/* <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
-                    </ActionIcon>
+                    </ActionIcon> */}
                   </Flex>
                 </th>
                 <th>
                   <Flex gap={8}>
                     <Text className={classes.tableHead}>Actual</Text>
-                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                    {/* <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
-                    </ActionIcon>
+                    </ActionIcon> */}
                   </Flex>
                 </th>
                 <th style={{ width: '200px' }}>
                   <Flex gap={8}>
                     <Text className={classes.tableHead}>Achievement</Text>
-                    <ActionIcon size="xs" className={classes.tableHeadIcon}>
+                    {/* <ActionIcon size="xs" className={classes.tableHeadIcon}>
                       <IconSortDescendingLetters color="white" />
-                    </ActionIcon>
+                    </ActionIcon> */}
                   </Flex>
                 </th>
               </tr>
             </thead>
             <tbody>{tableRows}</tbody>
           </Table>
+          {!revenueYtd?.length && (
+            <Flex align="center" justify="center" gap={10} style={{ height: '40vh' }}>
+              <IconAlertCircle size={20} color="red" />
+              <Text>Data Not Found</Text>
+            </Flex>
+          )}
         </Box>
       </Stack>
     </Paper>
