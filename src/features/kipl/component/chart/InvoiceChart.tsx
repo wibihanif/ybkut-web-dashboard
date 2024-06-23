@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
+import { Box, Text } from '@mantine/core';
 
 export const InvoiceChart = () => {
   useEffect(() => {
-    const labels = ['Sponsor Fee', 'Customer Training', 'Other'];
+    const labels = ['Done', 'Not Yet'];
     const getChartOptions = () => {
       return {
         series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
@@ -43,7 +44,7 @@ export const InvoiceChart = () => {
             },
           },
         },
-        labels: ['Sponsor Fee', 'Customer Training', 'Other'],
+        labels: ['Done', 'Not Yet'],
         dataLabels: {
           enabled: true,
           style: {
@@ -76,5 +77,12 @@ export const InvoiceChart = () => {
     };
   }, []);
 
-  return <div id="pie-invoice"></div>;
+  return (
+    <Box>
+      <Text align="center" weight={700} size="xl" mt={10} mb={20}>
+        Summary {faker.datatype.number({ min: 0, max: 1000 })}
+      </Text>
+      <div id="pie-invoice"></div>
+    </Box>
+  );
 };
