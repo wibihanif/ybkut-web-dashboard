@@ -1,5 +1,6 @@
 import { Box, Flex, Paper, Stack, Table, Text, createStyles } from '@mantine/core';
 import { AccountTableRow } from './AccountTableRow';
+import { useGetArAging } from '../../api/useGetArAging';
 
 const TOTAL_ROW = 5;
 
@@ -28,72 +29,24 @@ const useStyles = createStyles(() => {
 export const AccountTable: React.FC = () => {
   const { classes } = useStyles();
 
-  const dataDummy = [
-    {
-      unit: 'UT School',
-      current: 55.956,
-      thirtydays: 9.268,
-      sixtydays: 9.268,
-      ninetydays: 9.268,
-      abovedays: 9.268,
-      cp: 9.268,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'Poliklinik',
-      current: 55.956,
-      thirtydays: 9.268,
-      sixtydays: 9.268,
-      ninetydays: 9.268,
-      abovedays: 9.268,
-      cp: 9.268,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'Daycare',
-      current: 55.956,
-      thirtydays: 9.268,
-      sixtydays: 9.268,
-      ninetydays: 9.268,
-      abovedays: 9.268,
-      cp: 9.268,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'VLC',
-      current: 55.956,
-      thirtydays: 9.268,
-      sixtydays: 9.268,
-      ninetydays: 9.268,
-      abovedays: 9.268,
-      cp: 9.268,
-      action: () => console.log('to detail'),
-    },
-    {
-      unit: 'Total',
-      current: 55.956,
-      thirtydays: 9.268,
-      sixtydays: 9.268,
-      ninetydays: 9.268,
-      abovedays: 9.268,
-      cp: 9.268,
-      action: () => console.log('to detail'),
-    },
-  ];
+  const { data: arAging } = useGetArAging();
 
   const tableRows = [];
-  for (let i = 0; i < TOTAL_ROW; i++) {
-    tableRows.push(
-      <AccountTableRow
-        unit={dataDummy[i].unit}
-        current={dataDummy[i].current}
-        thirtydays={dataDummy[i].thirtydays}
-        sixtydays={dataDummy[i].sixtydays}
-        ninetydays={dataDummy[i].ninetydays}
-        abovedays={dataDummy[i].abovedays}
-        cp={dataDummy[i].cp}
-      />,
-    );
+
+  if (arAging?.length) {
+    for (let i = 0; i < arAging.length; i++) {
+      tableRows.push(
+        <AccountTableRow
+          unit={arAging[i].unit}
+          current={arAging[i].current}
+          thirtydays={arAging[i]['1-30 days']}
+          sixtydays={arAging[i]['31-60 days']}
+          ninetydays={arAging[i]['61-90 days']}
+          abovedays={arAging[i]['> 90 days']}
+          cp="0"
+        />,
+      );
+    }
   }
 
   return (

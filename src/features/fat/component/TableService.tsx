@@ -6,6 +6,7 @@ import { ProfitTMTableTable } from './table/ProfitTMTable';
 import { AccountPayableChart } from './chart/AccountPayable';
 import { AccountReceivableChart } from './chart/AccountReceivable';
 import { AccountTable } from './table/AccountTable';
+import { ProfitYtdTable } from './table/ProfitYtdTable';
 
 export const TableService = () => {
   return (
@@ -108,9 +109,9 @@ export const TableService = () => {
         <Text color="#61677A" fw="bold" fz="sm" pb={20}>
           Profitability YTD
         </Text>
-        <ProfitTMTableTable />
+        <ProfitYtdTable />
       </Paper>
-      <Paper
+      {/* <Paper
         style={{
           borderRadius: 8,
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
@@ -127,8 +128,8 @@ export const TableService = () => {
           Account Payable
         </Text>
         <AccountPayableChart />
-      </Paper>
-      <Paper
+      </Paper> */}
+      {/* <Paper
         style={{
           borderRadius: 8,
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
@@ -145,7 +146,7 @@ export const TableService = () => {
           Account Receivable
         </Text>
         <AccountReceivableChart />
-      </Paper>
+      </Paper> */}
       <Paper
         style={{
           borderRadius: 8,

@@ -1,5 +1,9 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
 import { IconArrowBadgeDownFilled, IconArrowBadgeUpFilled, IconGraph } from '@tabler/icons-react';
+import { endOfMonth, endOfYear, format, startOfMonth, startOfYear, subMonths } from 'date-fns';
+import { useGetGpPlan } from '../api/useGetGpPlan';
+import { useGetOperationalProfitPlan } from '../api/useGetOperationalProfitPlan';
+import { useGetOperationalProfitActual } from '../api/useGetOperationalProfitActual';
 
 interface SummaryItem {
   title: string;
@@ -109,6 +113,107 @@ const summaryItemsThirdRow: SummaryItems[] = [
 // ];
 
 export const Profit = () => {
+  const firstDayOfYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
+  const lastDayOfYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
+
+  const lastMonth = subMonths(new Date(), 1);
+  const firstDateLastMonth = format(startOfMonth(lastMonth), 'yyyy-MM-dd');
+  const endDateLastMonth = format(endOfMonth(lastMonth), 'yyyy-MM-dd');
+
+  const today = format(new Date(), 'yyyy-MM-dd');
+
+  const { data: operationalProfitPlanThisYear } = useGetOperationalProfitPlan({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+
+  const { data: operationalProfitActualThisYear } = useGetOperationalProfitActual({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+
+  let operationalProfitGapThisYear;
+
+  if (
+    operationalProfitPlanThisYear?.planOprProfit &&
+    operationalProfitActualThisYear?.actualOprProfit
+  ) {
+    operationalProfitGapThisYear =
+      operationalProfitPlanThisYear.planOprProfit - operationalProfitActualThisYear.actualOprProfit;
+  } else {
+    operationalProfitGapThisYear = 0;
+  }
+
+  const operationalProfitThisYearInSequences = [
+    operationalProfitPlanThisYear?.planOprProfit === null
+      ? 0
+      : operationalProfitPlanThisYear?.planOprProfit,
+    operationalProfitActualThisYear?.actualOprProfit === null
+      ? 0
+      : operationalProfitActualThisYear?.actualOprProfit,
+    operationalProfitGapThisYear,
+  ];
+
+  const { data: operationalProfitPlanThisMonth } = useGetOperationalProfitPlan({
+    endDate: firstDateLastMonth,
+    startDate: endDateLastMonth,
+  });
+
+  const { data: operationalProfitActualThisMonth } = useGetOperationalProfitActual({
+    endDate: firstDateLastMonth,
+    startDate: endDateLastMonth,
+  });
+
+  let operationalGapThisMonth;
+
+  if (
+    operationalProfitPlanThisMonth?.planOprProfit &&
+    operationalProfitActualThisMonth?.actualOprProfit
+  ) {
+    operationalGapThisMonth =
+      operationalProfitPlanThisMonth.planOprProfit -
+      operationalProfitActualThisMonth.actualOprProfit;
+  } else {
+    operationalGapThisMonth = 0;
+  }
+
+  const operationalProfitThisMonthInSequences = [
+    operationalProfitPlanThisMonth?.planOprProfit === null
+      ? 0
+      : operationalProfitPlanThisMonth?.planOprProfit,
+    operationalProfitActualThisMonth?.actualOprProfit === null
+      ? 0
+      : operationalProfitActualThisMonth?.actualOprProfit,
+    operationalGapThisMonth,
+  ];
+
+  const { data: operationalProfitPlanYTD } = useGetOperationalProfitPlan({
+    startDate: firstDayOfYear,
+    endDate: today,
+  });
+
+  const { data: operationalProfitActualYTD } = useGetOperationalProfitActual({
+    startDate: firstDayOfYear,
+    endDate: today,
+  });
+
+  let operationalProfitGapYTD;
+
+  if (operationalProfitPlanYTD?.planOprProfit && operationalProfitActualYTD?.actualOprProfit) {
+    operationalProfitGapYTD =
+      operationalProfitPlanYTD.planOprProfit - operationalProfitActualYTD.actualOprProfit;
+  } else {
+    operationalProfitGapYTD = 0;
+  }
+
+  const operationalProfitYTDInSequences = [
+    operationalProfitPlanYTD?.planOprProfit === null ? 0 : operationalProfitPlanYTD?.planOprProfit,
+    operationalProfitActualYTD?.actualOprProfit === null
+      ? 0
+      : operationalProfitActualYTD?.actualOprProfit,
+    operationalProfitGapYTD,
+  ];
+
   return (
     <Paper
       style={{
@@ -140,7 +245,7 @@ export const Profit = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -157,11 +262,7 @@ export const Profit = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -171,28 +272,15 @@ export const Profit = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={operationalProfitGapThisYear < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {operationalProfitGapThisYear < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -200,19 +288,13 @@ export const Profit = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {operationalProfitThisYearInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
@@ -233,7 +315,7 @@ export const Profit = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -250,11 +332,7 @@ export const Profit = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -264,28 +342,15 @@ export const Profit = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={operationalProfitGapThisYear < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {operationalProfitGapThisYear < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -293,19 +358,13 @@ export const Profit = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {operationalProfitThisYearInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
@@ -326,7 +385,7 @@ export const Profit = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -343,11 +402,7 @@ export const Profit = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -357,28 +412,15 @@ export const Profit = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={operationalProfitGapThisYear < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {operationalProfitGapThisYear < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -386,19 +428,13 @@ export const Profit = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {operationalProfitThisYearInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>

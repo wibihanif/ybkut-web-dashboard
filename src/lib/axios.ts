@@ -8,25 +8,25 @@ export class AxiosManager {
   private readonly refreshTokenAxios: AxiosInstance;
 
   constructor() {
-    // this.axios = Axios.create({
-    //   baseURL: 'http://localhost:8086/',
-    // });
-    // this.axiosWithAuth = Axios.create({
-    //   baseURL: 'http://localhost:8086/',
-    // });
-    // this.refreshTokenAxios = Axios.create({
-    //   baseURL: 'http://localhost:8086/',
-    // });
-
     this.axios = Axios.create({
-      baseURL: 'http://137.116.147.25:8086',
+      baseURL: 'http://localhost:8086/',
     });
     this.axiosWithAuth = Axios.create({
-      baseURL: 'http://137.116.147.25:8086',
+      baseURL: 'http://localhost:8086/',
     });
     this.refreshTokenAxios = Axios.create({
-      baseURL: 'http://137.116.147.25:8086',
+      baseURL: 'http://localhost:8086/',
     });
+
+    // this.axios = Axios.create({
+    //   baseURL: 'http://137.116.147.25:8086',
+    // });
+    // this.axiosWithAuth = Axios.create({
+    //   baseURL: 'http://137.116.147.25:8086',
+    // });
+    // this.refreshTokenAxios = Axios.create({
+    //   baseURL: 'http://137.116.147.25:8086',
+    // });
 
     this.axios.interceptors.response.use(
       this.fulfilledResponseInterceptor,

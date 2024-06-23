@@ -1,5 +1,8 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
 import { IconArrowBadgeDownFilled, IconArrowBadgeUpFilled, IconGraph } from '@tabler/icons-react';
+import { endOfMonth, endOfYear, format, startOfMonth, startOfYear, subMonths } from 'date-fns';
+import { useGetOpexPlan } from '../api/useGetOpexPlan';
+import { useGetOpexActual } from '../api/useGetOpexActual';
 
 interface SummaryItem {
   title: string;
@@ -109,6 +112,87 @@ const summaryItemsThirdRow: SummaryItems[] = [
 // ];
 
 export const Expense = () => {
+  const firstDayOfYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
+  const lastDayOfYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
+
+  const lastMonth = subMonths(new Date(), 1);
+  const firstDateLastMonth = format(startOfMonth(lastMonth), 'yyyy-MM-dd');
+  const endDateLastMonth = format(endOfMonth(lastMonth), 'yyyy-MM-dd');
+
+  const today = format(new Date(), 'yyyy-MM-dd');
+
+  const { data: opexPlanThisYear } = useGetOpexPlan({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+
+  const { data: opexActualThisYear } = useGetOpexActual({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+
+  let opexGapThisYear;
+
+  if (opexPlanThisYear?.planOpex && opexActualThisYear?.opex) {
+    opexGapThisYear = opexPlanThisYear.planOpex - opexActualThisYear.opex;
+  } else {
+    opexGapThisYear = 0;
+  }
+
+  const opexThisYearInSequences = [
+    opexPlanThisYear?.planOpex === null ? 0 : opexPlanThisYear?.planOpex,
+    opexActualThisYear?.opex === null ? 0 : opexActualThisYear?.opex,
+    opexGapThisYear,
+  ];
+
+  const { data: opexPlanThisMonth } = useGetOpexPlan({
+    endDate: firstDateLastMonth,
+    startDate: endDateLastMonth,
+  });
+
+  const { data: opexPlanActualThisMonth } = useGetOpexActual({
+    endDate: firstDateLastMonth,
+    startDate: endDateLastMonth,
+  });
+
+  let opexGapThisMonth;
+
+  if (opexPlanThisMonth?.planOpex && opexPlanActualThisMonth?.opex) {
+    opexGapThisMonth = opexPlanThisMonth.planOpex - opexPlanActualThisMonth.opex;
+  } else {
+    opexGapThisMonth = 0;
+  }
+
+  const opexThisMonthInSequences = [
+    opexPlanThisMonth?.planOpex === null ? 0 : opexPlanThisMonth?.planOpex,
+    opexPlanActualThisMonth?.opex === null ? 0 : opexPlanActualThisMonth?.opex,
+    opexGapThisMonth,
+  ];
+
+  const { data: opexPlanYTD } = useGetOpexPlan({
+    startDate: firstDayOfYear,
+    endDate: today,
+  });
+
+  const { data: opexActualYTD } = useGetOpexActual({
+    startDate: firstDayOfYear,
+    endDate: today,
+  });
+
+  let opexGapYTD;
+
+  if (opexPlanYTD?.planOpex && opexActualYTD?.opex) {
+    opexGapYTD = opexPlanYTD.planOpex - opexActualYTD.opex;
+  } else {
+    opexGapYTD = 0;
+  }
+
+  const opexYTDInSequences = [
+    opexPlanYTD?.planOpex === null ? 0 : opexPlanYTD?.planOpex,
+    opexActualYTD?.opex === null ? 0 : opexActualYTD?.opex,
+    opexGapYTD,
+  ];
+
   return (
     <Paper
       style={{
@@ -131,6 +215,7 @@ export const Expense = () => {
           IDR 1.xxx.xxx
         </Text> */}
       </Flex>
+
       {summaryItemsFirstRow.map(SummaryItems => {
         return (
           <div>
@@ -140,7 +225,7 @@ export const Expense = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -157,11 +242,7 @@ export const Expense = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -171,28 +252,15 @@ export const Expense = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={opexGapThisYear < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {opexGapThisYear < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -200,19 +268,13 @@ export const Expense = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {opexThisYearInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
@@ -224,6 +286,7 @@ export const Expense = () => {
           </div>
         );
       })}
+
       {summaryItemsSecondRow.map(SummaryItems => {
         return (
           <div>
@@ -233,7 +296,7 @@ export const Expense = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -250,11 +313,7 @@ export const Expense = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -264,28 +323,15 @@ export const Expense = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={opexGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {opexGapThisMonth < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -293,19 +339,13 @@ export const Expense = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {opexThisMonthInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
@@ -326,7 +366,7 @@ export const Expense = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -343,11 +383,7 @@ export const Expense = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -357,28 +393,15 @@ export const Expense = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={opexGapYTD < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                            {opexGapYTD < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
                             )}
-                            {/* {summaryItem.icon} */}
                           </ThemeIcon>
                         )}
-                        {/* <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon> */}
                       </Box>
 
                       <Center>
@@ -386,19 +409,13 @@ export const Expense = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {opexYTDInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
