@@ -64,23 +64,20 @@
 
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
-import { faker } from '@faker-js/faker';
+import { useGetCsrActual } from '../../api/useGetCsrActual';
 
 export const CorporateActualChart = () => {
+  const { data: csrActuals } = useGetCsrActual();
+
   useEffect(() => {
-    const labels = [
-      'CSR - Pendidikan (UTS Reguler Training)',
-      'CSR - Pendidikan (UTS Non Reguler Training)',
-      'CSR - Pendidikan (Non UTS)',
-      'CSR - Kesehatan (Non Poli)',
-      'CSR - Lingkungan',
-      'CSR - Kreativitas Sosial',
-      'CSR - Peduli Bencana',
-      'CSR - Others',
-    ];
+    if (!csrActuals) return;
+
+    const labels = csrActuals.map(csrActual => csrActual.account);
+    const series = csrActuals.map(csrActual => parseFloat(csrActual.actual.replace('%', '')));
+
     const getChartOptions = () => {
       return {
-        series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        series,
         colors: [
           '#1C64F2',
           '#ca6d16',
@@ -125,16 +122,7 @@ export const CorporateActualChart = () => {
             },
           },
         },
-        labels: [
-          'CSR - Pendidikan (UTS Reguler Training)',
-          'CSR - Pendidikan (UTS Non Reguler Training)',
-          'CSR - Pendidikan (Non UTS)',
-          'CSR - Kesehatan (Non Poli)',
-          'CSR - Lingkungan',
-          'CSR - Kreativitas Sosial',
-          'CSR - Peduli Bencana',
-          'CSR - Others',
-        ],
+        labels,
         dataLabels: {
           enabled: true,
           style: {
@@ -159,6 +147,7 @@ export const CorporateActualChart = () => {
         },
       };
     };
+
     const chart = new ApexCharts(
       document.getElementById('pie-corporate-actual'),
       getChartOptions(),
@@ -168,7 +157,7 @@ export const CorporateActualChart = () => {
     return () => {
       chart.destroy();
     };
-  }, []);
+  }, [csrActuals]);
 
   return <div id="pie-corporate-actual"></div>;
 };

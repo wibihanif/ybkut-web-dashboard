@@ -64,23 +64,20 @@
 
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
-import { faker } from '@faker-js/faker';
+import { useGetCsrPlan } from '../../api/useGetCsrPlan';
 
 export const CorporatePlanChart = () => {
+  const { data: csrPlans } = useGetCsrPlan();
+
   useEffect(() => {
-    const labels = [
-      'CSR - Pendidikan (UTS Reguler Training)',
-      'CSR - Pendidikan (UTS Non Reguler Training)',
-      'CSR - Pendidikan (Non UTS)',
-      'CSR - Kesehatan (Non Poli)',
-      'CSR - Lingkungan',
-      'CSR - Kreativitas Sosial',
-      'CSR - Peduli Bencana',
-      'CSR - Others',
-    ];
+    if (!csrPlans) return;
+
+    const labels = csrPlans && csrPlans?.map(csrPlan => csrPlan.account);
+    const series = csrPlans && csrPlans?.map(csrPlan => Number(csrPlan.plan));
+
     const getChartOptions = () => {
       return {
-        series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        series,
         colors: [
           '#1C64F2',
           '#ca6d16',
@@ -125,16 +122,7 @@ export const CorporatePlanChart = () => {
             },
           },
         },
-        labels: [
-          'CSR - Pendidikan (UTS Reguler Training)',
-          'CSR - Pendidikan (UTS Non Reguler Training)',
-          'CSR - Pendidikan (Non UTS)',
-          'CSR - Kesehatan (Non Poli)',
-          'CSR - Lingkungan',
-          'CSR - Kreativitas Sosial',
-          'CSR - Peduli Bencana',
-          'CSR - Others',
-        ],
+        labels,
         dataLabels: {
           enabled: true,
           style: {
@@ -159,13 +147,14 @@ export const CorporatePlanChart = () => {
         },
       };
     };
+
     const chart = new ApexCharts(document.getElementById('pie-corporate-plan'), getChartOptions());
 
     chart.render();
     return () => {
       chart.destroy();
     };
-  }, []);
+  }, [csrPlans]);
 
   return <div id="pie-corporate-plan"></div>;
 };
