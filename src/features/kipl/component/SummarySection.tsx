@@ -1,7 +1,18 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+import {
+  IconAnalyzeFilled,
+  IconBlockquote,
+  IconBrandCodesandbox,
+  IconBuilding,
+  // IconGraph,
+  IconHeadset,
+  IconHearts,
+  IconListSearch,
+  IconReportAnalytics,
+  IconSchool,
+} from '@tabler/icons-react';
 import { ReactNode } from 'react';
-import { formatNumberWithCommas } from '~/utils/format';
+// import { formatNumberWithCommas } from '~/utils/format';
 
 interface SummaryItems {
   title: string;
@@ -17,7 +28,11 @@ interface SummarySectionProps {
 }
 
 const resp = {
-  demand: 2,
+  demand: {
+    total: 164,
+    amount: 12290014970,
+    percentage: 82,
+  },
   project: {
     total: 164,
     amount: 12290014970,
@@ -63,7 +78,7 @@ const resp = {
 const summaryItemsFirstRow: SummaryItems[] = [
   {
     title: 'Demand',
-    icon: <IconGraph />,
+    icon: <IconBrandCodesandbox />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -71,7 +86,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Project',
-    icon: <IconGraph />,
+    icon: <IconBuilding />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -79,7 +94,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Quotation',
-    icon: <IconGraph />,
+    icon: <IconBlockquote />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -87,7 +102,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'PO/SPK',
-    icon: <IconGraph />,
+    icon: <IconListSearch />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -95,7 +110,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Status Event Close',
-    icon: <IconGraph />,
+    icon: <IconAnalyzeFilled />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -103,7 +118,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Reporting',
-    icon: <IconGraph />,
+    icon: <IconReportAnalytics />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -111,7 +126,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'AR Performance',
-    icon: <IconGraph />,
+    icon: <IconHearts />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -119,7 +134,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Customer Coverage',
-    icon: <IconGraph />,
+    icon: <IconHeadset />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -127,7 +142,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Non Regular Students',
-    icon: <IconGraph />,
+    icon: <IconSchool />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -142,7 +157,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
     <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map((summaryItem, index) => {
         const groupedKiplValues = [
-          resp.demand,
+          resp.demand.total,
           resp.project.total,
           resp.quotation.total,
           resp.po.total,
@@ -153,7 +168,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.non_regular_student.total,
         ];
         const groupedKiplAmounts = [
-          0, // Assuming demand does not have an amount
+          resp.demand.amount, // Assuming demand does not have an amount
           resp.project.amount,
           resp.quotation.amount,
           resp.po.amount,
@@ -164,7 +179,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.non_regular_student.amount,
         ];
         const groupedKiplPercentages = [
-          0, // Assuming demand does not have a percentage
+          resp.demand.percentage, // Assuming demand does not have a percentage
           resp.project.percentage,
           resp.quotation.percentage,
           resp.po.percentage,
@@ -197,21 +212,34 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 </ThemeIcon>
               </Box>
 
-              <Center>
+              <div className="w-[180px]">
                 <Box>
-                  <Text fz="sm" fw="bold">
+                  <Text fz="md" fw="bold">
                     {summaryItem.title}
                   </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
+                  <Text fz="lg" color="#7D7C7C" fw="bold">
                     Total: {summaryItem.total(groupedKiplValues[index])}
                   </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
+                  <Text fz="lg" color="#7D7C7C" fw="bold">
                     Amount: {summaryItem.amount(groupedKiplAmounts[index])}
                   </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
-                    Percentage: {summaryItem.percentage(groupedKiplPercentages[index])}%
-                  </Text>
                 </Box>
+              </div>
+              <Center>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '50%',
+                    backgroundColor: '#ceb28d',
+                  }}>
+                  <Text fz="lg" color="#000000" fw="bolder">
+                    <div className="">{summaryItem.percentage(groupedKiplPercentages[index])}%</div>
+                  </Text>
+                </div>
               </Center>
             </Flex>
           </Box>
