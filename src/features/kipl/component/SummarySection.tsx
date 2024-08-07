@@ -1,4 +1,4 @@
-import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
+import { Box, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 import {
   IconAnalyzeFilled,
   IconBlockquote,
