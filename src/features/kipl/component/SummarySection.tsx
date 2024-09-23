@@ -1,17 +1,27 @@
 import { Box, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import {
-  IconAnalyzeFilled,
-  IconBlockquote,
-  IconBrandCodesandbox,
-  IconBuilding,
-  // IconGraph,
-  IconHeadset,
-  IconHearts,
-  IconListSearch,
-  IconReportAnalytics,
-  IconSchool,
-} from '@tabler/icons-react';
+// import {
+//   IconAnalyzeFilled,
+//   IconBlockquote,
+//   IconBrandCodesandbox,
+//   IconBuilding,
+//   // IconGraph,
+//   IconHeadset,
+//   IconHearts,
+//   IconListSearch,
+//   IconReportAnalytics,
+//   IconSchool,
+// } from '@tabler/icons-react';
 import { ReactNode } from 'react';
+import demand from '../../../assets/demand.svg';
+import project from '../../../assets/project.svg';
+import quotation from '../../../assets/quotation.svg';
+import po from '../../../assets/po.svg';
+import eventclose from '../../../assets/event-close.svg';
+import reporting from '../../../assets/reporting.svg';
+import ar from '../../../assets/ar.svg';
+import customercoverage from '../../../assets/customer-coverage.svg';
+import nonreguler from '../../../assets/non-reguler.svg';
+// import pendingdepreciation from '../../../assets/pending-depreciation.svg';
 // import { formatNumberWithCommas } from '~/utils/format';
 
 interface SummaryItems {
@@ -78,7 +88,7 @@ const resp = {
 const summaryItemsFirstRow: SummaryItems[] = [
   {
     title: 'Demand',
-    icon: <IconBrandCodesandbox />,
+    icon: <img src={demand} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -86,7 +96,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Project',
-    icon: <IconBuilding />,
+    icon: <img src={project} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -94,7 +104,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Quotation',
-    icon: <IconBlockquote />,
+    icon: <img src={quotation} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -102,7 +112,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'PO/SPK',
-    icon: <IconListSearch />,
+    icon: <img src={po} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -110,7 +120,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Status Event Close',
-    icon: <IconAnalyzeFilled />,
+    icon: <img src={eventclose} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -118,7 +128,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Reporting',
-    icon: <IconReportAnalytics />,
+    icon: <img src={reporting} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -126,7 +136,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'AR Performance',
-    icon: <IconHearts />,
+    icon: <img src={ar} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -134,7 +144,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Customer Coverage',
-    icon: <IconHeadset />,
+    icon: <img src={customercoverage} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -142,7 +152,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Non Regular Students',
-    icon: <IconSchool />,
+    icon: <img src={nonreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -211,7 +221,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 left: 0,
                 right: 0,
                 height: '15px', // Adjust the height as needed
-                backgroundColor: '#ceb28d',
+                backgroundColor: '#a37538',
                 borderTopLeftRadius: 8,
                 borderTopRightRadius: 8,
               },
@@ -240,7 +250,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                   variant="light"
                   size="50px"
                   radius="xl"
-                  color="#ceb28d"
+                  color="#a37538"
                   style={{ width: '100%', height: '100%' }}>
                   <div>{summaryItem.icon}</div>
                 </ThemeIcon>

@@ -1,5 +1,5 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+// import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useGetTotalProducts } from '../api/useGetTotalProducts';
 import { useGetTotalValues } from '../api/useGetTotalValues';
@@ -7,6 +7,11 @@ import { useGetCurrentStocks } from '../api/useGetCurrentStocks';
 import { useGetPendingTransfers } from '../api/useGetPendingTransfers';
 import { useGetPendingReceipts } from '../api/useGetPendingReceipts';
 import { formatNumberWithCommas } from '~/utils/format';
+import totalproduk from '../../../assets/total-produk.svg';
+import totalinventory from '../../../assets/total-inventory.svg';
+import currentstock from '../../../assets/current-stock.svg';
+import pendingtransfer from '../../../assets/pending-transfer.svg';
+import pendingreceipt from '../../../assets/pending-receipt.svg';
 
 interface SummaryItems {
   title: string;
@@ -22,31 +27,31 @@ interface SummarySectionProps {
 const summaryItems: SummaryItems[] = [
   {
     title: 'Total Produk',
-    icon: <IconGraph />,
+    icon: <img src={totalproduk} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/inventory/total-product',
   },
   {
     title: 'Total Inventori Value',
-    icon: <IconGraph />,
+    icon: <img src={totalinventory} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/inventory/total-inventory',
   },
   {
     title: 'Current Stock',
-    icon: <IconGraph />,
+    icon: <img src={currentstock} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/inventory/current-stock',
   },
   {
     title: 'Pending Transfer',
-    icon: <IconGraph />,
+    icon: <img src={pendingtransfer} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/inventory/pending-transfer',
   },
   {
     title: 'Pending Receipt',
-    icon: <IconGraph />,
+    icon: <img src={pendingreceipt} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/inventory/pending-receipt',
   },
@@ -97,7 +102,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
               <Box bg="transparent" px={12}>
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#a6b2df" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#3845a3" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>

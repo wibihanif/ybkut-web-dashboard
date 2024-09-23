@@ -1,8 +1,14 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+// import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useGetAcademic } from '../api/useGetAcademic';
 import { formatNumberWithCommas } from '~/utils/format';
+import lulusanreguler from '../../../assets/lulusan-reguler.svg';
+import lulusannonreguler from '../../../assets/lulusan-nonreguler.svg';
+import semualulusan from '../../../assets/semua-lulusan.svg';
+import lulusancsr from '../../../assets/lulusan-csr.svg';
+import jumlahsiswa from '../../../assets/jumlah-siswa.svg';
+import siswado from '../../../assets/siswa-dropout.svg';
 
 // interface SummaryItems {
 //   title: string;
@@ -24,37 +30,39 @@ interface SummarySectionProps {
 const summaryItems: SummaryItems[] = [
   {
     title: 'Lulusan Reguler',
-    icon: <IconGraph />,
+    icon: <img src={lulusanreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/lulusan-regular',
   },
   {
     title: 'Lulusan Non-Reguler',
-    icon: <IconGraph />,
+    icon: (
+      <img src={lulusannonreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
+    ),
     amount: (value: string) => value,
     route: '/akademik/lulusan-non-regular',
   },
   {
     title: 'Semua Lulusan',
-    icon: <IconGraph />,
+    icon: <img src={semualulusan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/semua-lulusan',
   },
   {
     title: 'Lulusan CSR',
-    icon: <IconGraph />,
+    icon: <img src={lulusancsr} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/lulusan-csr',
   },
   {
     title: 'Jumlah Siswa',
-    icon: <IconGraph />,
+    icon: <img src={jumlahsiswa} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/jumlah-siswa',
   },
   {
     title: 'Siswa reguler yang D.O',
-    icon: <IconGraph />,
+    icon: <img src={siswado} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/siswa-regular-do',
   },
@@ -106,7 +114,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 px={12}
                 // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
               >
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#ceb28d" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#a37538" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>
