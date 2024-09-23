@@ -1,5 +1,5 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+// import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useGetTotalEquipment } from '../api/useGetTotalEquipment';
 import { formatNumberWithCommas } from '~/utils/format';
@@ -8,6 +8,12 @@ import { useGetTotalRunningDepreciation } from '../api/useGetTotalRunningDepreci
 import { useGetTotalDoneDepreciation } from '../api/useGetTotalDoneDepreciation';
 import { useGetTotalPendingDepreciation } from '../api/useGetTotalPendingDepreciation';
 import { useGetTotalScrapProduct } from '../api/useGetTotalScrapProduct';
+import totalequipment from '../../../assets/total-equipment.svg';
+import totalasset from '../../../assets/total-asset.svg';
+import totalscrap from '../../../assets/total-scrapt.svg';
+import runningdepreciation from '../../../assets/running-depreciation.svg';
+import donedepreciation from '../../../assets/done-depreciation.svg';
+import pendingdepreciation from '../../../assets/pending-depreciation.svg';
 
 interface SummaryItems {
   title: string;
@@ -23,37 +29,41 @@ interface SummarySectionProps {
 const summaryItems: SummaryItems[] = [
   {
     title: 'Total Equipment',
-    icon: <IconGraph />,
+    icon: <img src={totalequipment} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/asset/total-equipment',
   },
   {
     title: 'Total Asset',
-    icon: <IconGraph />,
+    icon: <img src={totalasset} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/asset/total-asset',
   },
   {
     title: 'Running Depreciation',
-    icon: <IconGraph />,
+    icon: (
+      <img src={runningdepreciation} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
+    ),
     amount: (value: string) => value,
     route: '/asset/running-depreciation',
   },
   {
     title: 'Done Depreciation',
-    icon: <IconGraph />,
+    icon: <img src={donedepreciation} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/asset/done-depreciation',
   },
   {
     title: 'Pending Depresiation',
-    icon: <IconGraph />,
+    icon: (
+      <img src={pendingdepreciation} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
+    ),
     amount: (value: string) => value,
     route: '/asset/pending-depreciation',
   },
   {
     title: 'Total Scrap Product',
-    icon: <IconGraph />,
+    icon: <img src={totalscrap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/asset/total-scrap-product',
   },
@@ -111,7 +121,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20}>
               <Box bg="transparent" px={12}>
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#8a92c6" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#3845a3" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>

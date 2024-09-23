@@ -1,9 +1,12 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+// import { IconGraph } from '@tabler/icons-react';
 import { IconArrowBadgeUpFilled, IconArrowBadgeDownFilled } from '@tabler/icons-react';
 import { useGetRevenueActual } from '../api/useGetRevenueActual';
 import { startOfYear, endOfYear, format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
 import { useGetRevenuePlan } from '../api/useGetRevenuePlan';
+import plan from '../../../assets/plan.svg';
+import actual from '../../../assets/actual.svg';
+import gap from '../../../assets/gap.svg';
 
 interface SummaryItem {
   title: string;
@@ -23,19 +26,19 @@ const summaryItemsFirstRow: SummaryItems[] = [
     result: [
       {
         title: 'Plan',
-        icon: <IconGraph />,
+        icon: <img src={plan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Actual',
-        icon: <IconGraph />,
+        icon: <img src={actual} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 156.246,
         action: () => console.log('to detail'),
       },
       {
         title: 'Gap',
-        icon: <IconGraph />,
+        icon: <img src={gap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 0,
         action: () => console.log('to detail'),
       },
@@ -48,19 +51,19 @@ const summaryItemsSecondRow: SummaryItems[] = [
     result: [
       {
         title: 'Plan',
-        icon: <IconGraph />,
+        icon: <img src={plan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Actual',
-        icon: <IconGraph />,
+        icon: <img src={actual} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Gap',
-        icon: <IconGraph />,
+        icon: <img src={gap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
@@ -73,19 +76,19 @@ const summaryItemsThirdRow: SummaryItems[] = [
     result: [
       {
         title: 'Plan',
-        icon: <IconGraph />,
+        icon: <img src={plan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 16,
         action: () => console.log('to detail'),
       },
       {
         title: 'Actual',
-        icon: <IconGraph />,
+        icon: <img src={actual} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Gap',
-        icon: <IconGraph />,
+        icon: <img src={gap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
@@ -99,13 +102,13 @@ const summaryItemsThirdRow: SummaryItems[] = [
 //     result: [
 //       {
 //         title: 'Gap',
-//         icon: <IconGraph />,
+//         icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
 //         amount: 18,
 //         action: () => console.log('to detail'),
 //       },
 //       {
 //         title: 'Growth',
-//         icon: <IconGraph />,
+//         icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
 //         amount: '90%',
 //         action: () => console.log('to detail'),
 //       },

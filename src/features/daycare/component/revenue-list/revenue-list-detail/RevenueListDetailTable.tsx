@@ -9,7 +9,7 @@ const useStyles = createStyles(() => {
     tableHead: { color: 'white' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#a6b2df',
+        backgroundColor: '#3845a3',
       },
     },
   };
