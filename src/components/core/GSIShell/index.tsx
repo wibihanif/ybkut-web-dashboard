@@ -24,7 +24,8 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       //   backgroundImage: '#ebf0f4',
       // }}
       sx={{
-        backgroundColor: 'rgba(239, 233, 206, 1)',
+        // backgroundColor: 'rgba(239, 233, 206, 1)',
+        backgroundColor: '#dde3ee',
         // backgroundImage: `url(${ybkutBg})`, // Use url() to specify the background image
         backgroundSize: 'cover', // Adjust the background size as needed
       }}
