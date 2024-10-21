@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
+import { Box, Text } from '@mantine/core';
 
 export const SalesChart = () => {
   useEffect(() => {
@@ -76,5 +77,13 @@ export const SalesChart = () => {
     };
   }, []);
 
-  return <div id="pie-sales"></div>;
+  // return <div id="pie-sales"></div>;
+  return (
+    <Box>
+      <Text align="center" weight={700} size="xl" mt={10} mb={20}>
+        Summary {faker.datatype.number({ min: 0, max: 1000 })}
+      </Text>
+      <div id="pie-sales"></div>
+    </Box>
+  );
 };

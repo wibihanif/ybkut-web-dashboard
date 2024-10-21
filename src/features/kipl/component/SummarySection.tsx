@@ -12,7 +12,7 @@ import { Box, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
 //   IconSchool,
 // } from '@tabler/icons-react';
 import { ReactNode } from 'react';
-import demand from '../../../assets/demand.svg';
+// import demand from '../../../assets/demand.svg';
 import project from '../../../assets/project.svg';
 import quotation from '../../../assets/quotation.svg';
 import po from '../../../assets/po.svg';
@@ -36,13 +36,23 @@ interface SummaryItems {
 interface SummarySectionProps {
   navigateToCertainPage: (route: string) => void;
 }
-
+const colors = [
+  '#a36138', // Color for item 0
+  '#f7c74f', // Color for item 1
+  '#4caf50', // Color for item 2
+  '#2196f3', // Color for item 3
+  '#e91e63', // Color for item 4
+  '#9c27b0', // Color for item 5
+  '#ff9800', // Color for item 6
+  '#ff2600', // Color for item 6
+  // Add more colors as needed
+];
 const resp = {
-  demand: {
-    total: 164,
-    amount: 12290014970,
-    percentage: 82,
-  },
+  // demand: {
+  //   total: 164,
+  //   amount: 12290014970,
+  //   percentage: 82,
+  // },
   project: {
     total: 164,
     amount: 12290014970,
@@ -86,14 +96,14 @@ const resp = {
 };
 
 const summaryItemsFirstRow: SummaryItems[] = [
-  {
-    title: 'Demand',
-    icon: <img src={demand} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-    total: (value: number) => value.toString(),
-    amount: (value: number) => value.toString(),
-    percentage: (value: number) => value.toFixed(2),
-    route: '/kipl/demand',
-  },
+  // {
+  //   title: 'Demand',
+  //   icon: <img src={demand} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+  //   total: (value: number) => value.toString(),
+  //   amount: (value: number) => value.toString(),
+  //   percentage: (value: number) => value.toFixed(2),
+  //   route: '/kipl/demand',
+  // },
   {
     title: 'Project',
     icon: <img src={project} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
@@ -167,7 +177,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
     <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map((summaryItem, index) => {
         const groupedKiplValues = [
-          resp.demand.total,
+          // resp.demand.total,
           resp.project.total,
           resp.quotation.total,
           resp.po.total,
@@ -178,7 +188,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.non_regular_student.total,
         ];
         const groupedKiplAmounts = [
-          resp.demand.amount, // Assuming demand does not have an amount
+          // resp.demand.amount, // Assuming demand does not have an amount
           resp.project.amount,
           resp.quotation.amount,
           resp.po.amount,
@@ -189,7 +199,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.non_regular_student.amount,
         ];
         const groupedKiplPercentages = [
-          resp.demand.percentage, // Assuming demand does not have a percentage
+          // resp.demand.percentage, // Assuming demand does not have a percentage
           resp.project.percentage,
           resp.quotation.percentage,
           resp.po.percentage,
@@ -217,17 +227,18 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
               '::before': {
                 content: '""',
                 position: 'absolute',
-                top: 0,
+                bottom: 0,
                 left: 0,
                 right: 0,
-                height: '15px', // Adjust the height as needed
-                backgroundColor: '#a37538',
-                borderTopLeftRadius: 8,
-                borderTopRightRadius: 8,
+                height: '5px', // Adjust the height as needed
+                // backgroundColor: '#a37538',
+                backgroundColor: colors[index % colors.length],
+                borderTopLeftRadius: 2,
+                borderTopRightRadius: 2,
               },
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
-            <Flex gap={20} px={12} py={15} className="justify-between items-center">
+            <Flex gap={20} px={12} py={10} className="justify-between items-center">
               <div className="w-100%">
                 <Box>
                   <Text fz="lg" fw="bolder">
@@ -250,7 +261,16 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                   variant="light"
                   size="50px"
                   radius="xl"
-                  color="#a37538"
+                  color={colors[index % colors.length]}
+                  sx={{
+                    // Initial state
+                    transform: 'rotate(0deg)',
+                    ':hover': {
+                      transform: 'rotate(45deg)', // Rotate 90 degrees on hover
+                      transition: 'transform 0.3s ease-in-out', // Ensure smooth transition on hover
+                    },
+                    transition: 'transform 0.3s ease-in-out',
+                  }}
                   style={{ width: '100%', height: '100%' }}>
                   <div>{summaryItem.icon}</div>
                 </ThemeIcon>
