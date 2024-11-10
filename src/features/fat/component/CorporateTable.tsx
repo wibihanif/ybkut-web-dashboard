@@ -8,7 +8,7 @@ import { useGetPnlActual } from '../api/useGetPnlActual';
 interface SummaryItem {
   title: string;
   icon: React.ReactNode;
-  amount: number | string;
+  amount: number;
   action: () => void;
 }
 
@@ -92,26 +92,6 @@ const summaryItemsThirdRow: SummaryItems[] = [
     ],
   },
 ];
-
-// const summaryItemsFourthRow: SummaryItems[] = [
-//   {
-//     header: 'Year on Year',
-//     result: [
-//       {
-//         title: 'Gap',
-//         icon: <IconGraph />,
-//         amount: 18,
-//         action: () => console.log('to detail'),
-//       },
-//       {
-//         title: 'Growth',
-//         icon: <IconGraph />,
-//         amount: '90%',
-//         action: () => console.log('to detail'),
-//       },
-//     ],
-//   },
-// ];
 
 export const CorporateTable = () => {
   const firstDayOfYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
@@ -208,15 +188,6 @@ export const CorporateTable = () => {
           transform: 'scale(1.02)',
         },
       }}>
-      {/* <Flex justify="space-between">
-        <Text color="#61677A" fw="bold" fz="s">
-          Revenue
-        </Text>
-        <Text color="#61677A" fw="bold" fz="s">
-          IDR 1.xxx.xxx
-        </Text>
-      </Flex> */}
-
       {summaryItemsFirstRow.map(SummaryItems => {
         return (
           <div>
