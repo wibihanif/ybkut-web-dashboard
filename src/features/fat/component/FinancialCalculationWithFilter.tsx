@@ -1,12 +1,11 @@
 import { Box, Center, Flex, Paper, SimpleGrid, Space, Text, ThemeIcon } from '@mantine/core';
-// import { IconGraph } from '@tabler/icons-react';
+import { IconGraph } from '@tabler/icons-react';
 import { IconArrowBadgeUpFilled, IconArrowBadgeDownFilled } from '@tabler/icons-react';
-import { useGetRevenueActual } from '../api/useGetRevenueActual';
-import { startOfYear, endOfYear, format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
-import { useGetRevenuePlan } from '../api/useGetRevenuePlan';
-import plan from '../../../assets/plan.svg';
-import actual from '../../../assets/actual.svg';
-import gap from '../../../assets/gap.svg';
+import { endOfMonth, endOfYear, format, startOfMonth, startOfYear, subMonths } from 'date-fns';
+import { useGetPnlPlan } from '../api/useGetPnlPlan';
+import { useGetPnlActual } from '../api/useGetPnlActual';
+import { DateInput } from '@mantine/dates';
+import { useState } from 'react';
 
 interface SummaryItem {
   title: string;
@@ -22,23 +21,23 @@ interface SummaryItems {
 
 const summaryItemsFirstRow: SummaryItems[] = [
   {
-    header: 'This Year',
+    header: 'Revenue',
     result: [
       {
         title: 'Plan',
-        icon: <img src={plan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Actual',
-        icon: <img src={actual} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 156.246,
         action: () => console.log('to detail'),
       },
       {
         title: 'Gap',
-        icon: <img src={gap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 0,
         action: () => console.log('to detail'),
       },
@@ -47,23 +46,23 @@ const summaryItemsFirstRow: SummaryItems[] = [
 ];
 const summaryItemsSecondRow: SummaryItems[] = [
   {
-    header: 'Last Month',
+    header: 'Gross Profit',
     result: [
       {
         title: 'Plan',
-        icon: <img src={plan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Actual',
-        icon: <img src={actual} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Gap',
-        icon: <img src={gap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
@@ -72,23 +71,23 @@ const summaryItemsSecondRow: SummaryItems[] = [
 ];
 const summaryItemsThirdRow: SummaryItems[] = [
   {
-    header: 'Year To Date',
+    header: 'Operational Expense',
     result: [
       {
         title: 'Plan',
-        icon: <img src={plan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 16,
         action: () => console.log('to detail'),
       },
       {
         title: 'Actual',
-        icon: <img src={actual} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
       {
         title: 'Gap',
-        icon: <img src={gap} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+        icon: <IconGraph />,
         amount: 160.516,
         action: () => console.log('to detail'),
       },
@@ -96,27 +95,33 @@ const summaryItemsThirdRow: SummaryItems[] = [
   },
 ];
 
-// const summaryItemsFourthRow: SummaryItems[] = [
-//   {
-//     header: 'Year To Year',
-//     result: [
-//       {
-//         title: 'Gap',
-//         icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-//         amount: 18,
-//         action: () => console.log('to detail'),
-//       },
-//       {
-//         title: 'Growth',
-//         icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-//         amount: '90%',
-//         action: () => console.log('to detail'),
-//       },
-//     ],
-//   },
-// ];
+const summaryItemsFourthRow: SummaryItems[] = [
+  {
+    header: 'Operational Profit',
+    result: [
+      {
+        title: 'Plan',
+        icon: <IconGraph />,
+        amount: 16,
+        action: () => console.log('to detail'),
+      },
+      {
+        title: 'Actual',
+        icon: <IconGraph />,
+        amount: 160.516,
+        action: () => console.log('to detail'),
+      },
+      {
+        title: 'Gap',
+        icon: <IconGraph />,
+        amount: 160.516,
+        action: () => console.log('to detail'),
+      },
+    ],
+  },
+];
 
-export const RevenueSection = () => {
+export const FinancialCalculationWithFilter = () => {
   const firstDayOfYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
   const lastDayOfYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
 
@@ -124,78 +129,80 @@ export const RevenueSection = () => {
   const firstDateLastMonth = format(startOfMonth(lastMonth), 'yyyy-MM-dd');
   const endDateLastMonth = format(endOfMonth(lastMonth), 'yyyy-MM-dd');
 
+  const [startDate, setStartDateValue] = useState<Date | null>(null);
+  const [endDate, setEndDateValue] = useState<Date | null>(null);
+
   const today = format(new Date(), 'yyyy-MM-dd');
 
-  const { data: revenuePlanThisYear } = useGetRevenuePlan({
+  const { data: pnlPlanThisYear } = useGetPnlPlan({
+    endDate: lastDayOfYear,
+    startDate: firstDayOfYear,
+  });
+  const { data: pnlActualThisYear } = useGetPnlActual({
     endDate: lastDayOfYear,
     startDate: firstDayOfYear,
   });
 
-  const { data: revenueActualThisYear } = useGetRevenueActual({
-    endDate: lastDayOfYear,
-    startDate: firstDayOfYear,
-  });
+  let pnlGapThisYear;
 
-  let revenueGapThisYear;
-
-  if (revenuePlanThisYear?.plan && revenueActualThisYear?.revenue) {
-    revenueGapThisYear = revenuePlanThisYear.plan - revenueActualThisYear.revenue;
+  if (pnlPlanThisYear?.planPnl && pnlActualThisYear?.actualPnl) {
+    pnlGapThisYear = pnlPlanThisYear.planPnl - pnlActualThisYear.actualPnl;
   } else {
-    revenueGapThisYear = 0;
+    pnlGapThisYear = 0;
   }
 
-  const revenueInSequencesThisYear = [
-    revenuePlanThisYear?.plan === null ? 0 : revenuePlanThisYear?.plan,
-    revenueActualThisYear?.revenue === null ? 0 : revenueActualThisYear?.revenue,
-    revenueGapThisYear,
+  const pnlThisYearInSequences = [
+    pnlPlanThisYear?.planPnl === null ? 0 : pnlPlanThisYear?.planPnl,
+    pnlActualThisYear?.actualPnl === null ? 0 : pnlActualThisYear?.actualPnl,
+    pnlGapThisYear,
   ];
 
-  const { data: revenuePlanThisMonth } = useGetRevenuePlan({
+  const { data: pnlPlanThisMonth } = useGetPnlPlan({
     endDate: firstDateLastMonth,
     startDate: endDateLastMonth,
   });
 
-  const { data: revenueActualThisMonth } = useGetRevenueActual({
+  const { data: pnlActualThisMonth } = useGetPnlActual({
     endDate: firstDateLastMonth,
     startDate: endDateLastMonth,
   });
 
-  let revenueGapThisMonth;
+  let pnlGapThisMonth;
 
-  if (revenuePlanThisMonth?.plan && revenueActualThisMonth?.revenue) {
-    revenueGapThisMonth = revenuePlanThisMonth.plan - revenueActualThisMonth.revenue;
+  if (pnlPlanThisMonth?.planPnl && pnlActualThisMonth?.actualPnl) {
+    pnlGapThisMonth = pnlPlanThisMonth.planPnl - pnlActualThisMonth.actualPnl;
   } else {
-    revenueGapThisMonth = 0;
+    pnlGapThisMonth = 0;
   }
 
-  const revenueInSequencesThisMonth = [
-    revenuePlanThisMonth?.plan === null ? 0 : revenuePlanThisMonth?.plan,
-    revenueActualThisMonth?.revenue === null ? 0 : revenueActualThisMonth?.revenue,
-    revenueGapThisMonth,
+  const pnlThisMonthInSequences = [
+    pnlPlanThisMonth?.planPnl === null ? 0 : pnlPlanThisMonth?.planPnl,
+    pnlActualThisMonth?.actualPnl === null ? 0 : pnlActualThisMonth?.actualPnl,
+    pnlGapThisMonth,
   ];
 
-  const { data: revenuePlanYTD } = useGetRevenuePlan({
+  const { data: pnlPlanYTD } = useGetPnlPlan({
     startDate: firstDayOfYear,
     endDate: today,
   });
 
-  const { data: revenueActualYTD } = useGetRevenueActual({
+  const { data: pnlActualYTD } = useGetPnlActual({
     startDate: firstDayOfYear,
     endDate: today,
   });
 
-  let revenueGapYTD;
+  let pnlGapYTD;
 
-  if (revenuePlanYTD?.plan && revenueActualYTD?.revenue) {
-    revenueGapYTD = revenuePlanYTD.plan - revenueActualYTD.revenue;
+  if (pnlPlanYTD?.planPnl && pnlActualYTD?.actualPnl) {
+    pnlGapYTD = pnlPlanYTD.planPnl - pnlActualYTD.actualPnl;
   } else {
-    revenueGapYTD = 0;
+    pnlGapYTD = 0;
   }
 
-  const revenueInSequencesYTD = [
-    revenuePlanYTD?.plan === null ? 0 : revenuePlanYTD?.plan,
-    revenueActualYTD?.revenue === null ? 0 : revenueActualYTD?.revenue,
-    revenueGapYTD,
+  const pnlYTDInSequences = [
+    pnlPlanYTD?.planPnl === null ? 0 : pnlPlanYTD?.planPnl,
+    pnlActualYTD?.actualPnl === null ? 0 : pnlActualYTD?.actualPnl,
+    pnlGapYTD,
   ];
 
   return (
@@ -203,7 +210,7 @@ export const RevenueSection = () => {
       style={{
         borderRadius: 8,
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-        padding: 20,
+        padding: 5,
         transition: 'transform 0.3s ease-in-out',
       }}
       sx={{
@@ -212,19 +219,29 @@ export const RevenueSection = () => {
           transform: 'scale(1.02)',
         },
       }}>
-      <Flex justify="space-between">
-        <Text color="#61677A" fw="bold" fz="s">
-          Revenue
-        </Text>
-        {/* <Text color="#61677A" fw="bold" fz="s">
-          IDR 1.xxx.xxx
-        </Text> */}
-      </Flex>
+      <div style={{ display: 'flex', width: '100%', padding: 10 }}>
+        <DateInput
+          value={startDate}
+          onChange={setStartDateValue}
+          label="Start Date"
+          placeholder="Select start date"
+          style={{ flex: 1, width: '100%' }}
+        />
+        <Space w="md" />
+        <DateInput
+          value={endDate}
+          onChange={setEndDateValue}
+          label="End Date"
+          placeholder="Select end date"
+          style={{ flex: 1, width: '100%' }}
+        />
+      </div>
+
       {summaryItemsFirstRow.map(SummaryItems => {
         return (
-          <div>
+          <div style={{ padding: 10 }}>
             <Flex justify="center">
-              <Text color="#61677A" fw="bold" fz="sm">
+              <Text color="#61677A" fw="bold" fz="md">
                 {SummaryItems.header}
               </Text>
             </Flex>
@@ -246,7 +263,11 @@ export const RevenueSection = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box bg="transparent" px={12}>
+                      <Box
+                        bg="transparent"
+                        px={12}
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -256,9 +277,9 @@ export const RevenueSection = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={revenueGapThisYear < 0 ? '#cc7b7b' : '#a9cc7b'}
+                            color={pnlGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {revenueGapThisYear < 0 ? (
+                            {pnlGapThisMonth < 0 ? (
                               <IconArrowBadgeDownFilled />
                             ) : (
                               <IconArrowBadgeUpFilled />
@@ -277,7 +298,7 @@ export const RevenueSection = () => {
                             color="#7D7C7C"
                             fw="bold"
                             style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
-                            {revenueInSequencesThisYear[index]}
+                            {pnlThisMonthInSequences[index]}
                           </Text>
                         </Box>
                       </Center>
@@ -290,156 +311,11 @@ export const RevenueSection = () => {
           </div>
         );
       })}
-
       {summaryItemsSecondRow.map(SummaryItems => {
         return (
-          <div>
+          <div style={{ padding: 10 }}>
             <Flex justify="center">
-              <Text color="#61677A" fw="bold" fz="sm">
-                {SummaryItems.header}
-              </Text>
-            </Flex>
-            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map((summaryItem, index) => {
-                return (
-                  <Box
-                    bg="white"
-                    style={{
-                      borderRadius: 8,
-                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-                      transition: 'transform 0.3s ease-in-out',
-                    }}
-                    sx={{
-                      ':hover': {
-                        cursor: 'pointer',
-                        transform: 'scale(1.1)',
-                      },
-                    }}
-                    onClick={summaryItem.action}>
-                    <Flex gap={5}>
-                      <Box bg="transparent" px={12}>
-                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
-                            {summaryItem.icon}
-                          </ThemeIcon>
-                        ) : (
-                          <ThemeIcon
-                            variant="light"
-                            size="sm"
-                            radius="xl"
-                            color={revenueGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
-                            my={15}>
-                            {revenueGapThisMonth < 0 ? (
-                              <IconArrowBadgeDownFilled />
-                            ) : (
-                              <IconArrowBadgeUpFilled />
-                            )}
-                          </ThemeIcon>
-                        )}
-                      </Box>
-
-                      <Center>
-                        <Box>
-                          <Text fz="xs" fw="bold">
-                            {summaryItem.title}
-                          </Text>
-                          <Text
-                            fz="xs"
-                            color="#7D7C7C"
-                            fw="bold"
-                            maw="20%"
-                            style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
-                            {revenueInSequencesThisMonth[index]}
-                          </Text>
-                        </Box>
-                      </Center>
-                    </Flex>
-                  </Box>
-                );
-              })}
-            </SimpleGrid>
-            <Space h="sm" />
-          </div>
-        );
-      })}
-
-      {summaryItemsThirdRow.map(SummaryItems => {
-        return (
-          <div>
-            <Flex justify="center">
-              <Text color="#61677A" fw="bold" fz="sm">
-                {SummaryItems.header}
-              </Text>
-            </Flex>
-            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map((summaryItem, index) => {
-                return (
-                  <Box
-                    bg="white"
-                    style={{
-                      borderRadius: 8,
-                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-                      transition: 'transform 0.3s ease-in-out',
-                    }}
-                    sx={{
-                      ':hover': {
-                        cursor: 'pointer',
-                        transform: 'scale(1.1)',
-                      },
-                    }}
-                    onClick={summaryItem.action}>
-                    <Flex gap={5}>
-                      <Box bg="transparent" px={12}>
-                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
-                            {summaryItem.icon}
-                          </ThemeIcon>
-                        ) : (
-                          <ThemeIcon
-                            variant="light"
-                            size="sm"
-                            radius="xl"
-                            color={revenueGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
-                            my={15}>
-                            {revenueGapThisMonth < 0 ? (
-                              <IconArrowBadgeDownFilled />
-                            ) : (
-                              <IconArrowBadgeUpFilled />
-                            )}
-                          </ThemeIcon>
-                        )}
-                      </Box>
-
-                      <Center>
-                        <Box>
-                          <Text fz="xs" fw="bold">
-                            {summaryItem.title}
-                          </Text>
-                          <Text
-                            fz="xs"
-                            color="#7D7C7C"
-                            fw="bold"
-                            maw="20%"
-                            style={{ maxWidth: '75%', wordWrap: 'break-word' }}>
-                            {revenueInSequencesYTD[index]}
-                          </Text>
-                        </Box>
-                      </Center>
-                    </Flex>
-                  </Box>
-                );
-              })}
-            </SimpleGrid>
-            <Space h="sm" />
-          </div>
-        );
-      })}
-
-      {/* {summaryItemsFourthRow.map(SummaryItems => {
-        return (
-          <div>
-            <Flex justify="center">
-              <Text color="#61677A" fw="bold" fz="sm">
+              <Text color="#61677A" fw="bold" fz="md">
                 {SummaryItems.header}
               </Text>
             </Flex>
@@ -466,14 +342,28 @@ export const RevenueSection = () => {
                         px={12}
                         // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
                       >
-                        <ThemeIcon
-                          variant="light"
-                          size="sm"
-                          radius="xl"
-                          color={Number(summaryItem.amount) < 1 ? '#cc7b7b' : '#a9cc7b'}
-                          my={15}>
-                          {summaryItem.icon}
-                        </ThemeIcon>
+                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
+                            {summaryItem.icon}
+                          </ThemeIcon>
+                        ) : (
+                          <ThemeIcon
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            color={
+                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
+                                ? '#cc7b7b'
+                                : '#a9cc7b'
+                            }
+                            my={15}>
+                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                              <IconArrowBadgeDownFilled />
+                            ) : (
+                              <IconArrowBadgeUpFilled />
+                            )}
+                          </ThemeIcon>
+                        )}
                       </Box>
 
                       <Center>
@@ -481,9 +371,19 @@ export const RevenueSection = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          <Text fz="xs" color="#7D7C7C" fw="bold">
-                            {summaryItem.amount}
-                          </Text>
+                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {summaryItem.amount}
+                            </Text>
+                          ) : (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {parseFloat(
+                                (
+                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
+                                ).toFixed(2),
+                              )}
+                            </Text>
+                          )}
                         </Box>
                       </Center>
                     </Flex>
@@ -494,7 +394,176 @@ export const RevenueSection = () => {
             <Space h="sm" />
           </div>
         );
-      })} */}
+      })}
+      {summaryItemsThirdRow.map(SummaryItems => {
+        return (
+          <div style={{ padding: 10 }}>
+            <Flex justify="center">
+              <Text color="#61677A" fw="bold" fz="md">
+                {SummaryItems.header}
+              </Text>
+            </Flex>
+            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
+              {SummaryItems.result.map(summaryItem => {
+                return (
+                  <Box
+                    bg="white"
+                    style={{
+                      borderRadius: 8,
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        transform: 'scale(1.1)',
+                      },
+                    }}
+                    onClick={summaryItem.action}>
+                    <Flex gap={5}>
+                      <Box
+                        bg="transparent"
+                        px={12}
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
+                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
+                            {summaryItem.icon}
+                          </ThemeIcon>
+                        ) : (
+                          <ThemeIcon
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            color={
+                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
+                                ? '#cc7b7b'
+                                : '#a9cc7b'
+                            }
+                            my={15}>
+                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                              <IconArrowBadgeDownFilled />
+                            ) : (
+                              <IconArrowBadgeUpFilled />
+                            )}
+                          </ThemeIcon>
+                        )}
+                      </Box>
+
+                      <Center>
+                        <Box>
+                          <Text fz="xs" fw="bold">
+                            {summaryItem.title}
+                          </Text>
+                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {summaryItem.amount}
+                            </Text>
+                          ) : (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {parseFloat(
+                                (
+                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
+                                ).toFixed(2),
+                              )}
+                            </Text>
+                          )}
+                        </Box>
+                      </Center>
+                    </Flex>
+                  </Box>
+                );
+              })}
+            </SimpleGrid>
+            <Space h="sm" />
+          </div>
+        );
+      })}
+
+      {summaryItemsFourthRow.map(SummaryItems => {
+        return (
+          <div style={{ padding: 10 }}>
+            <Flex justify="center">
+              <Text color="#61677A" fw="bold" fz="md">
+                {SummaryItems.header}
+              </Text>
+            </Flex>
+            <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
+              {SummaryItems.result.map(summaryItem => {
+                return (
+                  <Box
+                    bg="white"
+                    style={{
+                      borderRadius: 8,
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease-in-out',
+                    }}
+                    sx={{
+                      ':hover': {
+                        cursor: 'pointer',
+                        transform: 'scale(1.1)',
+                      },
+                    }}
+                    onClick={summaryItem.action}>
+                    <Flex gap={5}>
+                      <Box
+                        bg="transparent"
+                        px={12}
+                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
+                      >
+                        {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                          <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
+                            {summaryItem.icon}
+                          </ThemeIcon>
+                        ) : (
+                          <ThemeIcon
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            color={
+                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
+                                ? '#cc7b7b'
+                                : '#a9cc7b'
+                            }
+                            my={15}>
+                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
+                              <IconArrowBadgeDownFilled />
+                            ) : (
+                              <IconArrowBadgeUpFilled />
+                            )}
+                          </ThemeIcon>
+                        )}
+                      </Box>
+
+                      <Center>
+                        <Box>
+                          <Text fz="xs" fw="bold">
+                            {summaryItem.title}
+                          </Text>
+                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {summaryItem.amount}
+                            </Text>
+                          ) : (
+                            <Text fz="xs" color="#7D7C7C" fw="bold">
+                              {parseFloat(
+                                (
+                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
+                                ).toFixed(2),
+                              )}
+                            </Text>
+                          )}
+                        </Box>
+                      </Center>
+                    </Flex>
+                  </Box>
+                );
+              })}
+            </SimpleGrid>
+            <Space h="sm" />
+          </div>
+        );
+      })}
     </Paper>
   );
 };

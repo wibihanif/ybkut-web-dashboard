@@ -5,7 +5,7 @@ import { RevenueSection } from './RevenueSection';
 import { GrossProfit } from './GrossProfit';
 import { Expense } from './Expense';
 import { Profit } from './Profit';
-import { Calendar } from '@mantine/dates';
+import { Calendar, DatePickerInput } from '@mantine/dates';
 import { TableService } from './TableService';
 import { OperationChart } from './chart/OperationChart';
 import { AccountReceivableSection } from './AccountReceivableSection';
@@ -13,6 +13,7 @@ import { AccountTable } from './table/AccountTable';
 import { CorporateSocial } from './CorporateSocial';
 import { CorporateTable } from './CorporateTable';
 import { CorporateTableTable } from './table/CorporateTableTable';
+import { FinancialCalculationWithFilter } from './FinancialCalculationWithFilter';
 // import MyCalendar from '~/features/akademik/component/MyCalendar';
 // import { AccountReceivableSection } from './AccountReceivableSection';
 // import { AccountPayableChart } from './chart/AccountPayable';
@@ -45,31 +46,22 @@ export const FatAnalytic: React.FC = () => {
                 </Text>
               </Box>
             </Center>
-            {/* <Flex justify="flex-end" align="end" w="100%">
-              <Box w="100%">
-                <Box p={15}>
-                  <DatePickerInput
-                    clearable
-                    placeholder="Pick date"
-                    value={value}
-                    onChange={setValue}
-                  />
-                </Box>
-              </Box>
-            </Flex> */}
           </Flex>
         </Box>
+      </Box>
+      <Box mt={20}>
+        <FinancialCalculationWithFilter />
       </Box>
       <Paper
         style={{
           borderRadius: 8,
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
           padding: 20,
-
+          marginTop: 20,
           // transition: 'transform 0.3s ease-in-out',
         }}>
         <Grid mt={10}>
-          <Grid.Col mt={20} span={3}>
+          {/* <Grid.Col mt={20} span={3}>
             <Flex justify="flex-end" align="center" w="100%" h="100%">
               <Paper
                 style={{
@@ -78,36 +70,36 @@ export const FatAnalytic: React.FC = () => {
                   // padding: 10,
                   // transition: 'transform 0.3s ease-in-out',
                 }}>
-                {/* <Calendar /> */}
+                <Calendar />
               </Paper>
             </Flex>
-          </Grid.Col>
-          <Grid.Col span={4}>
+          </Grid.Col> */}
+          <Grid.Col span={6}>
             <Box mt={20}>
               <RevenueSection />
             </Box>
           </Grid.Col>
-          <Grid.Col span={4}>
+          <Grid.Col span={6}>
             <Box mt={20}>
               <GrossProfit />
             </Box>
           </Grid.Col>
         </Grid>
         <Grid mt={10}>
-          <Grid.Col mt={20} span={3}>
-            {/* <Flex align="center" w="100%" h="100%">
+          {/* <Grid.Col mt={20} span={3}>
+            <Flex align="center" w="100%" h="100%">
               <Text color="#61677A" fw="bold" fz="sm" pb={20}>
                 Operation Unit
               </Text>
               <OperationChart />
-            </Flex> */}
-          </Grid.Col>
-          <Grid.Col span={4}>
+            </Flex>
+          </Grid.Col> */}
+          <Grid.Col span={6}>
             <Box mt={20}>
               <Expense />
             </Box>
           </Grid.Col>
-          <Grid.Col span={4}>
+          <Grid.Col span={6}>
             <Box mt={20}>
               <Profit />
             </Box>
