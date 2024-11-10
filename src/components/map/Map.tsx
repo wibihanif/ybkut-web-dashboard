@@ -58,7 +58,8 @@ export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
       keyboard={false}
       attributionControl={false}
       tap={false}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {/* Using a plain tile layer without city names */}
+      <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
       {schoolLocations?.map((schoolLocation, index) => {
         const circleColor =
           schoolLocation.full === '0' ? 'green' : schoolLocation.full === '1' ? 'yellow' : 'red';

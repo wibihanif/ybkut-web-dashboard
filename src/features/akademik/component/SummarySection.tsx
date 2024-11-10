@@ -1,8 +1,14 @@
 import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+// import { IconGraph } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useGetAcademic } from '../api/useGetAcademic';
 import { formatNumberWithCommas } from '~/utils/format';
+import lulusanreguler from '../../../assets/lulusan-reguler.svg';
+import lulusannonreguler from '../../../assets/lulusan-nonreguler.svg';
+import semualulusan from '../../../assets/semua-lulusan.svg';
+import lulusancsr from '../../../assets/lulusan-csr.svg';
+import jumlahsiswa from '../../../assets/jumlah-siswa.svg';
+import siswado from '../../../assets/siswa-dropout.svg';
 
 // interface SummaryItems {
 //   title: string;
@@ -21,40 +27,54 @@ interface SummarySectionProps {
   navigateToCertainPage: (route: string) => void;
 }
 
+const colors = [
+  '#a36138', // Color for item 0
+  '#f7c74f', // Color for item 1
+  '#4caf50', // Color for item 2
+  '#2196f3', // Color for item 3
+  '#e91e63', // Color for item 4
+  '#9c27b0', // Color for item 5
+  '#ff9800', // Color for item 6
+  '#ff2600', // Color for item 6
+  // Add more colors as needed
+];
+
 const summaryItems: SummaryItems[] = [
   {
     title: 'Lulusan Reguler',
-    icon: <IconGraph />,
+    icon: <img src={lulusanreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/lulusan-regular',
   },
   {
     title: 'Lulusan Non-Reguler',
-    icon: <IconGraph />,
+    icon: (
+      <img src={lulusannonreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
+    ),
     amount: (value: string) => value,
     route: '/akademik/lulusan-non-regular',
   },
   {
     title: 'Semua Lulusan',
-    icon: <IconGraph />,
+    icon: <img src={semualulusan} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/semua-lulusan',
   },
   {
     title: 'Lulusan CSR',
-    icon: <IconGraph />,
+    icon: <img src={lulusancsr} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/lulusan-csr',
   },
   {
     title: 'Jumlah Siswa',
-    icon: <IconGraph />,
+    icon: <img src={jumlahsiswa} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/jumlah-siswa',
   },
   {
     title: 'Siswa reguler yang D.O',
-    icon: <IconGraph />,
+    icon: <img src={siswado} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     amount: (value: string) => value,
     route: '/akademik/siswa-regular-do',
   },
@@ -89,6 +109,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           <Box
             bg="white"
             style={{
+              position: 'relative',
               borderRadius: 8,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
@@ -98,15 +119,27 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 cursor: 'pointer',
                 transform: 'scale(1.1)',
               },
+              '::before': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '5px', // Adjust the height as needed
+                // backgroundColor: '#a37538',
+                backgroundColor: colors[index % colors.length],
+                borderTopLeftRadius: 2,
+                borderTopRightRadius: 2,
+              },
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
-            <Flex gap={20}>
+            {/* <Flex gap={20}>
               <Box
                 bg="transparent"
                 px={12}
                 // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
               >
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#ceb28d" my={15}>
+                <ThemeIcon variant="light" size="xl" radius="xl" color="#a37538" my={15}>
                   {summaryItem.icon}
                 </ThemeIcon>
               </Box>
@@ -121,6 +154,44 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                   </Text>
                 </Box>
               </Center>
+            </Flex> */}
+            <Flex gap={20} px={12} py={10} className="justify-between items-center">
+              <div className="w-100%">
+                <Box>
+                  <Text fz="lg" fw="bolder">
+                    {summaryItem.title}
+                  </Text>
+                  {/* <Text fz="lg" color="#7D7C7C" fw="bolder">
+                    Total: {summaryItem.total(groupedKiplValues[index])}
+                  </Text> */}
+                  <Text fz="sm" color="#7D7C7C" fw="bold">
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
+                  </Text>
+                  {/* <Text fz="sm" color="#7D7C7C" fw="bold">
+                    Amount: {summaryItem.percentage(groupedKiplPercentages[index])}%
+                  </Text> */}
+                </Box>
+              </div>
+
+              <Box bg="transparent">
+                <ThemeIcon
+                  variant="light"
+                  size="50px"
+                  radius="xl"
+                  color={colors[index % colors.length]}
+                  sx={{
+                    // Initial state
+                    transform: 'rotate(0deg)',
+                    ':hover': {
+                      transform: 'rotate(45deg)', // Rotate 90 degrees on hover
+                      transition: 'transform 0.3s ease-in-out', // Ensure smooth transition on hover
+                    },
+                    transition: 'transform 0.3s ease-in-out',
+                  }}
+                  style={{ width: '100%', height: '100%' }}>
+                  <div>{summaryItem.icon}</div>
+                </ThemeIcon>
+              </Box>
             </Flex>
           </Box>
         );

@@ -1,7 +1,28 @@
-import { Box, Center, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
-import { IconGraph } from '@tabler/icons-react';
+import { Box, Flex, SimpleGrid, Text, ThemeIcon } from '@mantine/core';
+// import {
+//   IconAnalyzeFilled,
+//   IconBlockquote,
+//   IconBrandCodesandbox,
+//   IconBuilding,
+//   // IconGraph,
+//   IconHeadset,
+//   IconHearts,
+//   IconListSearch,
+//   IconReportAnalytics,
+//   IconSchool,
+// } from '@tabler/icons-react';
 import { ReactNode } from 'react';
-import { formatNumberWithCommas } from '~/utils/format';
+// import demand from '../../../assets/demand.svg';
+import project from '../../../assets/project.svg';
+import quotation from '../../../assets/quotation.svg';
+import po from '../../../assets/po.svg';
+import eventclose from '../../../assets/event-close.svg';
+import reporting from '../../../assets/reporting.svg';
+import ar from '../../../assets/ar.svg';
+import customercoverage from '../../../assets/customer-coverage.svg';
+import nonreguler from '../../../assets/non-reguler.svg';
+// import pendingdepreciation from '../../../assets/pending-depreciation.svg';
+// import { formatNumberWithCommas } from '~/utils/format';
 
 interface SummaryItems {
   title: string;
@@ -15,9 +36,23 @@ interface SummaryItems {
 interface SummarySectionProps {
   navigateToCertainPage: (route: string) => void;
 }
-
+const colors = [
+  '#a36138', // Color for item 0
+  '#f7c74f', // Color for item 1
+  '#4caf50', // Color for item 2
+  '#2196f3', // Color for item 3
+  '#e91e63', // Color for item 4
+  '#9c27b0', // Color for item 5
+  '#ff9800', // Color for item 6
+  '#ff2600', // Color for item 6
+  // Add more colors as needed
+];
 const resp = {
-  demand: 2,
+  // demand: {
+  //   total: 164,
+  //   amount: 12290014970,
+  //   percentage: 82,
+  // },
   project: {
     total: 164,
     amount: 12290014970,
@@ -61,17 +96,17 @@ const resp = {
 };
 
 const summaryItemsFirstRow: SummaryItems[] = [
-  {
-    title: 'Demand',
-    icon: <IconGraph />,
-    total: (value: number) => value.toString(),
-    amount: (value: number) => value.toString(),
-    percentage: (value: number) => value.toFixed(2),
-    route: '/kipl/demand',
-  },
+  // {
+  //   title: 'Demand',
+  //   icon: <img src={demand} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+  //   total: (value: number) => value.toString(),
+  //   amount: (value: number) => value.toString(),
+  //   percentage: (value: number) => value.toFixed(2),
+  //   route: '/kipl/demand',
+  // },
   {
     title: 'Project',
-    icon: <IconGraph />,
+    icon: <img src={project} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -79,7 +114,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Quotation',
-    icon: <IconGraph />,
+    icon: <img src={quotation} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -87,7 +122,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'PO/SPK',
-    icon: <IconGraph />,
+    icon: <img src={po} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -95,7 +130,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Status Event Close',
-    icon: <IconGraph />,
+    icon: <img src={eventclose} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -103,7 +138,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Reporting',
-    icon: <IconGraph />,
+    icon: <img src={reporting} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -111,7 +146,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'AR Performance',
-    icon: <IconGraph />,
+    icon: <img src={ar} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -119,7 +154,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Customer Coverage',
-    icon: <IconGraph />,
+    icon: <img src={customercoverage} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -127,7 +162,7 @@ const summaryItemsFirstRow: SummaryItems[] = [
   },
   {
     title: 'Non Regular Students',
-    icon: <IconGraph />,
+    icon: <img src={nonreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
     total: (value: number) => value.toString(),
     amount: (value: number) => value.toString(),
     percentage: (value: number) => value.toFixed(2),
@@ -142,7 +177,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
     <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map((summaryItem, index) => {
         const groupedKiplValues = [
-          resp.demand,
+          // resp.demand.total,
           resp.project.total,
           resp.quotation.total,
           resp.po.total,
@@ -153,7 +188,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.non_regular_student.total,
         ];
         const groupedKiplAmounts = [
-          0, // Assuming demand does not have an amount
+          // resp.demand.amount, // Assuming demand does not have an amount
           resp.project.amount,
           resp.quotation.amount,
           resp.po.amount,
@@ -164,7 +199,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.non_regular_student.amount,
         ];
         const groupedKiplPercentages = [
-          0, // Assuming demand does not have a percentage
+          // resp.demand.percentage, // Assuming demand does not have a percentage
           resp.project.percentage,
           resp.quotation.percentage,
           resp.po.percentage,
@@ -179,6 +214,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             key={summaryItem.title}
             bg="white"
             style={{
+              position: 'relative',
               borderRadius: 8,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
@@ -188,31 +224,57 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 cursor: 'pointer',
                 transform: 'scale(1.1)',
               },
+              '::before': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '5px', // Adjust the height as needed
+                // backgroundColor: '#a37538',
+                backgroundColor: colors[index % colors.length],
+                borderTopLeftRadius: 2,
+                borderTopRightRadius: 2,
+              },
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
-            <Flex gap={20}>
-              <Box bg="transparent" px={12}>
-                <ThemeIcon variant="light" size="xl" radius="xl" color="#ceb28d" my={15}>
-                  {summaryItem.icon}
-                </ThemeIcon>
-              </Box>
-
-              <Center>
+            <Flex gap={20} px={12} py={10} className="justify-between items-center">
+              <div className="w-100%">
                 <Box>
-                  <Text fz="sm" fw="bold">
+                  <Text fz="lg" fw="bolder">
                     {summaryItem.title}
                   </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
+                  <Text fz="lg" color="#7D7C7C" fw="bolder">
                     Total: {summaryItem.total(groupedKiplValues[index])}
                   </Text>
                   <Text fz="sm" color="#7D7C7C" fw="bold">
                     Amount: {summaryItem.amount(groupedKiplAmounts[index])}
                   </Text>
                   <Text fz="sm" color="#7D7C7C" fw="bold">
-                    Percentage: {summaryItem.percentage(groupedKiplPercentages[index])}%
+                    Amount: {summaryItem.percentage(groupedKiplPercentages[index])}%
                   </Text>
                 </Box>
-              </Center>
+              </div>
+
+              <Box bg="transparent">
+                <ThemeIcon
+                  variant="light"
+                  size="50px"
+                  radius="xl"
+                  color={colors[index % colors.length]}
+                  sx={{
+                    // Initial state
+                    transform: 'rotate(0deg)',
+                    ':hover': {
+                      transform: 'rotate(45deg)', // Rotate 90 degrees on hover
+                      transition: 'transform 0.3s ease-in-out', // Ensure smooth transition on hover
+                    },
+                    transition: 'transform 0.3s ease-in-out',
+                  }}
+                  style={{ width: '100%', height: '100%' }}>
+                  <div>{summaryItem.icon}</div>
+                </ThemeIcon>
+              </Box>
             </Flex>
           </Box>
         );

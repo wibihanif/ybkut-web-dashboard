@@ -60,7 +60,7 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
           <div
             style={{ color: 'rgba(50, 118, 138, 1)' }}
             className="text-center font-extrabold text-3xl w-[700px]">
-            Selamat Datang di Dashboard Odoo Yayasan Karya Bakti Indonesia (YKBUT)
+            Selamat Datang di Dashboard Odoo Yayasan Karya Bakti United Tractors (YKBUT)
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-12 mt-5">
