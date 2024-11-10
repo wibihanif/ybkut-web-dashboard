@@ -4,8 +4,14 @@ import { IconArrowBadgeUpFilled, IconArrowBadgeDownFilled } from '@tabler/icons-
 import { endOfMonth, endOfYear, format, startOfMonth, startOfYear, subMonths } from 'date-fns';
 import { useGetPnlPlan } from '../api/useGetPnlPlan';
 import { useGetPnlActual } from '../api/useGetPnlActual';
-import { DateInput } from '@mantine/dates';
+import { DateInput, DateValue } from '@mantine/dates';
 import { useState } from 'react';
+import { useGetRevenuePlan } from '../api/useGetRevenuePlan';
+import { useGetRevenueActual } from '../api/useGetRevenueActual';
+import { useGetOperationalProfitPlan } from '../api/useGetOperationalProfitPlan';
+import { useGetOperationalProfitActual } from '../api/useGetOperationalProfitActual';
+import { useGetOpexPlan } from '../api/useGetOpexPlan';
+import { useGetOpexActual } from '../api/useGetOpexActual';
 
 interface SummaryItem {
   title: string;
@@ -122,87 +128,102 @@ const summaryItemsFourthRow: SummaryItems[] = [
 ];
 
 export const FinancialCalculationWithFilter = () => {
-  const firstDayOfYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
-  const lastDayOfYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
+  const [startDate, setStartDateValue] = useState<DateValue>(new Date());
+  const [endDate, setEndDateValue] = useState<DateValue>(new Date());
 
-  const lastMonth = subMonths(new Date(), 1);
-  const firstDateLastMonth = format(startOfMonth(lastMonth), 'yyyy-MM-dd');
-  const endDateLastMonth = format(endOfMonth(lastMonth), 'yyyy-MM-dd');
-
-  const [startDate, setStartDateValue] = useState<Date | null>(null);
-  const [endDate, setEndDateValue] = useState<Date | null>(null);
-
-  const today = format(new Date(), 'yyyy-MM-dd');
-
-  const { data: pnlPlanThisYear } = useGetPnlPlan({
-    endDate: lastDayOfYear,
-    startDate: firstDayOfYear,
+  const { data: pnlPlan } = useGetPnlPlan({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
   });
-  const { data: pnlActualThisYear } = useGetPnlActual({
-    endDate: lastDayOfYear,
-    startDate: firstDayOfYear,
+  const { data: pnlActual } = useGetPnlActual({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
   });
 
-  let pnlGapThisYear;
+  let pnlGap;
 
-  if (pnlPlanThisYear?.planPnl && pnlActualThisYear?.actualPnl) {
-    pnlGapThisYear = pnlPlanThisYear.planPnl - pnlActualThisYear.actualPnl;
+  if (pnlPlan?.planPnl && pnlActual?.actualPnl) {
+    pnlGap = pnlPlan.planPnl - pnlActual.actualPnl;
   } else {
-    pnlGapThisYear = 0;
+    pnlGap = 0;
   }
 
-  const pnlThisYearInSequences = [
-    pnlPlanThisYear?.planPnl === null ? 0 : pnlPlanThisYear?.planPnl,
-    pnlActualThisYear?.actualPnl === null ? 0 : pnlActualThisYear?.actualPnl,
-    pnlGapThisYear,
+  const pnlInSequences = [
+    pnlPlan?.planPnl === null ? 0 : pnlPlan?.planPnl,
+    pnlActual?.actualPnl === null ? 0 : pnlActual?.actualPnl,
+    pnlGap,
   ];
 
-  const { data: pnlPlanThisMonth } = useGetPnlPlan({
-    endDate: firstDateLastMonth,
-    startDate: endDateLastMonth,
+  const { data: revenuePlan } = useGetRevenuePlan({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
+  });
+  const { data: revenueActual } = useGetRevenueActual({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
   });
 
-  const { data: pnlActualThisMonth } = useGetPnlActual({
-    endDate: firstDateLastMonth,
-    startDate: endDateLastMonth,
-  });
+  let revenueGap;
 
-  let pnlGapThisMonth;
-
-  if (pnlPlanThisMonth?.planPnl && pnlActualThisMonth?.actualPnl) {
-    pnlGapThisMonth = pnlPlanThisMonth.planPnl - pnlActualThisMonth.actualPnl;
+  if (revenuePlan?.plan && revenueActual?.revenue) {
+    revenueGap = revenuePlan.plan - revenueActual.revenue;
   } else {
-    pnlGapThisMonth = 0;
+    revenueGap = 0;
   }
 
-  const pnlThisMonthInSequences = [
-    pnlPlanThisMonth?.planPnl === null ? 0 : pnlPlanThisMonth?.planPnl,
-    pnlActualThisMonth?.actualPnl === null ? 0 : pnlActualThisMonth?.actualPnl,
-    pnlGapThisMonth,
+  const revenueInSequences = [
+    pnlPlan?.planPnl === null ? 0 : pnlPlan?.planPnl,
+    pnlActual?.actualPnl === null ? 0 : pnlActual?.actualPnl,
+    pnlGap,
   ];
 
-  const { data: pnlPlanYTD } = useGetPnlPlan({
-    startDate: firstDayOfYear,
-    endDate: today,
+  const { data: operationalProfitPlan } = useGetOperationalProfitPlan({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
+  });
+  const { data: operationalProfitActual } = useGetOperationalProfitActual({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
   });
 
-  const { data: pnlActualYTD } = useGetPnlActual({
-    startDate: firstDayOfYear,
-    endDate: today,
-  });
+  let operationalProfitGap;
 
-  let pnlGapYTD;
-
-  if (pnlPlanYTD?.planPnl && pnlActualYTD?.actualPnl) {
-    pnlGapYTD = pnlPlanYTD.planPnl - pnlActualYTD.actualPnl;
+  if (operationalProfitPlan?.planOprProfit && operationalProfitActual?.actualOprProfit) {
+    operationalProfitGap =
+      operationalProfitPlan.planOprProfit - operationalProfitActual.actualOprProfit;
   } else {
-    pnlGapYTD = 0;
+    operationalProfitGap = 0;
   }
 
-  const pnlYTDInSequences = [
-    pnlPlanYTD?.planPnl === null ? 0 : pnlPlanYTD?.planPnl,
-    pnlActualYTD?.actualPnl === null ? 0 : pnlActualYTD?.actualPnl,
-    pnlGapYTD,
+  const operationalProfitInSequences = [
+    operationalProfitPlan?.planOprProfit === null ? 0 : operationalProfitPlan?.planOprProfit,
+    operationalProfitActual?.actualOprProfit === null
+      ? 0
+      : operationalProfitActual?.actualOprProfit,
+    operationalProfitGap,
+  ];
+
+  const { data: opexPlan } = useGetOpexPlan({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
+  });
+  const { data: opexActual } = useGetOpexActual({
+    endDate: format(endDate as Date, 'yyyy-MM-dd'),
+    startDate: format(startDate as Date, 'yyyy-MM-dd'),
+  });
+
+  let opexGap;
+
+  if (opexPlan?.planOpex && opexActual?.opex) {
+    opexGap = opexPlan.planOpex - opexActual.opex;
+  } else {
+    opexGap = 0;
+  }
+
+  const opexInSequences = [
+    opexPlan?.planOpex === null ? 0 : opexPlan?.planOpex,
+    opexActual?.opex === null ? 0 : opexActual?.opex,
+    pnlGap,
   ];
 
   return (
@@ -263,11 +284,7 @@ export const FinancialCalculationWithFilter = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -277,13 +294,9 @@ export const FinancialCalculationWithFilter = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={pnlGapThisMonth < 0 ? '#cc7b7b' : '#a9cc7b'}
+                            color={pnlGap < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {pnlGapThisMonth < 0 ? (
-                              <IconArrowBadgeDownFilled />
-                            ) : (
-                              <IconArrowBadgeUpFilled />
-                            )}
+                            {pnlGap < 0 ? <IconArrowBadgeDownFilled /> : <IconArrowBadgeUpFilled />}
                           </ThemeIcon>
                         )}
                       </Box>
@@ -298,7 +311,7 @@ export const FinancialCalculationWithFilter = () => {
                             color="#7D7C7C"
                             fw="bold"
                             style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
-                            {pnlThisMonthInSequences[index]}
+                            {revenueInSequences[index]}
                           </Text>
                         </Box>
                       </Center>
@@ -311,6 +324,7 @@ export const FinancialCalculationWithFilter = () => {
           </div>
         );
       })}
+
       {summaryItemsSecondRow.map(SummaryItems => {
         return (
           <div style={{ padding: 10 }}>
@@ -320,7 +334,7 @@ export const FinancialCalculationWithFilter = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -337,11 +351,7 @@ export const FinancialCalculationWithFilter = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -351,17 +361,9 @@ export const FinancialCalculationWithFilter = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={pnlGap < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
-                              <IconArrowBadgeDownFilled />
-                            ) : (
-                              <IconArrowBadgeUpFilled />
-                            )}
+                            {pnlGap < 0 ? <IconArrowBadgeDownFilled /> : <IconArrowBadgeUpFilled />}
                           </ThemeIcon>
                         )}
                       </Box>
@@ -371,19 +373,13 @@ export const FinancialCalculationWithFilter = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {pnlInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
@@ -395,6 +391,7 @@ export const FinancialCalculationWithFilter = () => {
           </div>
         );
       })}
+
       {summaryItemsThirdRow.map(SummaryItems => {
         return (
           <div style={{ padding: 10 }}>
@@ -404,7 +401,7 @@ export const FinancialCalculationWithFilter = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -421,11 +418,7 @@ export const FinancialCalculationWithFilter = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -435,17 +428,9 @@ export const FinancialCalculationWithFilter = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={pnlGap < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
-                              <IconArrowBadgeDownFilled />
-                            ) : (
-                              <IconArrowBadgeUpFilled />
-                            )}
+                            {pnlGap < 0 ? <IconArrowBadgeDownFilled /> : <IconArrowBadgeUpFilled />}
                           </ThemeIcon>
                         )}
                       </Box>
@@ -455,19 +440,13 @@ export const FinancialCalculationWithFilter = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {opexInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
@@ -489,7 +468,7 @@ export const FinancialCalculationWithFilter = () => {
               </Text>
             </Flex>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
-              {SummaryItems.result.map(summaryItem => {
+              {SummaryItems.result.map((summaryItem, index) => {
                 return (
                   <Box
                     bg="white"
@@ -506,11 +485,7 @@ export const FinancialCalculationWithFilter = () => {
                     }}
                     onClick={summaryItem.action}>
                     <Flex gap={5}>
-                      <Box
-                        bg="transparent"
-                        px={12}
-                        // style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 8 }}
-                      >
+                      <Box bg="transparent" px={12}>
                         {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
                           <ThemeIcon variant="light" size="sm" radius="xl" color="#a9cc7b" my={15}>
                             {summaryItem.icon}
@@ -520,17 +495,9 @@ export const FinancialCalculationWithFilter = () => {
                             variant="light"
                             size="sm"
                             radius="xl"
-                            color={
-                              SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0
-                                ? '#cc7b7b'
-                                : '#a9cc7b'
-                            }
+                            color={pnlGap < 0 ? '#cc7b7b' : '#a9cc7b'}
                             my={15}>
-                            {SummaryItems.result[1].amount - SummaryItems.result[0].amount < 0 ? (
-                              <IconArrowBadgeDownFilled />
-                            ) : (
-                              <IconArrowBadgeUpFilled />
-                            )}
+                            {pnlGap < 0 ? <IconArrowBadgeDownFilled /> : <IconArrowBadgeUpFilled />}
                           </ThemeIcon>
                         )}
                       </Box>
@@ -540,19 +507,13 @@ export const FinancialCalculationWithFilter = () => {
                           <Text fz="xs" fw="bold">
                             {summaryItem.title}
                           </Text>
-                          {summaryItem.title === 'Plan' || summaryItem.title === 'Actual' ? (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {summaryItem.amount}
-                            </Text>
-                          ) : (
-                            <Text fz="xs" color="#7D7C7C" fw="bold">
-                              {parseFloat(
-                                (
-                                  SummaryItems.result[1].amount - SummaryItems.result[0].amount
-                                ).toFixed(2),
-                              )}
-                            </Text>
-                          )}
+                          <Text
+                            fz="xs"
+                            color="#7D7C7C"
+                            fw="bold"
+                            style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+                            {operationalProfitInSequences[index]}
+                          </Text>
                         </Box>
                       </Center>
                     </Flex>
