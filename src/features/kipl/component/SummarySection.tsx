@@ -174,7 +174,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {
   return (
-    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={4} spacing="xs" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map((summaryItem, index) => {
         const groupedKiplValues = [
           // resp.demand.total,
@@ -218,6 +218,8 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
               borderRadius: 8,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
+              width: '300px', // Limit width for smaller box size
+              margin: '0 auto', // Center the box
             }}
             sx={{
               ':hover': {
@@ -239,6 +241,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
             <Flex gap={20} px={12} py={10} className="justify-between items-center">
+              {/* <div className="w-100%"> */}
               <div className="w-100%">
                 <Box>
                   <Text fz="lg" fw="bolder">
