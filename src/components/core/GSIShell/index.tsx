@@ -32,8 +32,8 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       navbar={
         React.isValidElement(sidebarMenus) && sidebarMenus.props.location.pathname !== '/' ? ( // Use ternary operator to conditionally render Navbar
           <Navbar
-            sx={{ backgroundColor: 'rgba(160, 160, 160, 0.577)', border: 'none' }}
-            width={{ base: 300 }}
+            sx={{ backgroundColor: 'rgb(255, 255, 255)', border: 'none' }}
+            width={{ base: 200 }}
             p="xs"
             zIndex={1}>
             <ScrollArea>

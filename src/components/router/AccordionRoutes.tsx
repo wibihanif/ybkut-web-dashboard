@@ -111,17 +111,19 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                 <Accordion.Panel
                                   sx={{
                                     paddingLeft: 30,
-                                    paddingTop: 7,
+                                    paddingTop: 5,
                                     borderRadius: 8,
                                     ':hover': {
                                       cursor: 'pointer',
-                                      backgroundColor: route.color,
+                                      backgroundColor: 'rgba(160, 160, 160, 0.592)',
                                       borderRadius: 8,
                                     },
-                                    backgroundColor: isActive ? route.color : 'none',
-                                    opacity: isActive ? 0.7 : 0.5,
+                                    backgroundColor: isActive
+                                      ? 'rgba(160, 160, 160, 0.877)'
+                                      : 'none',
+                                    // opacity: isActive ? 0.7 : 0.5,
                                   }}>
-                                  <Text fz="sm" color="#ffffff" fw="bold">
+                                  <Text fz="13px" color="#070000" fw="bold">
                                     {routeItem.title}
                                   </Text>
                                 </Accordion.Panel>
@@ -171,17 +173,19 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                 <Accordion.Panel
                                   sx={{
                                     paddingLeft: 30,
-                                    paddingTop: 7,
+                                    paddingTop: 5,
                                     borderRadius: 8,
                                     ':hover': {
                                       cursor: 'pointer',
-                                      backgroundColor: route.color,
+                                      backgroundColor: 'rgba(160, 160, 160, 0.592)',
                                       borderRadius: 8,
                                     },
-                                    backgroundColor: isActive ? route.color : 'none',
-                                    opacity: isActive ? 0.7 : 0.5,
+                                    backgroundColor: isActive
+                                      ? 'rgba(160, 160, 160, 0.877)'
+                                      : 'none',
+                                    // opacity: isActive ? 0.7 : 0.5,
                                   }}>
-                                  <Text fz="sm" color="#ffffff" fw="bold">
+                                  <Text fz="13px" color="#070000" fw="bold">
                                     {routeItem.title}
                                   </Text>
                                 </Accordion.Panel>
@@ -252,17 +256,19 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                 <Accordion.Panel
                                   sx={{
                                     paddingLeft: 30,
-                                    paddingTop: 7,
+                                    paddingTop: 5,
                                     borderRadius: 8,
                                     ':hover': {
                                       cursor: 'pointer',
-                                      backgroundColor: route.color,
+                                      backgroundColor: 'rgba(160, 160, 160, 0.592)',
                                       borderRadius: 8,
                                     },
-                                    backgroundColor: isActive ? route.color : 'none',
-                                    opacity: isActive ? 0.7 : 0.5,
+                                    backgroundColor: isActive
+                                      ? 'rgba(160, 160, 160, 0.877)'
+                                      : 'none',
+                                    // opacity: isActive ? 0.7 : 0.5,
                                   }}>
-                                  <Text fz="sm" color="#ffffff" fw="bold">
+                                  <Text fz="13px" color="#070000" fw="bold">
                                     {routeItem.title}
                                   </Text>
                                 </Accordion.Panel>
@@ -315,17 +321,19 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                 <Accordion.Panel
                                   sx={{
                                     paddingLeft: 30,
-                                    paddingTop: 7,
+                                    paddingTop: 5,
                                     borderRadius: 8,
                                     ':hover': {
                                       cursor: 'pointer',
-                                      backgroundColor: route.color,
+                                      backgroundColor: 'rgba(160, 160, 160, 0.592)',
                                       borderRadius: 8,
                                     },
-                                    backgroundColor: isActive ? route.color : 'none',
-                                    opacity: isActive ? 0.7 : 0.5,
+                                    backgroundColor: isActive
+                                      ? 'rgba(160, 160, 160, 0.877)'
+                                      : 'none',
+                                    // opacity: isActive ? 0.7 : 0.5,
                                   }}>
-                                  <Text fz="sm" color="#ffffff" fw="bold">
+                                  <Text fz="13px" color="#070000" fw="bold">
                                     {routeItem.title}
                                   </Text>
                                 </Accordion.Panel>
@@ -347,7 +355,7 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
   return (
     <Accordion
       p={10}
-      sx={{ backgroundColor: 'rgba(160, 160, 160, 0.577)', borderRadius: 8 }}
+      sx={{ backgroundColor: 'rgb(238, 238, 238)', borderRadius: 8 }}
       defaultValue={accordionActiveValue}>
       {renderAccordion()}
     </Accordion>

@@ -113,6 +113,8 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
               borderRadius: 8,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
+              width: '300px', // Limit width for smaller box size
+              margin: '0 auto', // Center the box
             }}
             sx={{
               ':hover': {
