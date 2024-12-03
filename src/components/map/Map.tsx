@@ -1,4 +1,12 @@
-import { Circle, FeatureGroup, MapContainer, Popup, TileLayer, useMap } from 'react-leaflet';
+import {
+  Circle,
+  FeatureGroup,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+} from 'react-leaflet';
 import L from 'leaflet';
 import '../../style.css';
 import 'leaflet/dist/leaflet.css';
@@ -45,6 +53,20 @@ const Legend: React.FC = () => {
 export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
   const center: [number, number] = [-0.907, 117.8231];
 
+  const createFlagIcon = (color: string) => {
+    const svgHtml = `
+      <svg width="24" height="32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="8" width="16" height="10" fill="${color}" />
+        <line x1="2" y1="8" x2="2" y2="32" stroke="black" stroke-width="2" />
+      </svg>
+    `;
+    return L.divIcon({
+      html: svgHtml,
+      className: 'custom-flag-icon',
+      iconAnchor: [12, 32],
+    });
+  };
+
   return (
     <MapContainer
       center={center}
@@ -58,10 +80,13 @@ export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
       keyboard={false}
       attributionControl={false}
       tap={false}>
-      {/* Using a plain tile layer without city names */}
+      {/* Menggunakan tile layer tanpa label kota */}
       <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
       {schoolLocations?.map((schoolLocation, index) => {
         const circleColor =
+          schoolLocation.full === '0' ? 'green' : schoolLocation.full === '1' ? 'yellow' : 'red';
+
+        const flagColor =
           schoolLocation.full === '0' ? 'green' : schoolLocation.full === '1' ? 'yellow' : 'red';
 
         return (
@@ -74,6 +99,10 @@ export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
                 color: circleColor,
                 weight: 15,
               }}
+            />
+            <Marker
+              position={[schoolLocation.lat as any, schoolLocation.long as any]}
+              icon={createFlagIcon(flagColor)}
             />
           </FeatureGroup>
         );

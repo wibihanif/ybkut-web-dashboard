@@ -55,7 +55,14 @@ export const RevenueChart = () => {
       },
       colors: ['#00c1e3'],
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        formatter: (val: number) => {
+          // Show 'actual' value in the middle of the bar
+          return val.toString();
+        },
+        style: {
+          colors: ['#010101'], // White text color for numbers inside bars
+        },
       },
       legend: {
         show: true,

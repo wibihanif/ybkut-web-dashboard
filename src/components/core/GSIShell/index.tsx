@@ -25,7 +25,8 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       // }}
       sx={{
         // backgroundColor: 'rgba(239, 233, 206, 1)',
-        backgroundColor: '#dde3ee',
+        // backgroundColor: '#dde3ee',
+        backgroundColor: 'rgb(247, 250, 252)',
         // backgroundImage: `url(${ybkutBg})`, // Use url() to specify the background image
         backgroundSize: 'cover', // Adjust the background size as needed
       }}
@@ -33,8 +34,8 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
         React.isValidElement(sidebarMenus) && sidebarMenus.props.location.pathname !== '/' ? ( // Use ternary operator to conditionally render Navbar
           <Navbar
             sx={{ backgroundColor: 'rgb(255, 255, 255)', border: 'none' }}
-            width={{ base: 200 }}
-            p="xs"
+            width={{ base: 300 }}
+            p="lg"
             zIndex={1}>
             <ScrollArea>
               <Navbar.Section>

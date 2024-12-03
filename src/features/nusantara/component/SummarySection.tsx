@@ -5,10 +5,10 @@ import { useGetSchoolGraduates } from '../api/useGetSchoolGraduates';
 import { useGetSchoolStudents } from '../api/useGetSchoolStudents';
 import { useGetSchoolSales } from '../api/useGetSchoolSales';
 import { toRupiah } from '~/utils/format';
-import totalproject from '../../../assets/total-project.svg';
-import ongoingproject from '../../../assets/ongoing-project.svg';
-import pendingproject from '../../../assets/pending-project.svg';
-import canceledproject from '../../../assets/canceled-project.svg';
+// import totalproject from '../../../assets/total-project.svg';
+// import ongoingproject from '../../../assets/ongoing-project.svg';
+// import pendingproject from '../../../assets/pending-project.svg';
+// import canceledproject from '../../../assets/canceled-project.svg';
 import numbergraduates from '../../../assets/number-graduates.svg';
 import numberstudents from '../../../assets/number-students.svg';
 import salesperformance from '../../../assets/sales-performance.svg';
@@ -48,30 +48,44 @@ export const SummarySection = () => {
   }
 
   const summaryItemsFirstRow: SummaryItems[] = [
+    // {
+    //   title: 'Total Projects',
+    //   icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+    //   amount: 18,
+    //   action: () => console.log('to detail'),
+    // },
+    // {
+    //   title: 'On Going Projects',
+    //   icon: <img src={ongoingproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+    //   amount: 18,
+    //   action: () => console.log('to detail'),
+    // },
+    // {
+    //   title: 'Pending Projects',
+    //   icon: <img src={pendingproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+    //   amount: 18,
+    //   action: () => console.log('to detail'),
+    // },
+    // {
+    //   title: 'Canceled Projects',
+    //   icon: (
+    //     <img src={canceledproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
+    //   ),
+    //   amount: 18,
+    //   action: () => console.log('to detail'),
+    // },
     {
-      title: 'Total Projects',
-      icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-      amount: 18,
-      action: () => console.log('to detail'),
-    },
-    {
-      title: 'On Going Projects',
-      icon: <img src={ongoingproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-      amount: 18,
-      action: () => console.log('to detail'),
-    },
-    {
-      title: 'Pending Projects',
-      icon: <img src={pendingproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-      amount: 18,
-      action: () => console.log('to detail'),
-    },
-    {
-      title: 'Canceled Projects',
+      title: 'Sales Performance',
       icon: (
-        <img src={canceledproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
+        <img src={salesperformance} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
       ),
-      amount: 18,
+      amount: sales ? `${toRupiah(totalAmount)} JT` : 0,
+      action: () => console.log('to detail'),
+    },
+    {
+      title: 'Winning Ratio',
+      icon: <img src={winningratio} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+      amount: 0,
       action: () => console.log('to detail'),
     },
     {
@@ -88,34 +102,20 @@ export const SummarySection = () => {
       amount: Number(students ? students[0].total_student : 0),
       action: () => console.log('to detail'),
     },
-    {
-      title: 'Sales Performance',
-      icon: (
-        <img src={salesperformance} alt="Pending PO" style={{ width: '32px', height: '32px' }} />
-      ),
-      amount: sales ? `${toRupiah(totalAmount)} JT` : 0,
-      action: () => console.log('to detail'),
-    },
-    {
-      title: 'Winning Ratio',
-      icon: <img src={winningratio} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-      amount: 0,
-      action: () => console.log('to detail'),
-    },
   ];
 
   return (
-    <SimpleGrid cols={4} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={4} spacing="sm" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map((summaryItem, index) => {
         return (
           <Box
             bg="white"
             style={{
               position: 'relative',
-              borderRadius: 8,
+              borderRadius: 30,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
-              width: '300px', // Limit width for smaller box size
+              width: '250px', // Limit width for smaller box size
               margin: '0 auto', // Center the box
             }}
             sx={{
@@ -131,9 +131,9 @@ export const SummarySection = () => {
                 right: 0,
                 height: '5px', // Adjust the height as needed
                 // backgroundColor: '#a37538',
-                backgroundColor: colors[index % colors.length],
-                borderTopLeftRadius: 2,
-                borderTopRightRadius: 2,
+                // backgroundColor: colors[index % colors.length],
+                // borderTopLeftRadius: 2,
+                // borderTopRightRadius: 2,
               },
             }}
             onClick={summaryItem.action}>
