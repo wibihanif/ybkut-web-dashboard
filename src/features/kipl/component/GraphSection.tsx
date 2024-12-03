@@ -9,10 +9,10 @@ export const GraphSection = () => {
   return (
     <Grid gutter="lg" mt={20}>
       {/* Row 1 */}
-      <Grid.Col span={12}>
+      <Grid.Col span={6}>
         <Paper
           style={{
-            borderRadius: 8,
+            borderRadius: 30,
             boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.15)',
             padding: 55,
             height: '100%',
@@ -26,10 +26,32 @@ export const GraphSection = () => {
               transform: 'scale(1.03)',
             },
           }}>
-          <Text color="#61677A" fw="bold" fz="lg" pb={20} style={{ alignSelf: 'start' }}>
+          <Text color="#61677A" fw="bold" fz="sm" pb={20} style={{ alignSelf: 'start' }}>
             Sales by Category
           </Text>
           <SalesBarChart />
+        </Paper>
+      </Grid.Col>
+      <Grid.Col span={6}>
+        <Paper
+          style={{
+            borderRadius: 30,
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+            padding: 55,
+            display: 'flex',
+            flexDirection: 'column',
+            transition: 'transform 0.3s ease-in-out',
+          }}
+          sx={{
+            ':hover': {
+              cursor: 'pointer',
+              transform: 'scale(1.03)',
+            },
+          }}>
+          <Text color="#61677A" fw="bold" fz="sm" pb={20} style={{ alignSelf: 'start' }}>
+            Revenue Breakdown
+          </Text>
+          <RevenueChart />
         </Paper>
       </Grid.Col>
       {/* <Grid.Col span={4}>
@@ -60,7 +82,7 @@ export const GraphSection = () => {
       <Grid.Col span={4}>
         <Paper
           style={{
-            borderRadius: 8,
+            borderRadius: 30,
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
             padding: 25,
             display: 'flex',
@@ -82,7 +104,7 @@ export const GraphSection = () => {
       <Grid.Col span={4}>
         <Paper
           style={{
-            borderRadius: 8,
+            borderRadius: 30,
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
             padding: 25,
             display: 'flex',
@@ -104,7 +126,7 @@ export const GraphSection = () => {
       <Grid.Col span={4}>
         <Paper
           style={{
-            borderRadius: 8,
+            borderRadius: 30,
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
             padding: 25,
             display: 'flex',
@@ -123,7 +145,7 @@ export const GraphSection = () => {
           <InvoiceChart />
         </Paper>
       </Grid.Col>
-      <Grid.Col span={12}>
+      {/* <Grid.Col span={12}>
         <Paper
           style={{
             borderRadius: 8,
@@ -144,7 +166,7 @@ export const GraphSection = () => {
           </Text>
           <RevenueChart />
         </Paper>
-      </Grid.Col>
+      </Grid.Col> */}
     </Grid>
   );
 };

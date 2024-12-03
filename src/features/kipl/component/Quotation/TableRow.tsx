@@ -1,13 +1,10 @@
 import { Box, createStyles } from '@mantine/core';
-import { format } from 'date-fns';
 
 interface TableRowProps {
   name: string;
   assetCode: string;
   branchName: string;
   tahunPerolehan: string;
-  assignDate: Date;
-  categoryName: string;
 }
 
 const useStyles = createStyles(() => ({
@@ -15,6 +12,15 @@ const useStyles = createStyles(() => ({
     ':hover': {
       cursor: 'pointer',
     },
+    display: 'grid',
+    gridTemplateColumns: '300px 260px 260px 260px', // Set fixed width for columns
+    width: '100%',
+  },
+  tableCell: {
+    padding: '8px 16px', // Consistent padding for cells
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap', // Prevent wrapping
   },
 }));
 
@@ -23,21 +29,23 @@ export const TableRow: React.FC<TableRowProps> = ({
   assetCode,
   branchName,
   tahunPerolehan,
-  assignDate,
-  categoryName,
 }) => {
   const { classes } = useStyles();
 
-  const dateShown = format(assignDate, 'dd/MM/yyyy');
-
   return (
     <Box component="tr" className={classes.tableRow}>
-      <td style={{ width: '260px' }}>{name}</td>
-      <td style={{ width: '175px' }}>{assetCode}</td>
-      <td style={{ width: '175px' }}>{branchName}</td>
-      <td style={{ width: '260px' }}>{tahunPerolehan}</td>
-      <td style={{ width: '265px' }}>{dateShown}</td>
-      <td style={{ width: '175px' }}>{categoryName}</td>
+      <Box component="td" className={classes.tableCell}>
+        {name}
+      </Box>
+      <Box component="td" className={classes.tableCell}>
+        {assetCode}
+      </Box>
+      <Box component="td" className={classes.tableCell}>
+        {branchName}
+      </Box>
+      <Box component="td" className={classes.tableCell}>
+        {tahunPerolehan}
+      </Box>
     </Box>
   );
 };

@@ -10,7 +10,7 @@ interface KiplHomeProps {
 export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
-      <Box
+      {/* <Box
         style={{
           borderBottom: 'solid rgba(0, 0, 0, 0.1)',
           padding: 20,
@@ -34,7 +34,7 @@ export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => 
             </Box>
           </Center>
         </Flex>
-      </Box>
+      </Box> */}
 
       <Box mt={20}>
         {/* <MapSection /> */}

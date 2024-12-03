@@ -21,6 +21,9 @@ import reporting from '../../../assets/reporting.svg';
 import ar from '../../../assets/ar.svg';
 import customercoverage from '../../../assets/customer-coverage.svg';
 import nonreguler from '../../../assets/non-reguler.svg';
+import totalproject from '../../../assets/total-project.svg';
+import ongoingproject from '../../../assets/ongoing-project.svg';
+import pendingproject from '../../../assets/pending-project.svg';
 // import pendingdepreciation from '../../../assets/pending-depreciation.svg';
 // import { formatNumberWithCommas } from '~/utils/format';
 
@@ -53,6 +56,21 @@ const resp = {
   //   amount: 12290014970,
   //   percentage: 82,
   // },
+  total_project: {
+    total: 164,
+    amount: 12290014970,
+    percentage: 82,
+  },
+  ongoing_project: {
+    total: 164,
+    amount: 12290014970,
+    percentage: 82,
+  },
+  pending_project: {
+    total: 164,
+    amount: 12290014970,
+    percentage: 82,
+  },
   project: {
     total: 164,
     amount: 12290014970,
@@ -104,6 +122,33 @@ const summaryItemsFirstRow: SummaryItems[] = [
   //   percentage: (value: number) => value.toFixed(2),
   //   route: '/kipl/demand',
   // },
+  {
+    title: 'Total Projects',
+    icon: <img src={totalproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+    total: (value: number) => value.toString(),
+    amount: (value: number) => value.toString(),
+    percentage: (value: number) => value.toFixed(2),
+    route: '/kipl/project',
+    // action: () => console.log('to detail'),
+  },
+  {
+    title: 'On Going Projects',
+    icon: <img src={ongoingproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+    total: (value: number) => value.toString(),
+    amount: (value: number) => value.toString(),
+    percentage: (value: number) => value.toFixed(2),
+    route: '/kipl/project',
+    // action: () => console.log('to detail'),
+  },
+  {
+    title: 'Pending Projects',
+    icon: <img src={pendingproject} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+    total: (value: number) => value.toString(),
+    amount: (value: number) => value.toString(),
+    percentage: (value: number) => value.toFixed(2),
+    route: '/kipl/project',
+    // action: () => console.log('to detail'),
+  },
   {
     title: 'Project',
     icon: <img src={project} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
@@ -160,24 +205,26 @@ const summaryItemsFirstRow: SummaryItems[] = [
     percentage: (value: number) => value.toFixed(2),
     route: '/kipl/customer-coverage',
   },
-  {
-    title: 'Non Regular Students',
-    icon: <img src={nonreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
-    total: (value: number) => value.toString(),
-    amount: (value: number) => value.toString(),
-    percentage: (value: number) => value.toFixed(2),
-    route: '/kipl/non-regular-students',
-  },
+  // {
+  //   title: 'Non Regular Students',
+  //   icon: <img src={nonreguler} alt="Pending PO" style={{ width: '32px', height: '32px' }} />,
+  //   total: (value: number) => value.toString(),
+  //   amount: (value: number) => value.toString(),
+  //   percentage: (value: number) => value.toFixed(2),
+  //   route: '/kipl/non-regular-students',
+  // },
 ];
 
 export const SummarySection: React.FC<SummarySectionProps> = ({
   navigateToCertainPage: navigateToCertainScreen,
 }) => {
   return (
-    <SimpleGrid cols={4} spacing="xs" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={5} spacing="xs" verticalSpacing="lg" mt={10}>
       {summaryItemsFirstRow.map((summaryItem, index) => {
         const groupedKiplValues = [
-          // resp.demand.total,
+          resp.total_project.total,
+          resp.ongoing_project.total,
+          resp.pending_project.total,
           resp.project.total,
           resp.quotation.total,
           resp.po.total,
@@ -187,8 +234,11 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.customer_coverage.total,
           resp.non_regular_student.total,
         ];
+
         const groupedKiplAmounts = [
-          // resp.demand.amount, // Assuming demand does not have an amount
+          resp.total_project.amount,
+          resp.ongoing_project.amount,
+          resp.pending_project.amount,
           resp.project.amount,
           resp.quotation.amount,
           resp.po.amount,
@@ -198,8 +248,11 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.customer_coverage.amount,
           resp.non_regular_student.amount,
         ];
+
         const groupedKiplPercentages = [
-          // resp.demand.percentage, // Assuming demand does not have a percentage
+          resp.total_project.percentage,
+          resp.ongoing_project.percentage,
+          resp.pending_project.percentage,
           resp.project.percentage,
           resp.quotation.percentage,
           resp.po.percentage,
@@ -209,75 +262,79 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           resp.customer_coverage.percentage,
           resp.non_regular_student.percentage,
         ];
+
+        // Kondisi untuk menampilkan amount dan persentase
+        const shouldShowAmount = ![
+          'Customer Coverage',
+          'Total Projects',
+          'On Going Projects',
+          'Pending Projects',
+          'Project',
+          'Quotation',
+          'PO/SPK',
+          'Status Event Close',
+          'Reporting',
+        ].includes(summaryItem.title);
+
+        const shouldShowPercentage = summaryItem.title === 'Customer Coverage';
+
         return (
           <Box
             key={summaryItem.title}
             bg="white"
             style={{
+              backgroundColor: `rgba(${parseInt(colors[index % colors.length].slice(1, 3), 16)}, 
+              ${parseInt(colors[index % colors.length].slice(3, 5), 16)}, 
+              ${parseInt(colors[index % colors.length].slice(5, 7), 16)}, 0.1)`,
               position: 'relative',
-              borderRadius: 8,
+              borderRadius: 30,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
-              width: '300px', // Limit width for smaller box size
-              margin: '0 auto', // Center the box
+              width: '200px',
+              margin: '0 auto',
             }}
             sx={{
               ':hover': {
                 cursor: 'pointer',
                 transform: 'scale(1.1)',
               },
-              '::before': {
-                content: '""',
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '5px', // Adjust the height as needed
-                // backgroundColor: '#a37538',
-                backgroundColor: colors[index % colors.length],
-                borderTopLeftRadius: 2,
-                borderTopRightRadius: 2,
-              },
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
-            <Flex gap={20} px={12} py={10} className="justify-between items-center">
-              {/* <div className="w-100%"> */}
-              <div className="w-100%">
-                <Box>
-                  <Text fz="lg" fw="bolder">
-                    {summaryItem.title}
-                  </Text>
-                  <Text fz="lg" color="#7D7C7C" fw="bolder">
-                    Total: {summaryItem.total(groupedKiplValues[index])}
-                  </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
-                    Amount: {summaryItem.amount(groupedKiplAmounts[index])}
-                  </Text>
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
-                    Amount: {summaryItem.percentage(groupedKiplPercentages[index])}%
-                  </Text>
-                </Box>
-              </div>
-
+            <Flex gap={1} px={12} py={10} className="justify-between items-center">
               <Box bg="transparent">
                 <ThemeIcon
                   variant="light"
                   size="50px"
-                  radius="xl"
+                  radius="40px"
                   color={colors[index % colors.length]}
                   sx={{
-                    // Initial state
                     transform: 'rotate(0deg)',
                     ':hover': {
-                      transform: 'rotate(45deg)', // Rotate 90 degrees on hover
-                      transition: 'transform 0.3s ease-in-out', // Ensure smooth transition on hover
+                      transform: 'rotate(45deg)',
+                      transition: 'transform 0.3s ease-in-out',
                     },
                     transition: 'transform 0.3s ease-in-out',
-                  }}
-                  style={{ width: '100%', height: '100%' }}>
+                  }}>
                   <div>{summaryItem.icon}</div>
                 </ThemeIcon>
               </Box>
+              <div className="w-full">
+                <Box>
+                  <Text className="text-end w-full" fz="sm" fw="bolder" color="#999999">
+                    {summaryItem.title}
+                  </Text>
+                  <Text className="text-end" fz="40px" color="#000000" fw="bolder">
+                    {summaryItem.total(groupedKiplValues[index])}
+                  </Text>
+                  {shouldShowAmount && (
+                    <Text className="text-end" fz="xs" color="#a09f9f" fw="bold">
+                      {groupedKiplAmounts[index] !== null
+                        ? summaryItem.amount(groupedKiplAmounts[index] as number)
+                        : ''}
+                    </Text>
+                  )}
+                </Box>
+              </div>
             </Flex>
           </Box>
         );

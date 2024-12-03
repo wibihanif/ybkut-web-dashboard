@@ -19,7 +19,9 @@ export const SalesBarChart = () => {
       'Des',
     ];
 
+    // Generate actual and expected data
     const data = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
+    const expectedData = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
 
     const seriesData = data.map((value, index) => ({
       x: labels[index],
@@ -27,7 +29,7 @@ export const SalesBarChart = () => {
       goals: [
         {
           name: 'Expected',
-          value: faker.datatype.number({ min: 0, max: 1000 }), // Replace with your expected values
+          value: expectedData[index],
           strokeHeight: 5,
           strokeColor: '#775DD0',
         },
@@ -55,7 +57,14 @@ export const SalesBarChart = () => {
       },
       colors: ['#00c1e3'],
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        formatter: (val: number) => {
+          // Show 'actual' value in the middle of the bar
+          return val.toString();
+        },
+        style: {
+          colors: ['#010101'], // White text color for numbers inside bars
+        },
       },
       legend: {
         show: true,
@@ -64,6 +73,9 @@ export const SalesBarChart = () => {
         markers: {
           fillColors: ['#00E396', '#775DD0'],
         },
+      },
+      tooltip: {
+        enabled: true,
       },
     };
 

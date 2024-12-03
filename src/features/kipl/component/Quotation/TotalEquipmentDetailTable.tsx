@@ -26,12 +26,12 @@ export const QuotationDetailTable: React.FC = () => {
   for (let i = 0; i < totalProduct; i++) {
     tableRows.push(
       <TableRow
-        name={faker.commerce.productName()}
-        assetCode={faker.address.street()}
-        branchName={faker.person.firstName()}
-        tahunPerolehan={faker.company.name()}
-        assignDate={faker.date.anytime()}
-        categoryName={faker.commerce.department()}
+        name={faker.commerce.productName()} // Project Name
+        assetCode={faker.commerce.productName()} // Project Name (Asset Code)
+        branchName={faker.commerce.productName()} // Quotation Name
+        tahunPerolehan={`Rp. ${faker.datatype
+          .number({ min: 1_000_000, max: 10_000_000 })
+          .toLocaleString('id-ID')}`} // Rupiah format
         key={i}
       />,
     );
@@ -45,7 +45,7 @@ export const QuotationDetailTable: React.FC = () => {
             <tr style={{ display: 'table', width: '100%' }}>
               <th style={{ color: 'white', width: '15%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Name</Text>
+                  <Text className={classes.tableHead}>Project Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
                     <IconSortDescendingLetters color="white" />
                   </ActionIcon>
@@ -53,24 +53,24 @@ export const QuotationDetailTable: React.FC = () => {
               </th>
               <th style={{ color: 'white', width: '10%' }}>
                 <Flex gap={8}>
-                  <Text className={classes.tableHead}>Asset Code</Text>
+                  <Text className={classes.tableHead}>Program</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
                     <IconSortDescendingLetters color="white" />
                   </ActionIcon>
                 </Flex>
               </th>
               <th style={{ color: 'white', width: '10%' }}>
-                <Text className={classes.tableHead}>Branch Name</Text>
+                <Text className={classes.tableHead}>Quotation Name</Text>
               </th>
               <th style={{ color: 'white', width: '15%' }}>
-                <Text className={classes.tableHead}>Tahun Perolehan</Text>
+                <Text className={classes.tableHead}>Customer</Text>
               </th>
-              <th style={{ color: 'white', width: '15%' }}>
+              {/* <th style={{ color: 'white', width: '15%' }}>
                 <Text className={classes.tableHead}>Assign Date</Text>
               </th>
               <th style={{ color: 'white', width: '10%' }}>
                 <Text className={classes.tableHead}>Category Name</Text>
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody style={{ display: 'block', overflow: 'auto', maxHeight: '550px' }}>
