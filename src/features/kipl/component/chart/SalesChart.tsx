@@ -1,14 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ApexCharts from 'apexcharts';
 import { faker } from '@faker-js/faker';
 import { Box, Text } from '@mantine/core';
 
 export const SalesChart = () => {
+  const chartRef = useRef<HTMLDivElement | null>(null);
+  const [total, setTotal] = useState<number>(0);
+
   useEffect(() => {
     const labels = ['Sponsor Fee', 'Customer Training', 'Other'];
+
+    // You can directly set the values as needed for each slice
+    const series = [100, 200, 300]; // Example values
+    const percentages = [3, 5, 8]; // Manually set percentages
+
+    // Calculate the total sum of all series values
+    const totalSum = series.reduce((acc, curr) => acc + curr, 0);
+    setTotal(totalSum);
+
     const getChartOptions = () => {
       return {
-        series: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        series: series,
         colors: ['#1C64F2', '#16BDCA', '#9061F9', '#FFA500', '#008080', '#D3D3D3'],
         chart: {
           height: 420,
@@ -31,7 +43,6 @@ export const SalesChart = () => {
         },
         stroke: {
           colors: ['white'],
-          lineCap: '',
         },
         plotOptions: {
           pie: {
@@ -41,14 +52,20 @@ export const SalesChart = () => {
             size: '100%',
             dataLabels: {
               offset: -25,
+              formatter: (val: number, opts: any) => {
+                const percentage = percentages[opts.seriesIndex]; // Use static percentages
+                const label = `${val} (${percentage}%)`; // Show amount and static percentage
+                return label; // Display both value and percentage
+              },
             },
           },
         },
-        labels: ['Sponsor Fee', 'Customer Training', 'Other'],
+        labels: labels,
         dataLabels: {
           enabled: true,
           style: {
             fontFamily: 'Inter, sans-serif',
+            fontWeight: 'bold',
           },
         },
         legend: {
@@ -69,21 +86,22 @@ export const SalesChart = () => {
         },
       };
     };
-    const chart = new ApexCharts(document.getElementById('pie-sales'), getChartOptions());
 
-    chart.render();
-    return () => {
-      chart.destroy();
-    };
+    if (chartRef.current) {
+      const chart = new ApexCharts(chartRef.current, getChartOptions());
+      chart.render();
+      return () => {
+        chart.destroy();
+      };
+    }
   }, []);
 
-  // return <div id="pie-sales"></div>;
   return (
     <Box>
       <Text align="center" weight={700} size="xl" mt={10} mb={20}>
-        Summary {faker.datatype.number({ min: 0, max: 1000 })}
+        Summary: {total} {/* Display the sum of all values */}
       </Text>
-      <div id="pie-sales"></div>
+      <div ref={chartRef} id="pie-sales"></div> {/* Use the chartRef here */}
     </Box>
   );
 };

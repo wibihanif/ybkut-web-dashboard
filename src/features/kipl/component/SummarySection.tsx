@@ -327,9 +327,12 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                     {summaryItem.total(groupedKiplValues[index])}
                   </Text>
                   {shouldShowAmount && (
-                    <Text className="text-end" fz="xs" color="#a09f9f" fw="bold">
+                    <Text className="text-center" fz="xs" color="#7b7878" fw="bolder">
                       {groupedKiplAmounts[index] !== null
-                        ? summaryItem.amount(groupedKiplAmounts[index] as number)
+                        ? new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                          }).format(groupedKiplAmounts[index])
                         : ''}
                     </Text>
                   )}
