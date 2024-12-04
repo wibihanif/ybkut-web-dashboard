@@ -10,7 +10,7 @@ export const TableSection = () => {
         <Grid.Col span={4}>
           <Paper
             style={{
-              borderRadius: 8,
+              borderRadius: 30,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               padding: 20,
               transition: 'transform 0.3s ease-in-out',

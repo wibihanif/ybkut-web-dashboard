@@ -109,12 +109,15 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           <Box
             bg="white"
             style={{
+              backgroundColor: `rgba(${parseInt(colors[index % colors.length].slice(1, 3), 16)}, 
+              ${parseInt(colors[index % colors.length].slice(3, 5), 16)}, 
+              ${parseInt(colors[index % colors.length].slice(5, 7), 16)}, 0.1)`,
               position: 'relative',
-              borderRadius: 8,
+              borderRadius: 30,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
-              width: '300px', // Limit width for smaller box size
-              margin: '0 auto', // Center the box
+              width: '350px',
+              margin: '0 auto',
             }}
             sx={{
               ':hover': {
@@ -129,9 +132,9 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 right: 0,
                 height: '5px', // Adjust the height as needed
                 // backgroundColor: '#a37538',
-                backgroundColor: colors[index % colors.length],
-                borderTopLeftRadius: 2,
-                borderTopRightRadius: 2,
+                // backgroundColor: colors[index % colors.length],
+                // borderTopLeftRadius: 2,
+                // borderTopRightRadius: 2,
               },
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
@@ -158,42 +161,42 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
               </Center>
             </Flex> */}
             <Flex gap={20} px={12} py={10} className="justify-between items-center">
+              <Box bg="transparent">
+                <ThemeIcon
+                  variant="light"
+                  size="50px"
+                  radius="40px"
+                  color={colors[index % colors.length]}
+                  sx={{
+                    transform: 'rotate(0deg)',
+                    ':hover': {
+                      transform: 'rotate(45deg)',
+                      transition: 'transform 0.3s ease-in-out',
+                    },
+                    transition: 'transform 0.3s ease-in-out',
+                  }}>
+                  <div>{summaryItem.icon}</div>
+                </ThemeIcon>
+              </Box>
               <div className="w-100%">
                 <Box>
-                  <Text fz="lg" fw="bolder">
+                  <Text className="text-end w-full" fz="sm" fw="bolder" color="#999999">
                     {summaryItem.title}
+                  </Text>
+                  <Text className="text-end" fz="md" color="#000000" fw="bolder">
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
                   </Text>
                   {/* <Text fz="lg" color="#7D7C7C" fw="bolder">
                     Total: {summaryItem.total(groupedKiplValues[index])}
                   </Text> */}
-                  <Text fz="sm" color="#7D7C7C" fw="bold">
-                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
-                  </Text>
+                  {/* <Text fz="sm" color="#7D7C7C" fw="bold">
+                    {summaryItem.amount}
+                  </Text> */}
                   {/* <Text fz="sm" color="#7D7C7C" fw="bold">
                     Amount: {summaryItem.percentage(groupedKiplPercentages[index])}%
                   </Text> */}
                 </Box>
               </div>
-
-              <Box bg="transparent">
-                <ThemeIcon
-                  variant="light"
-                  size="50px"
-                  radius="xl"
-                  color={colors[index % colors.length]}
-                  sx={{
-                    // Initial state
-                    transform: 'rotate(0deg)',
-                    ':hover': {
-                      transform: 'rotate(45deg)', // Rotate 90 degrees on hover
-                      transition: 'transform 0.3s ease-in-out', // Ensure smooth transition on hover
-                    },
-                    transition: 'transform 0.3s ease-in-out',
-                  }}
-                  style={{ width: '100%', height: '100%' }}>
-                  <div>{summaryItem.icon}</div>
-                </ThemeIcon>
-              </Box>
             </Flex>
           </Box>
         );
