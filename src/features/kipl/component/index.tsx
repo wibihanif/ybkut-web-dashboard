@@ -10,7 +10,7 @@ interface KiplHomeProps {
 export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => {
   return (
     <Box>
-      {/* <Box
+      <Box
         style={{
           borderBottom: 'solid rgba(0, 0, 0, 0.1)',
           padding: 20,
@@ -18,7 +18,12 @@ export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => 
         }}>
         <Flex gap={20}>
           <Box px={12} style={{ borderRadius: 8 }}>
-            <ThemeIcon variant="light" radius="md" size="50px" color="#a37538" my={15}>
+            <ThemeIcon
+              variant="light"
+              radius="md"
+              size="50px"
+              color="rgba(253, 224, 71, 1)"
+              my={15}>
               <IconVocabulary color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>
@@ -26,7 +31,7 @@ export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => 
           <Center>
             <Box>
               <Text fz="xl" fw="bold" color="black">
-                KIPL Analytics
+                Dashboard KIPL
               </Text>
               <Text fz="sm" color="black">
                 This page is used to see overall data about KIPL
@@ -34,7 +39,7 @@ export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => 
             </Box>
           </Center>
         </Flex>
-      </Box> */}
+      </Box>
 
       <Box mt={20}>
         {/* <MapSection /> */}

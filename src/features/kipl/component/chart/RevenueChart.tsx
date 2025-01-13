@@ -29,7 +29,7 @@ export const RevenueChart = () => {
           name: 'Expected',
           value: faker.datatype.number({ min: 0, max: 1000 }), // Replace with your expected values
           strokeHeight: 5,
-          strokeColor: '#775DD0',
+          strokeColor: 'rgba(75, 85, 99, 1)',
         },
       ],
     }));
@@ -53,7 +53,7 @@ export const RevenueChart = () => {
           columnWidth: '60%',
         },
       },
-      colors: ['#00c1e3'],
+      colors: ['rgba(253, 224, 71, 1)'],
       dataLabels: {
         enabled: true,
         formatter: (val: number) => {
@@ -69,7 +69,7 @@ export const RevenueChart = () => {
         showForSingleSeries: true,
         customLegendItems: ['Actual', 'Expected'],
         markers: {
-          fillColors: ['#00E396', '#775DD0'],
+          fillColors: ['rgba(253, 224, 71, 1)', 'rgba(75, 85, 99, 1)'],
         },
       },
     };

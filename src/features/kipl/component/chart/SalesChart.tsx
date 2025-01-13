@@ -21,7 +21,14 @@ export const SalesChart = () => {
     const getChartOptions = () => {
       return {
         series: series,
-        colors: ['#1C64F2', '#16BDCA', '#9061F9', '#FFA500', '#008080', '#D3D3D3'],
+        colors: [
+          'rgba(253, 224, 71, 1)',
+          'rgba(147, 197, 253, 1)',
+          'rgba(134, 239, 172, 1)',
+          '#FFA500',
+          '#008080',
+          '#D3D3D3',
+        ],
         chart: {
           height: 420,
           width: '100%',

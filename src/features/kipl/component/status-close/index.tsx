@@ -27,7 +27,7 @@ export const StatusCloseDetails: React.FC = () => {
                   cursor: 'pointer',
                 },
               }}>
-              <ThemeIcon variant="light" size="xl" color="#a37538" my={15}>
+              <ThemeIcon variant="light" size="xl" color="rgba(253, 224, 71, 0.15)" my={15}>
                 <IconArrowLeft color="white" />
               </ThemeIcon>
             </Box>

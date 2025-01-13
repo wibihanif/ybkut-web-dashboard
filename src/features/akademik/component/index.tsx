@@ -24,7 +24,12 @@ export const AkademikAnalytics: React.FC<AkademikAnalyticsProps> = ({ navigateTo
         }}>
         <Flex gap={20}>
           <Box px={12} style={{ borderRadius: 30 }}>
-            <ThemeIcon variant="light" radius="md" size="50px" color="#a37538" my={15}>
+            <ThemeIcon
+              variant="light"
+              radius="md"
+              size="50px"
+              color="rgba(253, 224, 71, 0.15)"
+              my={15}>
               <IconVocabulary color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>
@@ -32,7 +37,7 @@ export const AkademikAnalytics: React.FC<AkademikAnalyticsProps> = ({ navigateTo
           <Center>
             <Box>
               <Text fz="xl" fw="bold" color="black">
-                Akademik Analytics
+                Dashboard Academic
               </Text>
               <Text fz="sm" color="black">
                 This page is used to see overall data about akademik
