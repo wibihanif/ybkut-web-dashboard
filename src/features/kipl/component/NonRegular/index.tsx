@@ -12,7 +12,7 @@ export const NonRegularDetails: React.FC = () => {
         inputComponent={
           <Input
             placeholder="Search here"
-            icon={<IconSearch size={16} color="#a37538" />}
+            icon={<IconSearch size={16} color="rgba(253, 224, 71, 0.15)" />}
             radius={10}
             sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
           />
@@ -27,7 +27,7 @@ export const NonRegularDetails: React.FC = () => {
                   cursor: 'pointer',
                 },
               }}>
-              <ThemeIcon variant="light" size="xl" color="#a37538" my={15}>
+              <ThemeIcon variant="light" size="xl" color="rgba(253, 224, 71, 0.15)" my={15}>
                 <IconArrowLeft color="white" />
               </ThemeIcon>
             </Box>

@@ -31,7 +31,7 @@ export const SalesBarChart = () => {
           name: 'Expected',
           value: expectedData[index],
           strokeHeight: 5,
-          strokeColor: '#775DD0',
+          strokeColor: 'rgba(75, 85, 99, 1)',
         },
       ],
     }));
@@ -55,7 +55,7 @@ export const SalesBarChart = () => {
           columnWidth: '60%',
         },
       },
-      colors: ['#00c1e3'],
+      colors: ['rgba(253, 224, 71, 1)'],
       dataLabels: {
         enabled: true,
         formatter: (val: number) => {
@@ -63,7 +63,7 @@ export const SalesBarChart = () => {
           return val.toString();
         },
         style: {
-          colors: ['#010101'], // White text color for numbers inside bars
+          colors: ['rgba(75, 85, 99, 1)'], // White text color for numbers inside bars
         },
       },
       legend: {
@@ -71,7 +71,7 @@ export const SalesBarChart = () => {
         showForSingleSeries: true,
         customLegendItems: ['Actual', 'Expected'],
         markers: {
-          fillColors: ['#00E396', '#775DD0'],
+          fillColors: ['rgba(253, 224, 71, 1)', 'rgba(75, 85, 99, 1)'],
         },
       },
       tooltip: {

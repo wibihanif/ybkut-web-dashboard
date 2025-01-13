@@ -7,10 +7,10 @@ import { TableRow } from './TableRow';
 
 const useStyles = createStyles(() => {
   return {
-    tableHead: { color: 'white' },
+    tableHead: { color: 'black' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#3845a3',
+        backgroundColor: 'rgba(253, 224, 71, 0.15)',
       },
     },
   };
@@ -41,34 +41,34 @@ export const CustomerDetailTable: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '600px', overflowY: 'hidden', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
+          <thead style={{ backgroundColor: 'rgba(253, 224, 71, 0.15)', color: 'black' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '15%' }}>
+              <th style={{ color: 'black', width: '15%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Name</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
+                    <IconSortDescendingLetters color="black" />
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '10%' }}>
+              <th style={{ color: 'black', width: '10%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Asset Code</Text>
                   <ActionIcon size="sm" className={classes.tableHeadIcon}>
-                    <IconSortDescendingLetters color="white" />
+                    <IconSortDescendingLetters color="black" />
                   </ActionIcon>
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '10%' }}>
+              <th style={{ color: 'black', width: '10%' }}>
                 <Text className={classes.tableHead}>Branch Name</Text>
               </th>
-              <th style={{ color: 'white', width: '15%' }}>
+              <th style={{ color: 'black', width: '15%' }}>
                 <Text className={classes.tableHead}>Tahun Perolehan</Text>
               </th>
-              <th style={{ color: 'white', width: '15%' }}>
+              <th style={{ color: 'black', width: '15%' }}>
                 <Text className={classes.tableHead}>Assign Date</Text>
               </th>
-              <th style={{ color: 'white', width: '10%' }}>
+              <th style={{ color: 'black', width: '10%' }}>
                 <Text className={classes.tableHead}>Category Name</Text>
               </th>
             </tr>

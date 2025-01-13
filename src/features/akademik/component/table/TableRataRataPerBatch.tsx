@@ -5,10 +5,10 @@ import { useState } from 'react';
 
 const useStyles = createStyles(() => {
   return {
-    tableHead: { color: 'white' },
+    tableHead: { color: 'black' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#3845a3',
+        backgroundColor: 'rgba(253, 224, 71, 0.15)',
       },
     },
   };
@@ -32,15 +32,15 @@ export const TableRataRataPerBatch: React.FC = () => {
     <Flex direction="column">
       <Box style={{ maxHeight: '400px', overflowY: 'auto', borderRadius: 30 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#a37538', color: 'white' }}>
+          <thead style={{ backgroundColor: 'rgba(253, 224, 71, 0.15)', color: 'black' }}>
             <tr>
-              <th style={{ color: 'white' }}>
+              <th style={{ color: 'black' }}>
                 {' '}
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Batch</Text>
                 </Flex>
               </th>
-              <th style={{ color: 'white' }}>
+              <th style={{ color: 'black' }}>
                 {' '}
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Rata-rata</Text>

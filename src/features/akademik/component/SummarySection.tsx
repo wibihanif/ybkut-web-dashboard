@@ -109,9 +109,10 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           <Box
             bg="white"
             style={{
-              backgroundColor: `rgba(${parseInt(colors[index % colors.length].slice(1, 3), 16)}, 
-              ${parseInt(colors[index % colors.length].slice(3, 5), 16)}, 
-              ${parseInt(colors[index % colors.length].slice(5, 7), 16)}, 0.1)`,
+              backgroundColor: `rgba(253, 224, 71, 0.15)`,
+              // backgroundColor: `rgba(${parseInt(colors[index % colors.length].slice(1, 3), 16)},
+              // ${parseInt(colors[index % colors.length].slice(3, 5), 16)},
+              // ${parseInt(colors[index % colors.length].slice(5, 7), 16)}, 0.1)`,
               position: 'relative',
               borderRadius: 30,
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
