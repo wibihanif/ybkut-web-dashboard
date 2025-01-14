@@ -9,6 +9,9 @@ import {
 import React from 'react';
 import { Link, Location } from 'react-router-dom';
 import { routes } from '~/routes';
+import ybkutLogo from '~/assets/ykbut-logo.png';
+import dcareLogo from '~/assets/ut-dcare-logo.png';
+import schoolLogo from '~/assets/ut-school-logo.png';
 
 interface AccordionRoutesProps {
   location: Location;
@@ -81,12 +84,14 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                 ? route.subTitleItems.map((subTitle, index) => {
                     return (
                       <Box key={index}>
+                        <img className="w-[100%]" src={ybkutLogo} />
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
                           <Accordion.Control
+                            className="rounded-lg"
                             sx={{
                               ':hover': {
                                 cursor: 'pointer',
-                                backgroundColor: 'rgba(160, 160, 160, 0.577)',
+                                backgroundColor: ' #dae3fe',
                               },
                             }}>
                             <Flex gap={10}>
@@ -115,12 +120,10 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                     borderRadius: 8,
                                     ':hover': {
                                       cursor: 'pointer',
-                                      backgroundColor: 'rgba(160, 160, 160, 0.592)',
+                                      backgroundColor: ' rgba(59, 130, 246, 1)',
                                       borderRadius: 8,
                                     },
-                                    backgroundColor: isActive
-                                      ? 'rgba(160, 160, 160, 0.877)'
-                                      : 'none',
+                                    backgroundColor: isActive ? 'rgba(59, 130, 246, 1)' : 'none',
                                     // opacity: isActive ? 0.7 : 0.5,
                                   }}>
                                   <Text fz="13px" color="#070000" fw="bold">
@@ -143,8 +146,10 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                 ? route.subTitleItems.map((subTitle, index) => {
                     return (
                       <Box key={index}>
+                        <img className="w-[100%]" src={dcareLogo} />
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
                           <Accordion.Control
+                            className="rounded-lg"
                             sx={{
                               ':hover': {
                                 cursor: 'pointer',
@@ -226,12 +231,15 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                 ? route.subTitleItems.map((subTitle, index) => {
                     return (
                       <Box key={index}>
+                        <img className="w-[100%]" src={schoolLogo} />
                         <Accordion.Item value={subTitle.subTitle} style={{ borderRadius: 8 }}>
                           <Accordion.Control
+                            className="rounded-lg"
                             sx={{
                               ':hover': {
                                 cursor: 'pointer',
-                                backgroundColor: 'rgba(160, 160, 160, 0.577)',
+                                backgroundImage:
+                                  'linear-gradient(90deg, rgba(253, 224, 71, 1), rgba(234, 179, 8, 1))',
                               },
                             }}>
                             <Flex gap={10}>
@@ -260,12 +268,11 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                     borderRadius: 8,
                                     ':hover': {
                                       cursor: 'pointer',
-                                      backgroundColor: 'rgba(160, 160, 160, 0.592)',
+                                      backgroundColor:
+                                        'linear-gradient(90deg, rgba(253, 224, 71, 1), rgba(234, 179, 8, 1))',
                                       borderRadius: 8,
                                     },
-                                    backgroundColor: isActive
-                                      ? 'rgba(160, 160, 160, 0.877)'
-                                      : 'none',
+                                    backgroundColor: isActive ? 'rgba(253, 224, 71, 1)' : 'none',
                                     // opacity: isActive ? 0.7 : 0.5,
                                   }}>
                                   <Text fz="13px" color="#070000" fw="bold">
@@ -355,7 +362,7 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
   return (
     <Accordion
       p={10}
-      sx={{ backgroundColor: 'rgb(238, 238, 238)', borderRadius: 8 }}
+      // sx={{ backgroundColor: 'rgb(238, 238, 238)', borderRadius: 8 }}
       defaultValue={accordionActiveValue}>
       {renderAccordion()}
     </Accordion>
