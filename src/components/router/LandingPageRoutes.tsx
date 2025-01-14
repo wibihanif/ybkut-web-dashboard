@@ -45,6 +45,9 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
     });
   });
 
+  // const color = ['rgba(59, 130, 246, 1)', '#72fd47', 'rgba(253, 224, 71, 1)', '#47f1fd'];
+  const color = ['#47f1fd', 'rgba(59, 130, 246, 1)', '#72fd47', 'rgba(253, 224, 71, 1)'];
+
   const saveLogo = [ybkutLogo, dcareLogo, schoolLogo, poliLogo];
   const linkEntity = ['purchase', 'daycare', 'nusantara-dashboard', 'poliklinik-analytic'];
 
@@ -63,27 +66,34 @@ export const LandingPageRoutes: React.FC<AccordionRoutesProps> = ({ location }) 
             Selamat Datang di Dashboard Odoo Yayasan Karya Bakti United Tractors (YKBUT)
           </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-12 mt-5">
-          {routes.map((route, index) => {
-            return (
-              <React.Fragment key={index}>
-                {route.title !== 'LANDING PAGE' ? (
-                  <div
-                    style={{ backgroundColor: 'rgba(245, 170, 73, 1)' }}
-                    className="w-[400px] h-[190px] border border-none rounded-2xl p-5 flex justify-center items-center">
-                    <div className="">
-                      <Link
-                        to={linkEntity[index - 1]}
-                        style={{ textDecoration: 'none', color: 'white' }}
-                        key={index}>
-                        <img className="h-[150px] " src={saveLogo[index - 1]} />
-                      </Link>
+        {/* <div className="flex flex-wrap justify-center gap-12 mt-5"> */}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2  gap-12 mt-5">
+            {routes.map((route, index) => {
+              return (
+                <React.Fragment key={index}>
+                  {route.title !== 'LANDING PAGE' ? (
+                    <div
+                      style={{
+                        borderColor: color[index % color.length], // Mapping warna berdasarkan indeks
+                        borderWidth: '5px', // Ketebalan border
+                        borderStyle: 'solid', // Menentukan jenis garis border
+                      }}
+                      className="w-[400px] h-[190px] rounded-2xl p-5 flex justify-center items-center">
+                      <div className="">
+                        <Link
+                          to={linkEntity[index - 1]}
+                          style={{ textDecoration: 'none', color: 'white' }}
+                          key={index}>
+                          <img className="h-[150px] " src={saveLogo[index - 1]} />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ) : null}
-              </React.Fragment>
-            );
-          })}
+                  ) : null}
+                </React.Fragment>
+              );
+            })}
+          </div>
         </div>
         <div className="flex justify-between">
           <img className="flex items-start justify-start h-[150px]" src={bunga1} />

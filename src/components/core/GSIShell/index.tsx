@@ -1,8 +1,8 @@
 import { AppShell, Group, Header, Image, Navbar, ScrollArea, Stack } from '@mantine/core';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ybkutLogo from '~/assets/ybkut-dashboard.jpeg';
-import ybkutBg from '~/assets/Group3.jpg';
+// import ybkutBg from '~/assets/Group3.jpg';
 import { UserSection } from './UserSection';
 
 interface GSIShellProps {
@@ -13,6 +13,14 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
   children,
   sidebarMenus,
 }) => {
+  const [navbarVisible, setNavbarVisible] = useState(false);
+  const navbarRef = useRef<HTMLDivElement>(null); // Gunakan useRef untuk merujuk ke navbar
+
+  useLayoutEffect(() => {
+    if (navbarRef.current) {
+      setNavbarVisible(true); // Menampilkan navbar setelah layout effect
+    }
+  }, []);
   return (
     <AppShell
       // sx={theme => {
@@ -26,14 +34,21 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       sx={{
         // backgroundColor: 'rgba(239, 233, 206, 1)',
         // backgroundColor: '#dde3ee',
-        backgroundColor: 'rgb(247, 250, 252)',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
         // backgroundImage: `url(${ybkutBg})`, // Use url() to specify the background image
         backgroundSize: 'cover', // Adjust the background size as needed
       }}
       navbar={
         React.isValidElement(sidebarMenus) && sidebarMenus.props.location.pathname !== '/' ? ( // Use ternary operator to conditionally render Navbar
           <Navbar
-            sx={{ backgroundColor: 'rgb(255, 255, 255)', border: 'none' }}
+            ref={navbarRef}
+            style={{
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              borderRadius: '0 50px 50px 0',
+              transition: 'transform 0.5s ease',
+              transform: navbarVisible ? 'translateX(0)' : 'translateX(-100%)',
+            }}
+            sx={{ backgroundColor: 'rgba(255, 255, 255, 1)', border: 'none' }}
             width={{ base: 300 }}
             p="lg"
             zIndex={1}>
