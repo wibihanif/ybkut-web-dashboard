@@ -23,7 +23,7 @@ import {
 
 const useStyles = createStyles(() => {
   return {
-    tableHead: { color: 'white' },
+    tableHead: { color: 'black' },
     tableHeadIcon: {
       ':hover': {
         backgroundColor: '#3845a3',
@@ -90,9 +90,9 @@ export const ItemDepreciationTable: React.FC = () => {
       </Flex>
       <Box style={{ maxHeight: '400px', overflowY: 'hidden', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
+          <thead style={{ backgroundColor: 'rgba(239, 246, 255, 1)', color: 'black' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '25%' }}>
+              <th style={{ color: 'black', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Asset Name</Text>
 
@@ -101,19 +101,19 @@ export const ItemDepreciationTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '25%' }}>
+              <th style={{ color: 'black', width: '25%' }}>
                 <Flex gap={8} align={'center'}>
                   <Text className={classes.tableHead}>First Depreciation Date</Text>
 
@@ -122,19 +122,19 @@ export const ItemDepreciationTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('runningDepreciation', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('runningDepreciation', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '25%' }}>
+              <th style={{ color: 'black', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Book Value</Text>
 
@@ -143,19 +143,19 @@ export const ItemDepreciationTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('bookValue', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('bookValue', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '25%' }}>
+              <th style={{ color: 'black', width: '25%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Value Residual</Text>
 
@@ -164,14 +164,14 @@ export const ItemDepreciationTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('valueResidual', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('valueResidual', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>

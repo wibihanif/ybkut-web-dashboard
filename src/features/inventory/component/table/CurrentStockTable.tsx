@@ -23,10 +23,10 @@ import { SortOrder } from '~/types/pagination';
 
 const useStyles = createStyles(() => {
   return {
-    tableHead: { color: 'white' },
+    tableHead: { color: 'black' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#3845a3',
+        backgroundColor: 'rgba(239, 246, 255, 1)',
       },
     },
   };
@@ -90,9 +90,10 @@ export const CurrentStockTable: React.FC = () => {
           highlightOnHover
           striped
           style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+          <thead
+            style={{ backgroundColor: 'rgba(239, 246, 255, 1)', color: 'black', display: 'block' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '50%' }}>
+              <th style={{ color: 'black', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
 
@@ -101,19 +102,19 @@ export const CurrentStockTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '50%' }}>
+              <th style={{ color: 'black', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Sum</Text>
                   {sortBy === 'sum' && sortOrder === SortOrder.DESC ? (
@@ -121,14 +122,14 @@ export const CurrentStockTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('sum', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('sum', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>

@@ -20,7 +20,12 @@ export const PurchaseAnalytic: React.FC<PurchaseAnalyticProps> = ({ navigateToCe
         }}>
         <Flex gap={20}>
           <Box px={12} style={{ borderRadius: 8 }}>
-            <ThemeIcon variant="light" radius="md" size="50px" color="#3845a3" my={15}>
+            <ThemeIcon
+              variant="light"
+              radius="md"
+              size="50px"
+              color="rgba(59, 130, 246, 1)"
+              my={15}>
               <IconCreditCard color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>

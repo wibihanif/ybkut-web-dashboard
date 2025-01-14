@@ -114,14 +114,15 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
           <Box
             bg="white"
             style={{
-              backgroundColor: `rgba(${parseInt(colors[index % colors.length].slice(1, 3), 16)}, 
-              ${parseInt(colors[index % colors.length].slice(3, 5), 16)}, 
-              ${parseInt(colors[index % colors.length].slice(5, 7), 16)}, 0.1)`,
+              backgroundColor: `transparent`,
               position: 'relative',
-              borderRadius: 30,
+              borderRadius: 15,
+              borderColor: 'rgba(96, 165, 250, 1)',
+              borderWidth: '3px',
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s ease-in-out',
               width: '350px',
+              height: '140px',
               margin: '0 auto',
             }}
             sx={{
@@ -143,13 +144,13 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
               },
             }}
             onClick={() => navigateToCertainScreen(summaryItem.route)}>
-            <Flex gap={20} px={12} py={10} className="justify-between items-center">
+            <Flex gap={30} px={22} py={10} className="justify-between ">
               <Box bg="transparent">
                 <ThemeIcon
                   variant="light"
-                  size="50px"
+                  size="46px"
                   radius="40px"
-                  color={colors[index % colors.length]}
+                  color="rgba(96, 165, 250, 1)"
                   sx={{
                     transform: 'rotate(0deg)',
                     ':hover': {
@@ -161,26 +162,33 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                   {/* <ThemeIcon variant="light" size="xl" radius="xl" color="#3845a3" my={15}> */}
                   {summaryItem.icon}
                 </ThemeIcon>
+                <Text className="mt-5 w-full" fz="sm" fw="bolder" color="#999999">
+                  {summaryItem.title}
+                </Text>
+                <Text className="" fz="md" color="#000000" fw="bolder">
+                  {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
+                </Text>
               </Box>
 
-              <div className="w-100%">
-                <Box>
-                  <Text className="text-end w-full" fz="sm" fw="bolder" color="#999999">
+              <div className="mt-3 w-100%">
+                <div className="text-sm text-green-500">Last Month +8%</div>
+                {/* <Box> */}
+                {/* <Text className="text-end w-full" fz="sm" fw="bolder" color="#999999">
                     {summaryItem.title}
                   </Text>
                   <Text className="text-end" fz="md" color="#000000" fw="bolder">
                     {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
-                  </Text>
-                  {/* <Text fz="lg" color="#7D7C7C" fw="bolder">
+                  </Text> */}
+                {/* <Text fz="lg" color="#7D7C7C" fw="bolder">
                     Total: {summaryItem.total(groupedKiplValues[index])}
                   </Text> */}
-                  {/* <Text fz="sm" color="#7D7C7C" fw="bold">
+                {/* <Text fz="sm" color="#7D7C7C" fw="bold">
                     {summaryItem.amount}
                   </Text> */}
-                  {/* <Text fz="sm" color="#7D7C7C" fw="bold">
+                {/* <Text fz="sm" color="#7D7C7C" fw="bold">
                     Amount: {summaryItem.percentage(groupedKiplPercentages[index])}%
                   </Text> */}
-                </Box>
+                {/* </Box> */}
               </div>
             </Flex>
           </Box>

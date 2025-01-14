@@ -12,7 +12,12 @@ export const ProductVariantChart = () => {
     const getChartOptions = () => {
       return {
         series,
-        colors: ['#38a33a', '#58dbec', '#3845a3', '#d3d026'],
+        colors: [
+          'rgba(253, 224, 71, 1)',
+          'rgba(74, 222, 128, 1)',
+          'rgba(96, 165, 250, 1)',
+          '#d3d026',
+        ],
         chart: {
           height: 420,
           width: '100%',
