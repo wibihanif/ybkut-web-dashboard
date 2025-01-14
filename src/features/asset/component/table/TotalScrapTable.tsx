@@ -23,10 +23,10 @@ import { SortOrder } from '~/types/pagination';
 
 const useStyles = createStyles(() => {
   return {
-    tableHead: { color: 'white' },
+    tableHead: { color: 'black' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#3845a3',
+        backgroundColor: 'rgba(239, 246, 255, 1)',
       },
     },
   };
@@ -76,7 +76,7 @@ export const TotalScrapTable: React.FC = () => {
           <Input
             placeholder="Search here"
             onChange={event => setSearchValue(event.target.value as string)}
-            icon={<IconSearch size={16} color="#3845a3" />}
+            icon={<IconSearch size={16} color="rgba(239, 246, 255, 1)" />}
             radius={10}
             sx={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
           />
@@ -84,9 +84,9 @@ export const TotalScrapTable: React.FC = () => {
       </Flex>
       <Box style={{ maxHeight: '400px', overflowY: 'hidden', borderRadius: 8 }}>
         <Table verticalSpacing="md" highlightOnHover striped>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white' }}>
+          <thead style={{ backgroundColor: 'rgba(239, 246, 255, 1)', color: 'black' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '50%' }}>
+              <th style={{ color: 'black', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Asset Name</Text>
 
@@ -95,19 +95,19 @@ export const TotalScrapTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '50%' }}>
+              <th style={{ color: 'black', width: '50%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>First Depreciation Date</Text>
 
@@ -116,14 +116,14 @@ export const TotalScrapTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('runningDepreciation', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('runningDepreciation', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>

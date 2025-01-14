@@ -51,7 +51,7 @@ export const CurrentStockTable: React.FC = () => {
       <Stack>
         <Box py={20} component={ScrollArea}>
           <Table mb="lg" verticalSpacing="md" highlightOnHover striped>
-            <thead style={{ backgroundColor: '#3392E7' }}>
+            <thead style={{ backgroundColor: 'rgba(239, 246, 255, 1)' }}>
               <tr>
                 <th style={{ width: '200px' }}>
                   <Flex gap={8}>

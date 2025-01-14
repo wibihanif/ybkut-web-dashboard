@@ -33,7 +33,7 @@ const useStyles = createStyles(() => {
     tableHead: { color: 'white' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#3845a3',
+        backgroundColor: 'rgba(239, 246, 255, 1)',
       },
     },
   };
@@ -71,7 +71,8 @@ export const CurrentStockDetailTable: React.FC<CurrentStockkDetailTableProps> = 
           highlightOnHover
           striped
           style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+          <thead
+            style={{ backgroundColor: 'rgba(239, 246, 255, 1)', color: 'white', display: 'block' }}>
             <tr style={{ display: 'table', width: '100%' }}>
               <th style={{ color: 'white', width: '25%' }}>
                 <Flex gap={8}>

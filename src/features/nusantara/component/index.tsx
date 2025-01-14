@@ -15,7 +15,12 @@ export const NusantaraHome: React.FC = () => {
         }}>
         <Flex gap={20}>
           <Box px={12} style={{ borderRadius: 8 }}>
-            <ThemeIcon variant="light" radius="md" size="50px" color="#a37538" my={15}>
+            <ThemeIcon
+              variant="light"
+              radius="md"
+              size="50px"
+              color="rgba(253, 224, 71, 1)"
+              my={15}>
               <IconVocabulary color="white" style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
           </Box>

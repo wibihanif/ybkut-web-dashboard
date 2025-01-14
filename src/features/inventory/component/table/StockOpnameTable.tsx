@@ -24,10 +24,10 @@ import { SortOrder } from '~/types/pagination';
 
 const useStyles = createStyles(() => {
   return {
-    tableHead: { color: 'white' },
+    tableHead: { color: 'black' },
     tableHeadIcon: {
       ':hover': {
-        backgroundColor: '#3845a3',
+        backgroundColor: 'rgba(239, 246, 255, 1)',
       },
     },
   };
@@ -101,9 +101,10 @@ export const StockOpnameTable: React.FC = () => {
           highlightOnHover
           striped
           style={{ overflow: 'auto', display: 'block', borderRadius: 8 }}>
-          <thead style={{ backgroundColor: '#3845a3', color: 'white', display: 'block' }}>
+          <thead
+            style={{ backgroundColor: 'rgba(239, 246, 255, 1)', color: 'black', display: 'block' }}>
             <tr style={{ display: 'table', width: '100%' }}>
-              <th style={{ color: 'white', width: '33%' }}>
+              <th style={{ color: 'black', width: '33%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Date</Text>
                   {sortBy === 'date' && sortOrder === SortOrder.DESC ? (
@@ -111,19 +112,19 @@ export const StockOpnameTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('date', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('date', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '33%' }}>
+              <th style={{ color: 'black', width: '33%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>Product Name</Text>
                   {sortBy === 'name' && sortOrder === SortOrder.DESC ? (
@@ -131,19 +132,19 @@ export const StockOpnameTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('name', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
               </th>
-              <th style={{ color: 'white', width: '34%' }}>
+              <th style={{ color: 'black', width: '34%' }}>
                 <Flex gap={8}>
                   <Text className={classes.tableHead}>State</Text>
                   {sortBy === 'state' && sortOrder === SortOrder.DESC ? (
@@ -151,14 +152,14 @@ export const StockOpnameTable: React.FC = () => {
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('state', SortOrder.ASC)}>
-                      <IconSortDescendingLetters color="white" />
+                      <IconSortDescendingLetters color="black" />
                     </ActionIcon>
                   ) : (
                     <ActionIcon
                       size="sm"
                       className={classes.tableHeadIcon}
                       onClick={() => handleSort('state', SortOrder.DESC)}>
-                      <IconSortAscendingLetters color="white" />
+                      <IconSortAscendingLetters color="black" />
                     </ActionIcon>
                   )}
                 </Flex>
