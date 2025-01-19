@@ -80,8 +80,10 @@ export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
       keyboard={false}
       attributionControl={false}
       tap={false}>
-      {/* Menggunakan tile layer tanpa label kota */}
+      {/* Menggunakan tile layer dengan background putih dan pulau hitam */}
       <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
+
+      {/* <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" /> */}
       {schoolLocations?.map((schoolLocation, index) => {
         const circleColor =
           schoolLocation.full === '0' ? 'green' : schoolLocation.full === '1' ? 'yellow' : 'red';
@@ -111,3 +113,5 @@ export const Maps: React.FC<MapsProps> = ({ schoolLocations }) => {
     </MapContainer>
   );
 };
+
+// Menghapus filter CSS agar latar belakang tetap putih dan pulau berwarna hitam
