@@ -99,7 +99,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   const { data: totalPendingReceive } = useGetTotalPendingReceive();
 
   return (
-    <SimpleGrid cols={3} spacing="lg" verticalSpacing="lg" mt={10}>
+    <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm" mt={10}>
       {summaryItems.map((summaryItem, index) => {
         const groupedInventoryValues = [
           totalPurchaseOrders?.sum,
@@ -165,9 +165,19 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                 <Text className="mt-5 w-full" fz="sm" fw="bolder" color="#999999">
                   {summaryItem.title}
                 </Text>
-                <Text className="" fz="md" color="#000000" fw="bolder">
+                {summaryItem.title == 'Total Purchase Order' ? (
+                  <Text className="" fz="md" color="#000000" fw="bolder">
+                    Rp.{' '}
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
+                  </Text>
+                ) : (
+                  <Text className="" fz="md" color="#000000" fw="bolder">
+                    {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
+                  </Text>
+                )}
+                {/* <Text className="" fz="md" color="#000000" fw="bolder">
                   {summaryItem.amount(formatNumberWithCommas(groupedInventoryValues[index] || 0))}
-                </Text>
+                </Text> */}
               </Box>
 
               <div className="mt-3 w-100%">
