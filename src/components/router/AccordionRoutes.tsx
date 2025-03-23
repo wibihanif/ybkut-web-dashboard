@@ -249,7 +249,11 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                               <Text
                                 fz="sm"
                                 fw={activeSubtitle === subTitle.subTitle ? '1000' : '800'}
-                                color={route.color}>
+                                color={
+                                  parsedNowLocation === 'nusantara-dashboard'
+                                    ? '#ffffff'
+                                    : route.color
+                                }>
                                 {subTitle.subTitle}
                               </Text>
                             </Flex>
@@ -259,7 +263,11 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                             return (
                               <Link
                                 to={routeItem.path}
-                                style={{ textDecoration: 'none', color: 'black' }}
+                                style={{
+                                  textDecoration: 'none',
+                                  color:
+                                    parsedNowLocation === 'nusantara-dashboard' ? 'white' : 'black',
+                                }}
                                 key={index}>
                                 <Accordion.Panel
                                   sx={{
@@ -275,9 +283,15 @@ export const AccordionRoutes: React.FC<AccordionRoutesProps> = ({ location }) =>
                                     backgroundColor: isActive ? 'rgba(253, 224, 71, 1)' : 'none',
                                     // opacity: isActive ? 0.7 : 0.5,
                                   }}>
-                                  <Text fz="13px" color="#070000" fw="bold">
-                                    {routeItem.title}
-                                  </Text>
+                                  {parsedNowLocation === 'nusantara-dashboard' ? (
+                                    <Text fz="13px" color="#ffffff" fw="bold">
+                                      {routeItem.title}
+                                    </Text>
+                                  ) : (
+                                    <Text fz="13px" color="#070000" fw="bold">
+                                      {routeItem.title}
+                                    </Text>
+                                  )}
                                 </Accordion.Panel>
                               </Link>
                             );
