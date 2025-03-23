@@ -3,11 +3,14 @@ import { IconVocabulary } from '@tabler/icons-react';
 import React from 'react';
 import { SummarySection } from './SummarySection';
 import { GraphSection } from './GraphSection';
+import { useGetKipl } from '../api/useGetKipl';
 interface KiplHomeProps {
   navigateToCertainPage: (route: string) => void;
 }
 
 export const KiplHome: React.FC<KiplHomeProps> = ({ navigateToCertainPage }) => {
+  const { data: kipl } = useGetKipl();
+  console.log(kipl);
   return (
     <Box>
       <Box

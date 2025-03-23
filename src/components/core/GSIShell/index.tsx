@@ -21,6 +21,7 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       setNavbarVisible(true); // Menampilkan navbar setelah layout effect
     }
   }, []);
+  // console.log(sidebarMenus.props.location.pathname, 'TEST');
   return (
     <AppShell
       // sx={theme => {
@@ -34,7 +35,10 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       sx={{
         // backgroundColor: 'rgba(239, 233, 206, 1)',
         // backgroundColor: '#dde3ee',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        backgroundColor:
+          sidebarMenus.props.location.pathname === '/nusantara-dashboard'
+            ? '#1E1E1E'
+            : 'rgba(255, 255, 255, 1)',
         // backgroundImage: `url(${ybkutBg})`, // Use url() to specify the background image
         backgroundSize: 'cover', // Adjust the background size as needed
       }}
@@ -48,8 +52,14 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
               transition: 'transform 0.5s ease',
               transform: navbarVisible ? 'translateX(0)' : 'translateX(-100%)',
             }}
-            sx={{ backgroundColor: 'rgba(255, 255, 255, 1)', border: 'none' }}
-            width={{ base: 300 }}
+            sx={{
+              backgroundColor:
+                sidebarMenus.props.location.pathname === '/nusantara-dashboard'
+                  ? '#232323'
+                  : 'rgba(255, 255, 255, 1)',
+              border: 'none',
+            }}
+            width={{ base: 230 }}
             p="lg"
             zIndex={1}>
             <ScrollArea>
@@ -62,7 +72,17 @@ export const GSIShell: React.FC<PropsWithChildren & GSIShellProps> = ({
       }
       header={
         React.isValidElement(sidebarMenus) && sidebarMenus.props.location.pathname !== '/' ? (
-          <Header height={60} px="xl" style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+          <Header
+            height={60}
+            px="xl"
+            style={{
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              backgroundColor:
+                sidebarMenus.props.location.pathname === '/nusantara-dashboard'
+                  ? '#232323'
+                  : 'rgba(255, 255, 255, 1)', // Menjadikan header berwarna hitam
+              // color: '#fff',
+            }}>
             <Group
               h="100%"
               display="flex"
